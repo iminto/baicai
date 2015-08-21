@@ -1,5 +1,5 @@
 /**
-* @Description: TODO
+* @Description: 设置全局变量
 * @author 猪肉有毒 waitfox@qq.com  
 * @date 2015年6月8日 上午9:53:09 
 * @version V1.0  
