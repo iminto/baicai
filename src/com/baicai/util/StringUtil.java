@@ -548,5 +548,16 @@ public class StringUtil {
 		}
 		return flag;
 	}
+	
+	/**
+	 * 首字母大写
+	 * @param str
+	 * @return
+	 */
+	public static String capitalize(String str){
+		char[] cs=str.toCharArray();
+        cs[0]-=32;
+        return String.valueOf(cs);
+	}
 
 }
