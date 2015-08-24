@@ -77,4 +77,13 @@ public class TableBean {
     public void setHasBigDecimal(boolean hasBigDecimal) {
         this.hasBigDecimal = hasBigDecimal;
     }
+
+	@Override
+	public String toString() {
+		return "TableBean [tableName=" + tableName + ", tableComment=" + tableComment + ", tableNameNoDash="
+				+ tableNameNoDash + ", tableNameCapitalized=" + tableNameCapitalized + ", columnBeanList="
+				+ columnBeanList + ", hasDateColumn=" + hasDateColumn + ", hasBigDecimal=" + hasBigDecimal + "]";
+	}
+    
+    
 }

@@ -2,7 +2,10 @@ package com.baicai.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,7 +41,7 @@ public class Generator {
     public static final String JDBC_TEMPLATE_NAME = "jdbcTemplate";
     
     public static List<TableBean> getTables() {
-        List<TableBean> tableBeanList = jdbcTemplate.query("select * from tables where table_schema = ?", new Object[]{SCHEMA_NAME},
+        List<TableBean> tableBeanList = jdbcTemplate.query("select * from information_schema.tables where table_schema = ?", new Object[]{SCHEMA_NAME},
                 new RowMapper<TableBean>() {
                     @Override
                     public TableBean mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -65,7 +68,7 @@ public class Generator {
     }
 
     public static List<ColumnBean> getColumns(String tableName, final TableBean tableBean) {
-        return jdbcTemplate.query("select * from COLUMNS where table_schema = ? and table_name = ?",
+        return jdbcTemplate.query("select * from information_schema.COLUMNS where table_schema = ? and table_name = ?",
                 new Object[]{SCHEMA_NAME, tableName},
                 new RowMapper<ColumnBean>() {
                     @Override
@@ -126,6 +129,17 @@ public class Generator {
         return noDash.toString();
     }
 	public static void main(String[] args) {
-		System.out.println(jdbcTemplate);
+		List<TableBean> tableBeanList = getTables();
+		for (TableBean tableBean : tableBeanList) {
+            Map<String, Object> varMap = new HashMap<String, Object>();
+            varMap.put("tableBean", tableBean);
+            varMap.put("schemaName", SCHEMA_NAME);
+            varMap.put("packageBase", PACKAGE_BASE);
+            varMap.put("classPrefix", CLASS_PREFIX);
+            varMap.put("jdbcTemplateName", JDBC_TEMPLATE_NAME);
+            varMap.put("jdbcTemplateNameCapitalized", StringUtil.capitalize(JDBC_TEMPLATE_NAME));
+            System.out.println(tableBean);
+		}
+		
 	}
 }

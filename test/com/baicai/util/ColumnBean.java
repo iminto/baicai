@@ -70,4 +70,14 @@ public class ColumnBean {
     public void setLength(int length) {
         this.length = length;
     }
+
+	@Override
+	public String toString() {
+		return "ColumnBean [columnName=" + columnName + ", columnNameNoDash=" + columnNameNoDash
+				+ ", columnNameCapitalized=" + columnNameCapitalized + ", columnType=" + columnType
+				+ ", columnTypeRsGetter=" + columnTypeRsGetter + ", columnComment=" + columnComment + ", length="
+				+ length + "]";
+	}
+    
+    
 }
