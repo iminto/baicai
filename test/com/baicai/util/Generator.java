@@ -2,21 +2,26 @@ package com.baicai.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+
 /**
-* @Description: Model代码
+* @Description: Model代码生成
 * @author 猪肉有毒 waitfox@qq.com  
 * @date 2015年8月22日 下午4:46:21 
 * @version V1.0  
 * 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
- */
+*/
 public class Generator {
 	private static JdbcTemplate jdbcTemplate = (JdbcTemplate) new FileSystemXmlApplicationContext("F:/data/eclipse/datura/WebRoot/WEB-INF/config/applicationContext-core.xml").getBean("jdbcTemplate");
 	 /**
@@ -129,8 +134,37 @@ public class Generator {
         return noDash.toString();
     }
 	public static void main(String[] args) {
+		String date=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 		List<TableBean> tableBeanList = getTables();
 		for (TableBean tableBean : tableBeanList) {
+			StringBuilder sb=new StringBuilder(100);
+			StringBuilder importClass=new StringBuilder();
+			Set<String> ipset=new HashSet<>();
+			ipset.add("import com.baicai.core.Model\r\n");
+			StringBuilder head=new StringBuilder();
+			head.append("package ").append(PACKAGE_BASE).append("\r\n");
+			sb.append("/**\r\n").append("* @Description:").append(tableBean.getTableComment())
+			.append("模型类\r\n* @date ").append(date).append(" \r\n* @version V1.0\r\n");
+			sb.append("*/\r\n");
+			sb.append("public class ").append(tableBean.getTableNameCapitalized());
+			sb.append(" extends Model{\r\n");
+			for (ColumnBean column : tableBean.getColumnBeanList()) {
+				sb.append("private ").append(column.getColumnType()).append(" ").append(column.getColumnName());
+				sb.append(" ;");
+				if(column.getColumnComment()!=null && column.getColumnComment().length()>0){
+					sb.append("//").append(column.getColumnComment());
+				}
+				if(column.getColumnType().equals("BigDecimal")){
+					ipset.add("import java.math.BigDecimal;\r\n");
+				}
+				sb.append("\r\n");
+			}
+			Iterator it = ipset.iterator();
+			while(it.hasNext()){
+				importClass.append(it.next());
+			}
+			sb.append("}\r\n");
+			head.append(importClass).append(sb);
             Map<String, Object> varMap = new HashMap<String, Object>();
             varMap.put("tableBean", tableBean);
             varMap.put("schemaName", SCHEMA_NAME);
@@ -138,7 +172,7 @@ public class Generator {
             varMap.put("classPrefix", CLASS_PREFIX);
             varMap.put("jdbcTemplateName", JDBC_TEMPLATE_NAME);
             varMap.put("jdbcTemplateNameCapitalized", StringUtil.capitalize(JDBC_TEMPLATE_NAME));
-            System.out.println(tableBean);
+            System.out.println(head);
 		}
 		
 	}
