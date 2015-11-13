@@ -60,29 +60,14 @@
             </map>
         </property>
 	</bean>
+	
 	<bean name="beetlViewResolver" id="viewResolver"
 		class="org.beetl.ext.spring.BeetlSpringViewResolver">
-		<!-- 多视图解析器，需要设置viewNames和order -->
-		<property name="viewNames">
-			<list>
-				<value>/views/**</value>
-			</list>
-		</property>
-		<property name="suffix" value=".btl" />
+		<property name="suffix" value=".htm" />
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="order" value="0" />
 		<!-- 多GroupTemplate，需要指定使用的bean -->
 		<property name="config" ref="beetlConfig" />
-	</bean>
-
-	<!-- JSP视图解析器 -->
-	<bean name="JSPViewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- 注意JSP的这个视图解析器order必须在最后 -->
-		<property name="order" value="256" />
-		<property name="prefix" value="/WEB-INF/" />
-		<property name="suffix" value=".jsp" />
-		<property name="contentType" value="text/html;charset=UTF-8" />
 	</bean>
 
 	<bean id="multipartResolver"

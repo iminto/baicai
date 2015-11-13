@@ -20,9 +20,9 @@ public class IndexController {
 		return "/views/index";		
 	}
 	
-	@RequestMapping("/main")
+	@RequestMapping("/manage")
 	public String main(HttpServletRequest request,HttpServletResponse response){
-		return "/template/main";		
+		return "/manage/login";		
 	}
 	
 	@RequestMapping("/json")

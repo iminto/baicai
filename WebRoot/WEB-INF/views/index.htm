@@ -1,0 +1,15 @@
+<? var path =request.scheme+"://"+request.serverName+":"+request.serverPort+request.contextPath+"/"; ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页-${author}-${share.salt}</title>
+<script type="text/javascript" src="${path}js/function.js" ></script>
+</head>
+<body>
+<h1>${path}</h1>
+${trunc(12.456,2)}
+<br>根路径：${request.contextPath}
+<p>
+</body>
+</html>
