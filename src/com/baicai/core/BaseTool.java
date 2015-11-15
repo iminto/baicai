@@ -46,7 +46,6 @@ public class BaseTool {
 				fileName.length());
 		ext = ext.toLowerCase();
 		String[] fileType = { "bmp", "gif", "jpeg", "jpg", "png" };// 这里必须有序，否则结果一定会出错
-		System.out.println(Arrays.binarySearch(fileType, ext));
 		if (Arrays.binarySearch(fileType, ext) < 0) {
 			return false;
 		}
