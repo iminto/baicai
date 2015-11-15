@@ -17,7 +17,7 @@ public class IndexController {
 	
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request,HttpServletResponse response){
-		return "/views/index";		
+		return "/views/index/index";		
 	}
 	
 	@RequestMapping("/manage")
