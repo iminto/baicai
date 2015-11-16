@@ -48,27 +48,7 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration"
-		init-method="init">
-		<property name="configFileResource" value="classpath:beetl.properties" />
-		 <property name="sharedVars">
-            <map>
-                <entry key="author" value="baicai" />
-                <entry key="share">
-                <bean class="com.baicai.core.ShareVar" />
-                </entry>
-            </map>
-        </property>
-	</bean>
 	
-	<bean name="beetlViewResolver" id="viewResolver"
-		class="org.beetl.ext.spring.BeetlSpringViewResolver">
-		<property name="suffix" value=".htm" />
-		<property name="contentType" value="text/html;charset=UTF-8" />
-		<property name="order" value="0" />
-		<!-- 多GroupTemplate，需要指定使用的bean -->
-		<property name="config" ref="beetlConfig" />
-	</bean>
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"

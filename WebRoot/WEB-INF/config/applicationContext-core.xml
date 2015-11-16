@@ -69,5 +69,19 @@
 		</tx:attributes>
 	</tx:advice>
 	
+	<bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration"
+		init-method="init">
+		<property name="configFileResource" value="classpath:beetl.properties" />
+	</bean>
+	
+	<bean name="beetlViewResolver" id="viewResolver"
+		class="org.beetl.ext.spring.BeetlSpringViewResolver">
+		<property name="suffix" value=".htm" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="order" value="0" />
+		<!-- 多GroupTemplate，需要指定使用的bean -->
+		<property name="config" ref="beetlConfig" />
+	</bean>
+	
 	<import resource="redis-context.xml"/>
 </beans>

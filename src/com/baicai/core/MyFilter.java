@@ -29,6 +29,7 @@ public class MyFilter implements Filter {
 		req.setCharacterEncoding("utf-8");
 		Cookie userLogin = BaseTool.getCookie(request, "userlogin");
 		Cookie token=BaseTool.getCookie(request, "token");
+		req.setAttribute("path", req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+request.getContextPath()+"/");
 		if (path.indexOf("/user/login") != -1 || path.indexOf("/user/reg")!=-1 ) {
 			chain.doFilter(req, res);
 		} else if (path.indexOf("/user") != -1 || path.indexOf("/usercenter") != -1 || path.indexOf("/safecenter") != -1) {

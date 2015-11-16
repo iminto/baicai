@@ -7,9 +7,15 @@
 */
 package com.baicai.core;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import org.beetl.core.GroupTemplate;
+import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
+
+import com.baicai.util.PropertiesTool;
 
 public class ContextLoaderListener implements ServletContextListener{
 
@@ -22,7 +28,13 @@ public class ContextLoaderListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("systemx", "");
-		
+        BeetlGroupUtilConfiguration config= (BeetlGroupUtilConfiguration) SpringUtils.getApplicationContext().getBean("beetlConfig");
+        GroupTemplate group = config.getGroupTemplate();//此处可处理模板全局变量
+        Map<String,Object> shared = new HashMap<String,Object>();
+        shared.put("version", "0.01");
+        shared.put("path", PropertiesTool.get("system", "BASEURL"));
+        group.setSharedVars(shared);
+        System.out.println(group.getSharedVars());
 	}
 
 }
