@@ -2,7 +2,7 @@
  * @Description: 系统基本工具类，这个类里方的东西和web有耦合性，因此不放到CommonUtil类里面
  * @author 猪肉有毒 waitfox@qq.com  
  * @date 2015年6月2日 下午2:28:45 
- * @version V1.0  
+ * @version V1.1  
  * 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
  */
 package com.baicai.core;
@@ -21,7 +21,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
-
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.management.Query;
