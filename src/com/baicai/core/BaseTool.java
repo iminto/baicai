@@ -10,13 +10,21 @@ package com.baicai.core;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.Query;
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -257,5 +265,39 @@ public class BaseTool {
 	 */
 	public static String htmlEscape(String input) {
 		return HtmlUtils.htmlEscape(input);
+	}
+	
+	/**
+	 * 在项目启动时就获取服务器域名和端口
+	 * 本来可以通过request对象获取，但是项目刚启动时是没有request对象的
+	 * @return
+	 */
+	public static String getServer() {
+		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+		ArrayList<String> endPoints = new ArrayList<String>();
+		try {
+			Set<ObjectName> objs = mbs.queryNames(new ObjectName(
+					"*:type=Connector,*"), Query.match(Query.attr("protocol"),
+					Query.value("HTTP/1.1")));
+			String hostname = InetAddress.getLocalHost().getHostName();
+			InetAddress[] addresses = InetAddress.getAllByName(hostname);
+			for (Iterator<ObjectName> i = objs.iterator(); i.hasNext();) {
+				ObjectName obj = i.next();
+				String scheme = mbs.getAttribute(obj, "scheme").toString();
+				String port = obj.getKeyProperty("port");
+				for (InetAddress addr : addresses) {
+					String host = addr.getHostAddress();
+					String ep = scheme + "://" + host + ":" + port;
+					endPoints.add(ep);
+				}
+			}
+		} catch (Exception e) {
+			return "";
+		}
+		if (endPoints.size() > 0) {
+			return endPoints.get(0);
+		} else {
+			return "";
+		}
 	}
 }
