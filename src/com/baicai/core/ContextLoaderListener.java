@@ -15,8 +15,6 @@ import javax.servlet.ServletContextListener;
 import org.beetl.core.GroupTemplate;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 
-import com.baicai.util.PropertiesTool;
-
 public class ContextLoaderListener implements ServletContextListener{
 
 	@Override
