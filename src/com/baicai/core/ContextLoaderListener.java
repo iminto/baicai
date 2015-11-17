@@ -31,10 +31,9 @@ public class ContextLoaderListener implements ServletContextListener{
         BeetlGroupUtilConfiguration config= (BeetlGroupUtilConfiguration) SpringUtils.getApplicationContext().getBean("beetlConfig");
         GroupTemplate group = config.getGroupTemplate();//此处可处理模板全局变量
         Map<String,Object> shared = new HashMap<String,Object>();
-        shared.put("version", "0.01");
-        shared.put("path", PropertiesTool.get("system", "BASEURL"));
+        String path=BaseTool.getServer()+servletContext.getContextPath()+"/";
+        shared.put("path", path);
         group.setSharedVars(shared);
-        System.out.println(group.getSharedVars());
 	}
 
 }
