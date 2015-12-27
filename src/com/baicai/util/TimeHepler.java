@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
-* @Description: 时间助手类
+* @Description: 时间助手类,用来处理简单的时间需求
 * @author 猪肉有毒 waitfox@qq.com  
 * @date 2015年8月9日 下午8:18:57 
 * @version V1.0  
@@ -25,9 +25,9 @@ public class TimeHepler {
 	 * 将时间字符串解析为时间戳
 	 * @param dateStr 时间，如 2015-07-22
 	 * @param format 格式，如 yyyy-MM-dd
-	 * @return
+	 * @return 处理失败返回NULL
 	 */
-	public static Integer Date2Time(String dateStr,String format){ 
+	public static Integer date2Time(String dateStr,String format){ 
         Date date = new Date();   
         DateFormat sdf = new SimpleDateFormat(format);  
         try {  
@@ -44,13 +44,21 @@ public class TimeHepler {
 	 * @param format
 	 * @return
 	 */
-	public String  Time2Str(int time,String format){
+	public String  time2Str(int time,String format){
 		if(format==null){
 			format="yyyy/MM/dd HH:mm:ss";
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		String date = sdf.format(new Date(time*1000));
 		return date;
+	}
+	
+	/**
+	 * 时间戳转换为字符串
+	 * @param time 时间戳
+	 */
+	public String  time2Str(int time){
+		return time2Str(time,"yyyy/MM/dd HH:mm:ss");
 	}
 	
 	/** 
