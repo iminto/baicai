@@ -62,6 +62,7 @@ public class ValidatorHelper {
      * 判断type是否基本类型,如String,Boolean,Number,Date
      * 
      */
+	@SuppressWarnings("rawtypes")
 	public static Boolean basicType(Class type) {
         if (type.isArray()) {// 如是数组
             return basicType(type.getComponentType());// 判断元素类型

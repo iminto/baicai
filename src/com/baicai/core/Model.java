@@ -3,8 +3,8 @@ package com.baicai.core;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -39,7 +39,7 @@ public class Model {
 	private String tableName = PropertiesTool.get("system", "tableFix")
 			+ this.getClass().getSimpleName().toLowerCase();
 	private boolean keySet = false;// 是否设置了主键并且有值，防止主键条件和where条件混用
-	private static final Log logger = LogFactory.getLog(Model.class);
+	private static final Logger logger = LoggerFactory.getLogger(Model.class);
 	private Map<String, String> errorMap = new HashMap<String, String>();
 
 	public Model() {

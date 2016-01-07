@@ -25,10 +25,11 @@ public enum FILTER {
 			ISEMPTY("ISEMPTY"),
 			PASSWORD("PASSWORD");
 	private String regexp;
-
-	private FILTER(String regexp) {
+	
+	FILTER(String regexp) {
 		this.regexp = regexp;
 	}
+	 
 
 	public String getRegexp() {
 		return regexp;
