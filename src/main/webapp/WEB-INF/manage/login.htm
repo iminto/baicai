@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>admin-后台管理登陆</title>
+<link href="manage/css/login.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.min.js" type="text/javascript" ></script>
+<script src="js/jquery.md5.js" type="text/javascript"></script>
+<script type="text/javascript"	src="js/function.js"></script>
+<script type="text/javascript">
+
+	//回车执行事件
+	$(function(){
+		document.onkeydown = function(e){ 
+		    var ev = document.all ? window.event : e;
+		    if(ev.keyCode==13) {
+		           $("#loginButton").click();//处理事件
+		     }
+		};
+	});  
+	
+	function checkFormSerialize (){
+		var username = trim($("#username").val());
+		var password = trim($("#password").val());
+		var code = trim($("#code").val());
+		if(code==""){
+			alert("验证码不能为空！");
+			return;
+		}
+		if(username==""||password==""){
+			alert("用户名密码不能为空！");
+			return;
+		}
+		window.location.href = "manage/pages/main.do";
+	}		
+
+</script>
+</head>
+<body>
+	<div class="login_main">
+		<!--左空间-->
+		<div class="out_space">
+			<!--顶部边距-->
+			<div class="out_space_top"></div>
+			<div class="out_space_color"></div>
+		</div>
+		<!--中间内容-->
+		<div class="middle_con">
+			<!--顶部边距-->
+			<div class="middle_con_top"></div>
+			<div class="middle_logo">
+				<img src="manage/image/logo.png" />
+			</div>
+			<div class="con_details">
+				<!--背景-->
+				<div class="con_left"></div>
+				<div class="con_middle"></div>
+				<div class="con_right"></div>
+				<!--背景结束 -->
+				<!-- 登陆框-->
+				<div class="con_login">
+					<div class="con_login_title">
+						<a class="con_login_a">后台管理系统</a><a href="index.do"
+							class="con_login_return" target="_blank">返回前台&rarr;</a>
+					</div>
+					<div class="con_login_con">
+						<div class="con_login_img">
+							<img src="manage/image/login_lock.png" height="220"
+								width="100" />
+						</div>
+						<div id="login_info"></div>
+						<div class="con_login_input">
+							<div class="input_side">
+								<div class="input_text">用户名：</div>
+								<div class="input_info">
+									<input value="" class="dv_input" id="username" name="username"
+										type="text" size="20" maxlength="20" tabindex="1"
+										onkeydown="if(event.keyCode==13)event.keyCode=9" />
+								</div>
+							</div>
+							<div class="input_side">
+								<div class="input_text">密码：</div>
+								<div class="input_info">
+									<input type="password" value="" name="password" id="password"
+										size="21" maxlength="20" tabindex="2" class="input_password" />
+								</div>
+								<div class="input_title">
+									<!--<a href="#">找回密码</a>-->
+								</div>
+							</div>
+							<div class="input_side">
+								<div class="input_text">验证码：</div>
+								<div class="input_info">
+									<input type="text" style="width: 62px" value="" name="code" id="code"
+										size="21" maxlength="20" tabindex="2" class="dv_input" /> <a
+									href="javascript:void(0);" onclick="$('#randImage1').click()"><img
+									name="randImage" id="randImage" src="common/valicode.do"
+									onclick="this.src = 'common/valicode.do?' + Math.random();"
+									width="80" height="30" style="margin-bottom: -12px;" /> </a>
+								</div>
+							</div>
+							<div class="input_side">
+								<input type="button" id="loginButton"
+									class="input_button login_form_btn" value="立即登陆"
+									onclick="checkFormSerialize();" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--右空间-->
+		<div class="out_space">
+			<!--顶部边距-->
+			<div class="out_space_top"></div>
+			<div class="out_space_color"></div>
+		</div>
+	</div>
+</body>
+</html>
