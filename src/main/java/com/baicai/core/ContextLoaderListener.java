@@ -22,6 +22,7 @@ public class ContextLoaderListener implements ServletContextListener{
 	}
 
 	public void contextInitialized(ServletContextEvent event) {
+		System.out.println("容器加载完成..contextInitialized");
 		ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("systemx", "");
         BeetlGroupUtilConfiguration config= (BeetlGroupUtilConfiguration) SpringUtils.getApplicationContext().getBean("beetlConfig");
