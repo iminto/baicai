@@ -204,24 +204,5 @@ public class User extends Model{
 	public void setRegister_ip(String register_ip) {
 		this.register_ip = register_ip;
 	}
-	@Override
-	public String toString() {
-		return "User [user_id=" + user_id + ", user_name=" + user_name
-				+ ", login_pass=" + login_pass + ", pay_pass=" + pay_pass
-				+ ", user_email=" + user_email + ", user_phone=" + user_phone
-				+ ", home_tel=" + home_tel + ", user_qq=" + user_qq
-				+ ", user_pic=" + user_pic + ", real_name=" + real_name
-				+ ", card_num=" + card_num + ", user_sex=" + user_sex
-				+ ", user_age=" + user_age + ", user_edu=" + user_edu
-				+ ", birth_place=" + birth_place + ", live_place=" + live_place
-				+ ", user_address=" + user_address + ", p_user_id=" + p_user_id
-				+ ", user_type=" + user_type + ", is_email_check="
-				+ is_email_check + ", is_phone_check=" + is_phone_check
-				+ ", is_realname_check=" + is_realname_check
-				+ ", vip_stop_time=" + vip_stop_time + ", is_hook=" + is_hook
-				+ ", register_time=" + register_time + ", login_time="
-				+ login_time + ", register_ip=" + register_ip + "]";
-	}
-	
 	
 }
