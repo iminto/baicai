@@ -23,7 +23,7 @@ import org.springframework.jdbc.core.RowMapper;
 * 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
 */
 public class Generator {
-	private static JdbcTemplate jdbcTemplate = (JdbcTemplate) new FileSystemXmlApplicationContext("F:/data/eclipse/datura/WebRoot/WEB-INF/config/applicationContext-core.xml").getBean("jdbcTemplate");
+	private static JdbcTemplate jdbcTemplate = (JdbcTemplate) new FileSystemXmlApplicationContext("F:/data/eclipse/p2p/target/p2p/WEB-INF/config/applicationContext-core.xml").getBean("jdbcTemplate");
 	 /**
      * 数据库名
      */
@@ -95,10 +95,10 @@ public class Generator {
                         if (columnType.startsWith("varchar") || ("text").equals(columnType) || columnType.startsWith("enum")) {
                             bean.setColumnType("String");
                             bean.setColumnTypeRsGetter("getString");
-                        } else if (columnType.startsWith("tinyint") || columnType.startsWith("smallint") || columnType.startsWith("mediumint")) {
+                        } else if (columnType.startsWith("tinyint") || columnType.startsWith("smallint") || columnType.startsWith("mediumint")||columnType.startsWith("int") ) {
                             bean.setColumnType("Integer");
                             bean.setColumnTypeRsGetter("getInt");
-                        } else if (columnType.startsWith("int") || columnType.startsWith("bigint")) {
+                        } else if (columnType.startsWith("bigint")) {
                             bean.setColumnType("Long");
                             bean.setColumnTypeRsGetter("getLong");
                         } else if (("timestamp").equals(columnType)) {
