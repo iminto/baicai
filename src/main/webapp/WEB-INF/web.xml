@@ -8,7 +8,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/spring-servlet.xml</param-value>
+			<param-value>/WEB-INF/classes/config/spring-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -19,7 +19,7 @@
 	
 	<context-param>
 		<param-name>logbackConfigLocation</param-name>
-		<param-value>WEB-INF/logback.xml</param-value>
+		<param-value>WEB-INF/classes/logback.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.util.LogbackConfigListener</listener-class>
@@ -27,7 +27,7 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/config/applicationContext-core.xml</param-value>
+		<param-value>/WEB-INF/classes/config/applicationContext-core.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
