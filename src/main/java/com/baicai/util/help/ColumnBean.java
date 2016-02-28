@@ -1,4 +1,4 @@
-package com.baicai.util;
+package com.baicai.util.help;
 
 public class ColumnBean {
     private String columnName;

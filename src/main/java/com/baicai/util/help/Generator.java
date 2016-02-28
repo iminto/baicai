@@ -1,18 +1,12 @@
-package com.baicai.util;
+package com.baicai.util.help;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import com.baicai.util.StringUtil;
 
 
 /**
@@ -24,7 +18,8 @@ import org.springframework.jdbc.core.RowMapper;
 */
 public class Generator {
 	private static JdbcTemplate jdbcTemplate = (JdbcTemplate) new FileSystemXmlApplicationContext("F:/data/eclipse/p2p/target/p2p/WEB-INF/config/applicationContext-core.xml").getBean("jdbcTemplate");
-	 /**
+//	private static JdbcTemplate jdbcTemplate = (JdbcTemplate)SpringUtils.getApplicationContext().getBean("jdbcTemplate");
+	/**
      * 数据库名
      */
     public static final String SCHEMA_NAME = "test";
@@ -32,18 +27,16 @@ public class Generator {
     /**
      * 输出路径绝对地址
      */
-    public static final String OUTPUT_PATH = "f:/temp/";
+    public static final String OUTPUT_PATH = "G:/tmp/";
 
     /**
      * 生成代码的package前缀
      */
-    public static final String PACKAGE_BASE = "com.baicai.util";
+    public static final String PACKAGE_BASE = "com.baicai.domain";
     /**
      * 生成类的前缀，如xxxSimpleDAO中的Simple
      */
     public static final String CLASS_PREFIX = "Simple";
-
-    public static final String JDBC_TEMPLATE_NAME = "jdbcTemplate";
     
     public static List<TableBean> getTables() {
         List<TableBean> tableBeanList = jdbcTemplate.query("select * from information_schema.tables where table_schema = ?", new Object[]{SCHEMA_NAME},
@@ -71,7 +64,32 @@ public class Generator {
 
         return tableBeanList;
     }
+    
+    public static TableBean getTable(String tableName) {
+    	List<TableBean> tableBeanList = jdbcTemplate.query("select * from information_schema.tables where table_schema = ? AND TABLE_NAME=?", new Object[]{SCHEMA_NAME,tableName},
+                new RowMapper<TableBean>() {
+                    @Override
+                    public TableBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        TableBean bean = new TableBean();
+                        String tableName = rs.getString("table_name");
+                        String tableNameTrimed = tableName;
+                        if (tableName.startsWith("t_")) {
+                            tableNameTrimed = tableName.substring(2);
+                        }
 
+                        bean.setTableName(tableName);
+                        bean.setTableNameNoDash(delDash(tableNameTrimed));
+                        bean.setTableNameCapitalized(StringUtil.capitalize(bean.getTableNameNoDash()));
+                        bean.setTableComment(rs.getString("table_comment"));
+                        return bean;
+                    }
+                });
+    	TableBean tb=tableBeanList.get(0);
+    	tb.setColumnBeanList(getColumns(tb.getTableName(),tb));
+    	return tb;
+    	
+    }
+    
     public static List<ColumnBean> getColumns(String tableName, final TableBean tableBean) {
         return jdbcTemplate.query("select * from information_schema.COLUMNS where table_schema = ? and table_name = ?",
                 new Object[]{SCHEMA_NAME, tableName},
@@ -133,47 +151,5 @@ public class Generator {
         }
         return noDash.toString();
     }
-	public static void main(String[] args) {
-		String date=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
-		List<TableBean> tableBeanList = getTables();
-		for (TableBean tableBean : tableBeanList) {
-			StringBuilder sb=new StringBuilder(100);
-			StringBuilder importClass=new StringBuilder();
-			Set<String> ipset=new HashSet<>();
-			ipset.add("import com.baicai.core.Model\r\n");
-			StringBuilder head=new StringBuilder();
-			head.append("package ").append(PACKAGE_BASE).append("\r\n");
-			sb.append("/**\r\n").append("* @Description:").append(tableBean.getTableComment())
-			.append("模型类\r\n* @date ").append(date).append(" \r\n* @version V1.0\r\n");
-			sb.append("*/\r\n");
-			sb.append("public class ").append(tableBean.getTableNameCapitalized());
-			sb.append(" extends Model{\r\n");
-			for (ColumnBean column : tableBean.getColumnBeanList()) {
-				sb.append("private ").append(column.getColumnType()).append(" ").append(column.getColumnName());
-				sb.append(" ;");
-				if(column.getColumnComment()!=null && column.getColumnComment().length()>0){
-					sb.append("//").append(column.getColumnComment());
-				}
-				if(column.getColumnType().equals("BigDecimal")){
-					ipset.add("import java.math.BigDecimal;\r\n");
-				}
-				sb.append("\r\n");
-			}
-			Iterator it = ipset.iterator();
-			while(it.hasNext()){
-				importClass.append(it.next());
-			}
-			sb.append("}\r\n");
-			head.append(importClass).append(sb);
-            Map<String, Object> varMap = new HashMap<String, Object>();
-            varMap.put("tableBean", tableBean);
-            varMap.put("schemaName", SCHEMA_NAME);
-            varMap.put("packageBase", PACKAGE_BASE);
-            varMap.put("classPrefix", CLASS_PREFIX);
-            varMap.put("jdbcTemplateName", JDBC_TEMPLATE_NAME);
-            varMap.put("jdbcTemplateNameCapitalized", StringUtil.capitalize(JDBC_TEMPLATE_NAME));
-            System.out.println(head);
-		}
-		
-	}
+    
 }

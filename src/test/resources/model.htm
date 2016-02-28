@@ -1,1 +1,20 @@
-${table}
+package ${package}
+<!--# if(table.hasDateColumn==true){  -->
+import java.util.Date;
+<!--# } -->
+<!--# if(table.hasBigDecimal==true){  -->
+import java.math.BigDecimal;
+<!--# } -->
+/**
+ * @Description: ${table.tableComment}模型类
+ * @author: waitfox@qq.com
+ * @version: 0.01
+ * @date: ${createDate}
+ */
+public class ${table.tableNameCapitalized} {
+<!--# 
+for(col in table.columnBeanList){ 
+-->
+private ${col.columnType} ${col.columnName};//${col.columnComment}
+<!--#  } -->
+}
