@@ -149,10 +149,28 @@
 			<artifactId>aopalliance</artifactId>
 			<version>1.0</version>
 		</dependency>
-
 	</dependencies>
+	
+	
 	<build>
 		<finalName>p2p</finalName>
+		<outputDirectory>target/${project.artifactId}</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>*</include>
+				</includes>
+			</resource>
+		</resources>
+
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -162,6 +180,16 @@
 					<source>1.7</source>
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<port>8080</port>
+                    <uriEncoding>UTF-8</uriEncoding>
+					<server>localhost</server>
 				</configuration>
 			</plugin>
 			<plugin>
