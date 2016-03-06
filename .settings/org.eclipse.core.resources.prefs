@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
-encoding//WebRoot/WEB-INF/manage/arrow.htm=UTF-8
-encoding//WebRoot/WEB-INF/manage/login.htm=UTF-8
-encoding//WebRoot/WEB-INF/views/index/footer.htm=UTF-8
-encoding//WebRoot/WEB-INF/views/index/index.htm=UTF-8
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/test/java=UTF-8
+encoding//src/test/resources=UTF-8
+encoding//src/test/resources/model.htm=UTF-8
 encoding/<project>=UTF-8
