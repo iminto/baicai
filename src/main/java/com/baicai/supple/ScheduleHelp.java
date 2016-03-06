@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 
-* @Description: 计划任务
+* @Description: 计划任务，计划任务的方法只能是void类型
 * @author 猪肉有毒 waitfox@qq.com  
 * @date 2016年3月3日 下午11:10:03 
 * @version V1.0  
