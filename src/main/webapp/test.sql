@@ -220,9 +220,64 @@ CREATE TABLE `p2p_project` (
   `addip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `bid` (`proId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款标基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='借款标基本信息';
 
 /*Data for the table `p2p_project` */
+
+insert  into `p2p_project`(`id`,`proId`,`proName`,`proAccount`,`proAccountYes`,`proTimeLimit`,`proTimeUint`,`proValidTime`,`proApr`,`proStyle`,`proStatus`,`proVerifyUser`,`proVerifyTime`,`proVerifyRemark`,`proFullVerifyUser`,`proFullVerifyTime`,`proFullVerifyRemark`,`proType`,`proDxb`,`proDesc`,`proAwardType`,`proAward`,`proLowAcount`,`proMostAccount`,`successTime`,`endTime`,`orderNum`,`autoRatio`,`repayment`,`repaymentYes`,`expansion`,`addtime`,`addip`) values (1,14000012001,'借钱买车',8000000,0,3,2,7,15,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,14000012002,'想买一部苹果笔记本',1200000,0,50,1,5,12,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+
+/*Table structure for table `p2p_project_apply` */
+
+DROP TABLE IF EXISTS `p2p_project_apply`;
+
+CREATE TABLE `p2p_project_apply` (
+  `aid` bigint(18) NOT NULL DEFAULT '0',
+  `userId` bigint(18) DEFAULT NULL COMMENT '用户id',
+  `name` varchar(255) DEFAULT NULL COMMENT '用户名',
+  `money` int(11) NOT NULL COMMENT '借款金额',
+  `timeLimit` int(11) DEFAULT NULL COMMENT '借款时长',
+  `phone` varchar(16) DEFAULT NULL COMMENT '联系号码',
+  `realname` varchar(32) DEFAULT NULL COMMENT '真实姓名',
+  `province` int(11) DEFAULT NULL COMMENT '城市',
+  `city` int(11) DEFAULT NULL COMMENT '省份',
+  `status` int(2) NOT NULL DEFAULT '0',
+  `verifyUser` bigint(18) DEFAULT NULL,
+  `verifyRemark` varchar(255) DEFAULT NULL,
+  `verifyTime` varchar(128) DEFAULT NULL,
+  `addtime` varchar(128) DEFAULT NULL COMMENT '添加时间',
+  `addip` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`aid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款意向申请表';
+
+/*Data for the table `p2p_project_apply` */
+
+/*Table structure for table `p2p_project_order` */
+
+DROP TABLE IF EXISTS `p2p_project_order`;
+
+CREATE TABLE `p2p_project_order` (
+  `oid` bigint(18) NOT NULL,
+  `userId` bigint(18) DEFAULT NULL,
+  `status` int(11) NOT NULL COMMENT '1全部通过 2部分通过',
+  `projectId` bigint(18) NOT NULL COMMENT '标id',
+  `money` int(11) NOT NULL DEFAULT '0' COMMENT '投标金额',
+  `realmoney` int(11) NOT NULL DEFAULT '0' COMMENT '实际投标金额',
+  `repayAccount` int(11) NOT NULL DEFAULT '0' COMMENT '应收款总额',
+  `repayYesaccount` int(11) NOT NULL DEFAULT '0' COMMENT '已还款总额',
+  `waitRepay` int(11) NOT NULL DEFAULT '0' COMMENT '待还总额',
+  `interest` int(11) NOT NULL DEFAULT '0' COMMENT '应收利息总额',
+  `yesinterest` int(11) NOT NULL DEFAULT '0' COMMENT '已收利息总额',
+  `waitinterest` int(11) NOT NULL DEFAULT '0' COMMENT '待还利息',
+  `type` int(2) NOT NULL DEFAULT '0' COMMENT '投标类型（0，普通pc投标；1，自动投标；2，手机wap投标）',
+  `award` int(11) NOT NULL COMMENT '奖励金额',
+  `mold` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1,一马当先,2,一锤定音 ,3,一枝独秀',
+  `addtime` int(10) NOT NULL COMMENT '添加时间',
+  `addip` varchar(15) NOT NULL COMMENT '添加IP',
+  PRIMARY KEY (`oid`),
+  KEY `pid` (`projectId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+
+/*Data for the table `p2p_project_order` */
 
 /*Table structure for table `p2p_user` */
 
@@ -231,20 +286,12 @@ DROP TABLE IF EXISTS `p2p_user`;
 CREATE TABLE `p2p_user` (
   `userId` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `userName` varchar(16) NOT NULL COMMENT '用户登录名',
-  `loginPass` varchar(32) NOT NULL COMMENT '登陆密码',
-  `payPass` varchar(32) DEFAULT NULL COMMENT '支付密码',
+  `loginPass` varchar(54) NOT NULL COMMENT '登陆密码',
+  `payPass` varchar(54) DEFAULT NULL COMMENT '支付密码',
   `email` varchar(64) NOT NULL COMMENT '用户邮箱',
   `phone` varchar(11) DEFAULT NULL COMMENT '用户手机',
-  `homeTel` varchar(16) DEFAULT NULL,
-  `userQQ` bigint(20) DEFAULT NULL COMMENT '用户QQ',
   `userPic` varchar(64) DEFAULT NULL COMMENT '用户头像',
   `realname` varchar(16) DEFAULT NULL COMMENT '真实姓名',
-  `cardnum` varchar(30) DEFAULT '' COMMENT '证件号码',
-  `gender` tinyint(1) unsigned DEFAULT NULL COMMENT '用户性别（0，未知；1，男；2，女）',
-  `age` smallint(5) unsigned DEFAULT NULL COMMENT '用户年龄',
-  `edu` tinyint(1) DEFAULT NULL COMMENT '用户学历（0，未知；1，小学；2，初中；3，高中/高专；4，大专；5，本科；6，硕士/博士/及以上）',
-  `birthPlace` varchar(128) DEFAULT NULL COMMENT '出生地',
-  `livePlace` varchar(128) DEFAULT NULL COMMENT '居住地',
   `userAddress` varchar(128) DEFAULT NULL COMMENT '用户联系地址',
   `inviteUserId` int(11) DEFAULT NULL COMMENT '父id/推荐人id',
   `userType` tinyint(2) DEFAULT '0' COMMENT '用户类型（0，普通注册用户；1，手机注册用户2，后台手动添加用户）',
@@ -263,6 +310,25 @@ CREATE TABLE `p2p_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `p2p_user` */
+
+/*Table structure for table `p2p_userinfo` */
+
+DROP TABLE IF EXISTS `p2p_userinfo`;
+
+CREATE TABLE `p2p_userinfo` (
+  `userId` int(10) unsigned DEFAULT NULL,
+  `homeTel` varchar(64) DEFAULT NULL COMMENT '家庭电话',
+  `qq` varchar(12) DEFAULT NULL COMMENT 'QQ号码',
+  `cardnum` varchar(18) DEFAULT NULL COMMENT '证件号码',
+  `gender` tinyint(1) DEFAULT '0' COMMENT '用户性别（0，未知；1，男；2，女）',
+  `age` tinyint(3) unsigned DEFAULT NULL COMMENT '年龄',
+  `edu` tinyint(1) DEFAULT '0' COMMENT '用户学历（0，未知；1，小学；2，初中；3，高中/高专；4，大专；5，本科；6，硕士/博士/及以上）',
+  `birthPlace` varchar(196) DEFAULT NULL COMMENT '出生地',
+  `livePlace` varchar(196) DEFAULT NULL COMMENT '居住地',
+  KEY `uid` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+
+/*Data for the table `p2p_userinfo` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
