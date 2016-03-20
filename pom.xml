@@ -150,22 +150,24 @@
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
-	
-	
+
+
 	<build>
 		<finalName>p2p</finalName>
-<!-- 		<outputDirectory>target/${project.artifactId}</outputDirectory> -->
+<!-- <outputDirectory>target/${project.artifactId}</outputDirectory> -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>*</include>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
-					<include>*</include>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 		</resources>
@@ -188,11 +190,11 @@
 				<version>2.0</version>
 				<configuration>
 					<port>8080</port>
-                    <uriEncoding>UTF-8</uriEncoding>
+					<uriEncoding>UTF-8</uriEncoding>
 					<server>localhost</server>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
