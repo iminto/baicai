@@ -26,11 +26,11 @@ public class ScheduleHelp {
 	}
 	
 	/**
-	 * 心跳更新。启动时执行一次，之后每隔10秒执行一次
+	 * 心跳更新。启动时执行一次，之后每隔1000秒执行一次
 	 */
-	@Scheduled(fixedRate = 5000*2)
+	@Scheduled(fixedRate = 500000*2)
 	public void task2(){
-		System.out.println("ScheduleHelp...task2【心跳更新。启动时执行一次，之后每隔10秒执行一次】");
+		System.out.println("ScheduleHelp...task2【心跳更新。启动时执行一次，之后每隔1000秒执行一次】");
 	}
 
 }

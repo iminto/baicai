@@ -1,12 +1,14 @@
 package com.baicai.domain.project;
 
+import com.baicai.core.Model;
+
 /**
  * @Description: 借款标基本信息模型类
  * @author: waitfox@qq.com
  * @version: 0.01
  * @date: 2016/03/20 20:44:52
  */
-public class P2pProject {
+public class Project extends Model{
 	private Integer id;//
 	private Long proId;// 逻辑主键
 	private String proName;// 借款标题

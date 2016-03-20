@@ -46,7 +46,7 @@ public class GenModel {
 	}
 
 	public static void main(String[] args) throws IOException {
-		generetor("p2p_account");
+		generetor("p2p_project");
 	}
 
 }
