@@ -24,18 +24,21 @@
 			<a class="more" href="${path}invest.do">查看更多>></a>
 		</div>
 		<ul class="invest-spelist invest-spelist-mod-1 clearfix">
+		
+		<!--# for(pro in proList){  -->
 			<li>
 				<div class="head">
 					<span class="kind icon-invest icon-invest-x"></span>
-					<span class="name">抵押宝马</span>
+					<span class="name">${pro.proName}</span>
 				</div>
 				<div class="content">
 					<div class="fc0 tac l1">
-						<div>期限：<span class="fsd fc1 fwb">5</span>个月</div>
-						<div class="ellipsis"><span class="fsg fwb">80000</span>元</div>
+						<div>期限：<span class="fsd fc1 fwb">${pro.proTimeLimit}</span>
+						<!--# if(pro.proTimeUint==1){  -->天<!--# }else{  -->个月<!--# } --></div>
+						<div class="ellipsis"><span class="fsg fwb">${pro.proAccount/100,numberFormat="#"}</span>元</div>
 					</div>
 					<div class="l2">
-						<div class="income" data-rate='15.00%'>
+						<div class="income" data-rate='${pro.proApr,numberFormat="#.00"}%'>
 						<!--这里的数据由js获取data-rate属性生成-->
 						</div>
 						<div class="fc0 fsa">预计年化净收益率</div>
@@ -58,146 +61,7 @@
 				</div>
 				<a href="${path}project/view.do?id=1" class="status bg2">申购中</a>
 			</li>
-			
-			<li>
-				<div class="head">
-					<span class="kind icon-invest icon-invest-x"></span>
-					<span class="name">信用借款上大学</span>
-				</div>
-				<div class="content">
-					<div class="fc0 tac l1">
-						<div>期限：<span class="fsd fc1 fwb">5</span>个月</div>
-						<div class="ellipsis"><span class="fsg fwb">80000</span>元</div>
-					</div>
-					<div class="l2">
-						<div class="income" data-rate='80.00%'>
-						<!--这里的数据由js获取data-rate属性生成-->
-						</div>
-						<div class="fc0 fsa">预计年化净收益率</div>
-					</div>
-					<div class="l3">
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='80%' class="bar-inner fl bg1"></span>
-							</div>
-							<div class="fr bar-title">剩余6天</div>
-						</div>
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='80%' class="bar-inner fl bg2"></span>
-							</div>
-							<div class="fr bar-title">
-							80%</div>
-						</div>
-					</div>
-				</div>
-				<a href="${path}project/view.do?id=1" class="status bg2">申购中</a>
-			</li>
-			
-			<li>
-				<div class="head">
-					<span class="kind icon-invest icon-invest-x"></span>
-					<span class="name">借款标题</span>
-				</div>
-				<div class="content">
-					<div class="fc0 tac l1">
-						<div>期限：<span class="fsd fc1 fwb">30</span>天</div>
-						<div class="ellipsis"><span class="fsg fwb">60000</span>元</div>
-					</div>
-					<div class="l2">
-						<div class="income" data-rate='20.00%'>
-						<!--这里的数据由js获取data-rate属性生成-->
-						</div>
-						<div class="fc0 fsa">预计年化净收益率</div>
-					</div>
-					<div class="l3">
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='20%' class="bar-inner fl bg1"></span>
-							</div>
-							<div class="fr bar-title">剩余24天</div>
-						</div>
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='40%' class="bar-inner fl bg2"></span>
-							</div>
-							<div class="fr bar-title">
-							40%</div>
-						</div>
-					</div>
-				</div>
-				<a href="${path}project/view.do?id=1" class="status bg2">申购中</a>
-			</li>
-			
-			<li>
-				<div class="head">
-					<span class="kind icon-invest icon-invest-x"></span>
-					<span class="name">借款标题</span>
-				</div>
-				<div class="content">
-					<div class="fc0 tac l1">
-						<div>期限：<span class="fsd fc1 fwb">5</span>个月</div>
-						<div class="ellipsis"><span class="fsg fwb">80000</span>元</div>
-					</div>
-					<div class="l2">
-						<div class="income" data-rate='100.00%'>
-						<!--这里的数据由js获取data-rate属性生成-->
-						</div>
-						<div class="fc0 fsa">预计年化净收益率</div>
-					</div>
-					<div class="l3">
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='100%' class="bar-inner fl bg1"></span>
-							</div>
-							<div class="fr bar-title">剩余0天</div>
-						</div>
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='100%' class="bar-inner fl bg2"></span>
-							</div>
-							<div class="fr bar-title">
-							100%</div>
-						</div>
-					</div>
-				</div>
-				<a href="${path}project/view.do?id=1" class="status bg2">正在还款</a>
-			</li>
-			
-			<li>
-				<div class="head">
-					<span class="kind icon-invest icon-invest-x"></span>
-					<span class="name">借款标题</span>
-				</div>
-				<div class="content">
-					<div class="fc0 tac l1">
-						<div>期限：<span class="fsd fc1 fwb">5</span>个月</div>
-						<div class="ellipsis"><span class="fsg fwb">80000</span>元</div>
-					</div>
-					<div class="l2">
-						<div class="income" data-rate='80.00%'>
-						<!--这里的数据由js获取data-rate属性生成-->
-						</div>
-						<div class="fc0 fsa">预计年化净收益率</div>
-					</div>
-					<div class="l3">
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='80%' class="bar-inner fl bg1"></span>
-							</div>
-							<div class="fr bar-title">剩余6天</div>
-						</div>
-						<div class="barbox">
-							<div class="percentbar fl">
-								<span data-width='80%' class="bar-inner fl bg2"></span>
-							</div>
-							<div class="fr bar-title">
-							80%</div>
-						</div>
-					</div>
-				</div>
-				<a href="${path}/project/view.do?id=5" class="status bg2">满标待审中</a>
-			</li>
+			<!--# }  -->
 			
 		</ul>
 	</div>
