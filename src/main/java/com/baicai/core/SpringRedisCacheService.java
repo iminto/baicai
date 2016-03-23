@@ -147,11 +147,7 @@ public class SpringRedisCacheService {
 	 */     
 	public void returnConnection(Jedis jedis) {          
 		if (null != jedis) {             
-			try {                  
-				jedisPool.returnResource(jedis);              
-			} catch (Exception e) {
-				jedisPool.returnBrokenResource(jedis);
-			}          
+			jedis.close();                      
 		}      
 	}  
 	
@@ -161,7 +157,7 @@ public class SpringRedisCacheService {
 	 */
 	public void returnBorkenConnection(Jedis jedis) {
 		if (null != jedis) {              
-			jedisPool.returnBrokenResource(jedis);
+			jedis.close(); 
 		}      
 	}
 	
