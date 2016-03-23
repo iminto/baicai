@@ -95,8 +95,7 @@ public class SpringRedisCacheService {
 	 * @param 数据源      
 	 */     
 	public void setJedisPool(JedisPool JedisPool) {
-		this.jedisPool = JedisPool;      
-		
+		this.jedisPool = JedisPool;		
 		// 启动监听线程
 		new MonitorThread().start();
 	}       
