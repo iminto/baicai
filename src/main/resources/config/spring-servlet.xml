@@ -25,12 +25,12 @@
         ">
 
 	<!-- 自动扫描包名，这里只扫描controller -->
-	<context:component-scan base-package="com.baicai.controller"
-		use-default-filters="true">
+	<context:component-scan base-package="com.baicai.controller" use-default-filters="true">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 	</context:component-scan>
 	<!-- 默认的注解映射支持 -->
 	<context:annotation-config />
