@@ -51,6 +51,7 @@ public class Pagination {
 	}
 
 	public void setPage(Integer page) {
+		if(page==null) page=1;
 		this.page = page;
 	}
 
@@ -94,21 +95,11 @@ public class Pagination {
 	}
 	
 	/**
-	 * 生成连接字符串，可用于GET方式的分页，待补充
+	 * TODO：生成连接字符串，可用于GET方式的分页，待补充
 	 * @return
 	 */
 	public String generateLink(){
 		return "";
 	}
-
-	@Override
-	public String toString() {
-		return "Pagination [total=" + total + ", pageSize=" + pageSize
-				+ ", page=" + page + ", pageParaMap=" + pageParaMap
-				+ ", pageTotal=" + pageTotal + ", offset=" + offset + ", list="
-				+ list + "]";
-	}
-
-	
 
 }
