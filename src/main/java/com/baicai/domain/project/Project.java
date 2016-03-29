@@ -10,7 +10,8 @@ import com.baicai.core.Model;
  */
 public class Project extends Model{
 	private Integer id;//
-	private Long proId;// 逻辑主键
+	private long proId;// 逻辑主键
+	private long uid;//借款人
 	private String proName;// 借款标题
 	private Integer proAccount;// 借款金额，单位分
 	private Integer proAccountYes;// 已投标金额，单位分
@@ -55,7 +56,15 @@ public class Project extends Model{
 		return proId;
 	}
 
-	public void setProId(Long proId) {
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+	public void setProId(long proId) {
 		this.proId = proId;
 	}
 
