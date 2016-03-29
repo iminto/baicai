@@ -19,7 +19,7 @@ public class InvestController {
 	public String invest(HttpServletRequest request,HttpServletResponse response){
 		Integer page=NumberHelper.str2int(request.getParameter("page"));
 		Pagination proJectList=projectService.getProjectList(page);
-		request.setAttribute("proList", proJectList);
+		request.setAttribute("pages", proJectList);
 		return "/views/index/invest";		
 	}
 
