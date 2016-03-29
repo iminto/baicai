@@ -61,7 +61,7 @@
 				class="col-5">期限</span> <span class="col-6">操作</span>
 		</div>
 		<ul class="invest-list">
-		<!--# for(pro in proList.list){  -->
+		<!--# for(pro in pages.list){  -->
 			<li><span class="col-1"> <span
 					class="kind icon-invest icon-invest-x"
 					style="color: red; text-indent: 5px; line-height: 25px; font-weight: bold; overflow: hidden;">信用标</span>
@@ -80,34 +80,8 @@
 			<!--# }  -->
 		</ul>
 
-		<div class="pagetion_box">
-			<form id="pageForm" class="form-inline" method="get">
-				<input id="page" type="hidden" name="page" />
-				<ul class="pagination">
-					<li><a href="#" onclick="goPage(0);">首页</a></li>
-					<li class="active"><a href="#" onclick="goPage(1);"><span>1</span></a></li>
-					<li><a href="#" onclick="goPage(2);">2</a></li>
-					<li><a href="#" onclick="goPage(3);">3</a></li>
-					<li><a href="#" onclick="goPage(4);">4</a></li>
-					<li><a href="#" onclick="goPage(5);">5</a></li>
-					<li><a href="#" onclick="goPage(83);">尾页</a></li>
-					<li><input type="text" id="tpage"
-						onkeydown="if (event.keyCode==13){turnPage();}"></li>
-					<li><span>共83页，每页10条，总共827条</span></li>
-				</ul>
-			</form>
-
-			<script type="text/javascript">
-				var goPage = function(page) {
-					$("#page").val(page);
-					$("#pageForm").submit();
-				};
-				var turnPage = function() {
-					$("#page").val($("#tpage").val());
-					$("#pageForm").submit();
-				}
-			</script>
-		</div>
+		<!--# include("/tags/pages.htm",{"pages":pages}){} -->
+		
 	</div>
 </div>
 <script>

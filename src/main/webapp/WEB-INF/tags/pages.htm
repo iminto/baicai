@@ -1,0 +1,52 @@
+<!--#  
+	//分页组件 
+	var range = 8;//显示多少个连接，超过这个值要处理
+	var begin = 1;
+	var end = 0;
+	var pageNumber = 10;//每页条数
+	var totalPages = 1;
+	if (pages == null) { //处理页面可能误用导致的空指针
+		pageNumber = 10;
+		totalPages = 1;
+	} else {
+		pageNumber = pages.pageSize;//每页条数
+		totalPages = pages.pageTotal;//总页数
+	}
+	if (range >= totalPages) {
+		begin = 1;
+		end = totalPages;
+	} else {
+		begin = pages.page - 4 < 0 ? 1 : (pages.page - 4);
+		end = pages.page + 4 > totalPages ? totalPages : (pages.page+ 4);
+	}
+-->
+<div class="pagetion_box">
+	<form id="pageForm" class="form-inline" method="get">
+		<input id="page" type="hidden" name="page" />
+		<ul class="pagination">
+			<li><a href="#" onclick="goPage(1);">首页</a></li>
+			<!--#
+			for(var i=begin;i<=end;i++){
+			  -->
+			<li <!--# if(i==pages.page){  --> class="active" <!--# }  -->>
+			<a href="#" onclick="goPage(${i});"><span>${i}</span></a>
+			</li>
+			<!--# }  -->
+			<li><a href="#" onclick="goPage(${pages.pageTotal});">尾页</a></li>
+			<li><input type="text" id="tpage"
+				onkeydown="if (event.keyCode==13){turnPage();}"></li>
+			<li><span>共${pages.pageTotal}页，每页${pages.pageSize}条，总共${pages.total}条</span></li>
+		</ul>
+	</form>
+
+	<script type="text/javascript">
+		var goPage = function(page) {
+			$("#page").val(page);
+			$("#pageForm").submit();
+		};
+		var turnPage = function() {
+			$("#page").val($("#tpage").val());
+			$("#pageForm").submit();
+		}
+	</script>
+</div>
