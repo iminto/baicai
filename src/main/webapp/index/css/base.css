@@ -2035,7 +2035,7 @@ div .font-org{
 }
 .pagination li {
   line-height: 25px;
-display: inline-block;
+  display: inline-block;
   *display: inline;
   zoom:1;
   letter-spacing: normal;  
@@ -2066,8 +2066,9 @@ display: inline-block;
 .pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
 	background-color:#eee
 }
-.pagination>li.active>a{
+.pagination>li.active>a>span {
 	background-color:#eee;
+	border: 1px solid #aaa;
 }
 #pageForm span {
 	height: 18px;
@@ -2075,7 +2076,7 @@ display: inline-block;
 	line-height: 18px;
 	color: #aaa;
 	padding: 0 7px;
-	border: 1px solid #aaa;
+	
 	border-radius: 3px;
 }
 
