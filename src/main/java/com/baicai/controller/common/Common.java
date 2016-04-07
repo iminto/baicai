@@ -51,5 +51,10 @@ public class Common {
 	public String html(HttpServletRequest request, @PathVariable String page){
 		return "/html/"+page;
 	}
+	
+	@RequestMapping("/404")
+	public String Error404(HttpServletRequest request,HttpServletResponse resp){
+		return "/views/public/404";
+	}
 
 }
