@@ -29,7 +29,7 @@
 			<MaxFileSize>10MB</MaxFileSize>
 		</triggeringPolicy>
 		<!-- 过滤器，只记录INFO级别的日志 -->
-		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
@@ -42,5 +42,6 @@
 	<!-- root 默认日志配置 -->
 	<root level="info">
 		<appender-ref ref="stdout" />
+		<appender-ref ref="dailyRollingFileAppender" />
 	</root>
 </configuration>
