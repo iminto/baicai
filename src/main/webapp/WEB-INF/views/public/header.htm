@@ -1,0 +1,76 @@
+<!--# var path =request.scheme+"://"+request.serverName+":"+request.serverPort+request.contextPath+"/"; -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>首页</title>
+<link rel="stylesheet" href="${path }index/css/base.css">
+<script>var webPath="${path}";</script>
+<script src="${path }js/jquery.min.js"></script>
+<script src="${path }js/layer/layer.js"></script>
+<script src="${path }index/js/main.js"></script>
+<script src="${path }index/js/lrtk.js"></script>
+<link rel="stylesheet" href="${path }index/css/lrtk.css">
+</head>
+<body>
+	<div id="top">
+		<div id="izl_rmenu" class="izl-rmenu">
+			<a href="tencent://Message/?Uin=363575104&websiteName=baicai.me&Menu=yes" class="btn btn-qq"></a>
+			<div class="btn btn-wx">	
+				<img class="pic" src="${path }index/images/weixin.jpg" onclick="window.location.href=''"/>
+			</div>
+			<div class="btn btn-phone">
+				<div class="phone">13484230000</div>
+			</div>
+			<div class="btn btn-top">
+			</div>
+		</div>
+	</div>
+<div class="topper">
+		<div class="clearfix wrapper">
+			<p class="fl topper-tel-box">客服热线<strong class='topper-tel'>400-120-334</strong></p>
+			<div class="fr topper-links">
+				<a class="mr20" href="">帮助中心</a>
+				<a class="mr20 topper-rl" href="${path }user/login.jsp">会员登录</a>
+				<a class="topper-rl" href="${path }user/register.jsp">会员注册</a>				
+			</div>
+		</div>
+	</div>
+
+	<div class="navbox">
+		<div class="clearfix wrapper">
+			<a class="fl navbox-logo" href="${path }">
+				<img src="${path}/index/images/che_logo.jpg">
+			</a>
+			<ul class="nav fr">
+				<li class="nav-a">
+					<a href="${path}index.do">首页</a>
+				</li>
+				<li class="nav-b">
+
+					<a href="${path }index/safety.jsp">安全保障</a>
+
+				</li>
+				<li class="nav-c">
+					<a href="${path }invest.do">我要投资</a>
+				</li>
+				<li class="nav-d">
+					<a href="${path }project/borrow.do">我要借款</a>
+				</li>
+				<li class="nav-e">
+					<a href="${path }shop/index.do">积分商城</a>
+				</li>
+				<li class="nav-f">
+					<a href="${path }usercenter/home.do">用户中心</a>
+				</li>
+				<li class="nav-g">
+					<a href="${path }article/aboutus/about_company.do">新手指导</a>
+				</li>
+				<li class="nav-h">
+					<a href="${path }article/aboutus/about_company.do">关于我们</a>
+				</li>
+			</ul>
+		</div>
+	</div>
