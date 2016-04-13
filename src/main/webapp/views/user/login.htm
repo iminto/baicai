@@ -1,0 +1,57 @@
+<!--# include("/views/public/header.htm"){} -->
+<link rel="stylesheet" href="${path }/user/css/rl.css">
+<!--主要内容开始-->
+
+<div class="wrapper">
+	<div class="log-box">
+		<div class="log-figure"></div>
+		<div class="log-content">
+			<form id="login-form" action="${path}/user/login.do?referer=${param.referer!}" method="post">
+				<div class="item">
+					<label class="name"></label> <input class="input"
+						placeholder="请输入用户名" name="username" id="LoginForm_username"
+						type="text" />
+					<div class="form_error">
+						<div class="errorMessage" id="LoginForm_username_em_"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<label class="pass"></label> <input class="input"
+						placeholder="请设置密码" name="password" id="LoginForm_password"
+						type="password" />
+					<div class="form_error">
+						<div class="errorMessage" id="LoginForm_password_em_"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<label class="yzm"></label> <input class="input" placeholder="验证码"
+						style="width: 115px" name="authcode" id="LoginForm_authcode"
+						type="text" /> <span class="ml20"> <img alt="点击换图"
+						title="看不清楚?请点击刷新验证码"
+						style="vertical-align: middle; cursor: pointer;" id="yw0"
+						src="${path }/common/valicode.do"
+						onclick="this.src = '${path }/common/valicode.do?' + Math.random();" />
+					</span>
+					<div class="form_error">
+						<div class="errorMessage" id="LoginForm_authcode_em_"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item lfc2">
+					<!-- <input type="checkbox" name="">记住账号 -->
+				</div>
+				<div class="item">
+					<input class="btn-bbc1 submit" type="submit" value="登陆">
+				</div>
+				<div class="mt30 tac">
+					<a class="fc1" href="${path }/user/register.jsp">免费注册</a> <span
+						class="textdivier">|</span> <a href="/site/getpwd.html">忘记密码</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--主要内容结束-->
+<!--# include("/views/public/footer.htm"){} -->
