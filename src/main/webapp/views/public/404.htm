@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="">
+<title>404 Not Found</title>
+<style>
+/***** 10.7 未找到页面 *****/
+a{text-decoration: none;}
+a:hover{text-decoration: none;}
+.notfoundpanel {
+    text-align: center;
+    margin-top: 10%;
+    width: 600px;
+    margin: 10% auto 0 auto;
+}
+
+.notfoundpanel h1 {
+    font-size: 130px;
+    font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    line-height: 130px;
+}
+
+.notfoundpanel h3 {
+    color: #333;
+    margin: 0;
+}
+
+.notfound h4 {
+    font-size: 14px;
+}
+
+.notfoundpanel form {
+    width: 350px;
+    margin: 20px auto 0 auto;
+}
+
+.notfoundpanel .form-control {
+    width: 250px;
+    float: left;
+}
+.text-warning {
+    color: #f59c1a!important;
+}
+.alert{padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px;font-size:10px}
+.alert h4{margin-top:0;color:inherit}
+.alert .alert-link{font-weight:700}
+.alert>p,.alert>ul{margin-bottom:0}.alert>p+p{margin-top:5px}
+.alert-warning{color:#8a6d3b;background-color:#fcf8e3;border-color:#faebcc}.alert-warning hr{border-top-color:#f7e1b5}.alert-warning .alert-link{color:#66512c}
+.btn {
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   border-radius: 3px;
+   /*line-height: 20px;*/
+   -moz-transition: all 0.2s ease-out 0s;
+   -webkit-transition: all 0.2s ease-out 0s;
+   transition: all 0.2s ease-out 0s;
+   padding: 6px 15px;
+   font-size:12px;
+   cursor:pointer;
+}
+
+.btn:focus {
+	outline: none;
+}
+
+.btn.btn-primary {
+    color: #fff;
+    background: #348fe2;
+    border-color: #348fe2;
+}
+
+.btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+    background: #2a72b5;
+    border-color: #2a72b5;
+}
+</style>
+</head>
+<body class="notfound">
+	<section>
+		<div class="notfoundpanel">
+			<h1 class="text-warning">
+				<i class="fa fa-warning"></i>404!
+			</h1>
+			<div class="alert alert-warning">
+				<i class="fa fa-warning"></i> 抱歉！您要查看的页面不存在！Page not found!
+			</div>
+			<div class="text-center m-t-20">
+				<a class="btn btn-primary" href="/"><i
+					class="fa fa-home"></i> 主页</a> <a class="btn btn-primary"
+					href="javascript:history.back();"><i class="fa fa-reply"></i>
+					返回上一步</a>
+			</div>
+		</div>
+		<!-- notfoundpanel -->
+	</section>
+</html>
