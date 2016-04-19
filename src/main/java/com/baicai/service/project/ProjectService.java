@@ -1,6 +1,8 @@
 package com.baicai.service.project;
 
 import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baicai.core.BaseService;
@@ -17,6 +19,7 @@ public class ProjectService extends BaseService{
 		return projectDAO.findProjectsOnIndex(cnt);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Pagination getProjectList(Integer page){
 		Pagination pager=new Pagination();
 		String sql_where = " 1  ";
@@ -24,9 +27,9 @@ public class ProjectService extends BaseService{
 		int count=dao.queryForInt(DaoUtil.format(countSQL));
 		pager.setTotal(count);
 		pager.setPage(page);
-		String sql="SELECT *  FROM {project} WHERE "+sql_where+" order by proStatus ASC LIMIT "+pager.getOffset()+", "+pager.getPageSize();
-		List<Project> list=dao.queryForList(Project.class, DaoUtil.format(sql));
-		pager.setList(list);		
+		String sql="SELECT *  FROM {project} WHERE "+sql_where+" order by proStatus ASC LIMIT ?,?";
+		List<Project> list=dao.queryForList(Project.class, DaoUtil.format(sql),new Object[]{pager.getOffset(),pager.getPageSize()});
+		pager.setList(list);	
 		return pager;
 	}
 }
