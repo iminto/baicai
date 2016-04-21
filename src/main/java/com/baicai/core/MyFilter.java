@@ -28,9 +28,11 @@ public class MyFilter implements Filter {
 		Cookie userLogin = BaseTool.getCookie(request, "userlogin");
 		Cookie token=BaseTool.getCookie(request, "token");
 		req.setAttribute("path", req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+request.getContextPath()+"/");
-		if (path.indexOf("/user/login") != -1 || path.indexOf("/user/reg")!=-1 ) {
+		if (path.indexOf("/user/login") != -1 || path.indexOf("/user/reg")!=-1||path.indexOf("/user/doreg")!=-1 ) {
+			//如果说是登陆或注册的首页，允许通过
 			chain.doFilter(req, res);
 		} else if (path.indexOf("/user") != -1 || path.indexOf("/usercenter") != -1 || path.indexOf("/safecenter") != -1) {
+			//如果不是登陆或注册的首页，但是又包含user的前缀
 			if (userLogin == null || token==null||!BaseTool.validCookie(userLogin, token)) {
 				response.sendRedirect(contextPath + "/user/login.jsp");
 			} else {
