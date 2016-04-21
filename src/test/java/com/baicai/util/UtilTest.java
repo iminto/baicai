@@ -8,8 +8,10 @@
 package com.baicai.util;
 
 import static org.junit.Assert.assertEquals;
+import java.io.IOException;
 import org.junit.Test;
 import com.baicai.core.BaseTool;
+import com.baicai.util.help.GenModel;
 
 public class UtilTest {
 	
@@ -19,5 +21,10 @@ public class UtilTest {
 		String cookie=BaseTool.encryptCookieValue(uid);
 		String cookiede=BaseTool.decryptCookie(cookie);
 		assertEquals(uid,cookiede);
+	}
+	
+	@Test
+	public void genTable() throws IOException{
+		GenModel.generetor("p2p_user");
 	}
 }
