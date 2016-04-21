@@ -1,0 +1,83 @@
+<!--# include("/views/public/header.htm"){} -->
+<link rel="stylesheet" href="${path }/user/css/rl.css">
+<!--主要内容开始-->
+
+<div class="wrapper">
+	<div class="reg-box mt30">
+		<h1 class="reg-head step-one hidetext1">1请填写用户信息</h1>
+		<div class="reg-content">
+			<form id="register-form" action="${path}user/doreg.do" method="post">
+				<div class="item">
+					<span>用户名：</span> <label class="name"></label> <input class="input"
+						placeholder="请输入用户名" name="userName" id="Register_userName"
+						type="text" maxlength="16" />
+					<div class="form_error">
+						<div class="errorMessage" id="Register_userName_em"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<span>密 码：</span> <label class="pass"></label> <input class="input"
+						placeholder="请设置密码" name="loginPass" id="Register_loginPass"
+						type="password" maxlength="32" />
+					<div class="form_error">
+						<div class="errorMessage" id="Register_loginPass_em"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<span>确认密码：</span> <label class="pass2"></label> <input
+						class="input" placeholder="请设置密码" name="reloginPass"
+						id="Register_reloginPass" type="password" />
+					<div class="form_error">
+						<div class="errorMessage" id="Register_reloginPass_em"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<span>邮箱：</span> <label class="name"></label> <input class="input"
+						placeholder="" name="email" id="Register_email" type="text" />
+					<div class="form_error">
+						<div class="errorMessage" id="Register_email_em"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<span>推荐人：</span> <label class="recman"></label> <input
+						class="input" placeholder="推荐人手机" name="recommend"
+						id="Register_recommend" type="text" />
+					<div class="form_error">
+						<div class="errorMessage" id="Register_recommend_em"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<span>验证码：</span> <label class="yzm"></label> <input class="input"
+						placeholder="验证码" style="width: 115px" maxlength="4"
+						name="valicode" id="Register_valicode" type="text" /> <span
+						class="ml20"> <img alt="点击换图" title="看不清楚?请点击刷新验证码"
+						style="vertical-align: middle; cursor: pointer;" id="valicode"
+						src="${path }/common/valicode.do"
+						onclick="this.src = '${path }/common/valicode.do?' + Math.random();" />
+					</span>
+					<div class="form_error">
+						<div class="errorMessage" id="Register_valicode_em"
+							style="display: none"></div>
+					</div>
+				</div>
+				<div class="item">
+					<p class="ml40">
+						<input type="checkbox" checked="checked">我已经阅读并同意 <a
+							class="fc0" href="/upload/data/register.doc">《注册协议》</a>
+					</p>
+					<div class="form_error"></div>
+				</div>
+				<div class="item">
+					<button type="submit" class="btn-bbc1 next-step">下一步</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--主要内容结束-->
+<!--# include("/views/public/footer.htm"){} -->
