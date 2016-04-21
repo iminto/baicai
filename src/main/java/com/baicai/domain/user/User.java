@@ -1,12 +1,14 @@
 package com.baicai.domain.user;
 
+import com.baicai.core.Model;
+
 /**
  * @Description: 用户模型类
  * @author: waitfox@qq.com
  * @version: 0.01
  * @date: 2016/04/21 21:50:28
  */
-public class User {
+public class User extends Model{
 	private Integer userId;// 用户id
 	private String userName;// 用户登录名
 	private String loginPass;// 登陆密码

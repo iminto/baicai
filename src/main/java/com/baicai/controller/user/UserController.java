@@ -24,6 +24,7 @@ public class UserController {
 	
 	@RequestMapping("/doreg")
 	public String doRegister(HttpServletRequest request,HttpServletResponse response,User user){
+		user.save();
 		return "/views/user/register";
 	}
 
