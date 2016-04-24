@@ -1,17 +1,17 @@
 package com.baicai.service.project;
 
 import java.util.List;
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baicai.core.BaseService;
+import com.baicai.core.BaseDAO;
 import com.baicai.core.DaoUtil;
 import com.baicai.dao.project.ProjectDAO;
 import com.baicai.domain.project.Project;
 import com.baicai.domain.system.Pagination;
 @Service
-public class ProjectService extends BaseService{
+public class ProjectService{
+	@Autowired
+	protected BaseDAO dao;
 	@Autowired
 	private ProjectDAO projectDAO;
 	
