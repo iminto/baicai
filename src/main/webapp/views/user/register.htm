@@ -1,4 +1,5 @@
 <!--# include("/views/public/header.htm"){} -->
+<link rel="stylesheet" href="${path }user/css/rl.css">
 <!--主要内容开始-->
 
 <div class="wrapper">
@@ -12,7 +13,7 @@
 						type="text" maxlength="16" />
 					<div class="form_error">
 						<div class="errorMessage" id="Register_userName_em"
-							style="display: none">${err.userName}</div>
+							style="display: none">${err.userName!}</div>
 					</div>
 				</div>
 				<div class="item">
@@ -20,7 +21,7 @@
 						placeholder="请设置密码" name="loginPass" id="Register_loginPass"
 						type="password" maxlength="32" />
 						<span class="errorMessage" id="Register_loginPass_em"
-							style="display:inline;clear:both">${err.loginPass}</span>
+							style="display:inline;clear:both">${err.loginPass!}</span>
 				</div>
 				<div class="item">
 					<span>确认密码：</span> <label class="pass2"></label> <input
