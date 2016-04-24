@@ -64,19 +64,19 @@ public class Model {
 		for (Field field : at) {
 			field.setAccessible(true);
 			String Tcolumn = field.getName().toLowerCase();// 字段名转为小写，以符合MySQL里的习惯
-			try {
-				if (field.get(this) != null
-						|| (field.isAnnotationPresent(Column.class) == true && field
-								.getAnnotation(Column.class).insertZero() == true)) {
-					Column dColumn = field.getAnnotation(Column.class);
-					Tcolumn = dColumn != null ? dColumn.column() : field.getName();
-					if (field.getModifiers()==25) continue;//如果是规则字段，跳出
-					sb.append("`").append(Tcolumn).append("`,");
-					after.append(":").append(field.getName()).append(",");
+				try {
+					if (field.get(this) != null
+							|| (field.isAnnotationPresent(Column.class) == true && field
+									.getAnnotation(Column.class).insertZero() == true)) {
+						Column dColumn = field.getAnnotation(Column.class);
+						Tcolumn = dColumn != null ? dColumn.column() : field.getName();
+						if (field.getModifiers()==25) continue;//如果是规则字段，跳出
+						sb.append("`").append(Tcolumn).append("`,");
+						after.append(":").append(field.getName()).append(",");
+					}
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-
-			}
 
 		}
 		fullSQL = sb.substring(0, sb.length() - 1);
