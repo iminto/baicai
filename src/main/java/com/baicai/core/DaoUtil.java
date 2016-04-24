@@ -9,8 +9,9 @@ import com.baicai.util.PropertiesTool;
  *
  */
 public class DaoUtil {
+	public static final String tableFix=PropertiesTool.get("system", "tableFix");
 	public static String format(String sql) {
-		String result = sql.replace("{",  PropertiesTool.get("system", "tableFix"));
+		String result = sql.replace("{",  tableFix);
 		result = result.replace("}", " ");
 		return result;
 	}
