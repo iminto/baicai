@@ -11,43 +11,35 @@
 					<span>用户名：</span> <label class="name"></label> <input class="input"
 						placeholder="请输入用户名" name="userName" id="Register_userName"
 						type="text" maxlength="16" />
-					<div class="form_error">
-						<div class="errorMessage" id="Register_userName_em"
-							style="display: none">${err.userName!}</div>
-					</div>
+						<span class="errorMessage" id="Register_userName_em"
+							style="display:inline;clear:both">(*${err.userName!})</span>
 				</div>
 				<div class="item">
 					<span>密 码：</span> <label class="pass"></label> <input class="input"
 						placeholder="请设置密码" name="loginPass" id="Register_loginPass"
 						type="password" maxlength="32" />
 						<span class="errorMessage" id="Register_loginPass_em"
-							style="display:inline;clear:both">${err.loginPass!}</span>
+							style="display:inline;clear:both">(*${err.loginPass!})</span>
 				</div>
 				<div class="item">
 					<span>确认密码：</span> <label class="pass2"></label> <input
 						class="input" placeholder="请设置密码" name="reloginPass"
 						id="Register_reloginPass" type="password" />
-					<div class="form_error">
-						<div class="errorMessage" id="Register_reloginPass_em"
-							style="display: none"></div>
-					</div>
+					<span class="errorMessage" id="Register_reloginPass_em"
+							style="display:inline;clear:both">(*)</span>
 				</div>
 				<div class="item">
 					<span>邮箱：</span> <label class="name"></label> <input class="input"
 						placeholder="" name="email" id="Register_email" type="text" />
-					<div class="form_error">
-						<div class="errorMessage" id="Register_email_em"
-							style="display: none"></div>
-					</div>
+						<span class="errorMessage" id="Register_email_em"
+							style="display: inline;clear:both">(*)</span>
 				</div>
 				<div class="item">
-					<span>推荐人：</span> <label class="recman"></label> <input
-						class="input" placeholder="推荐人手机" name="recommend"
+					<span>手机：</span> <label class="recman"></label> <input
+						class="input" placeholder="手机号" name="recommend"
 						id="Register_recommend" type="text" />
-					<div class="form_error">
-						<div class="errorMessage" id="Register_recommend_em"
-							style="display: none"></div>
-					</div>
+						<span class="errorMessage" id="Register_recommend_em"
+							style="display: inline;clear:both"></span>
 				</div>
 				<div class="item">
 					<span>验证码：</span> <label class="yzm"></label> <input class="input"
@@ -58,10 +50,8 @@
 						src="${path }/common/valicode.do"
 						onclick="this.src = '${path }/common/valicode.do?' + Math.random();" />
 					</span>
-					<div class="form_error">
-						<div class="errorMessage" id="Register_valicode_em"
-							style="display: none"></div>
-					</div>
+						<span class="errorMessage" id="Register_valicode_em"
+							style="display: inline;">(*)</span>
 				</div>
 				<div class="item">
 					<p class="ml40">
