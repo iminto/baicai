@@ -18,7 +18,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 /**
@@ -40,10 +39,6 @@ public class BaseDAO<T> {
 	private ShardedJedisPool shardedJedisPool;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BaseDAO.class);
-
-	public static Logger getLogger() {
-		return logger;
-	}
 
 	/***
 	 * 简单的查询语句，返回一个int，比如 select count(*) jdbcTemplate.queryForInt已经是不推荐的写法故绕了个弯
@@ -174,7 +169,7 @@ public class BaseDAO<T> {
 
 	public List<Map<String, Object>> queryForList(String sql, Object[] args) {
 		long begin = System.currentTimeMillis();
-		List list = jdbcTemplate.queryForList(sql, args);
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, args);
 		long end = System.currentTimeMillis();
 		printSQL(sql, args, end - begin);
 		return list;
@@ -182,7 +177,7 @@ public class BaseDAO<T> {
 	
 	public List<Map<String, Object>> queryForList(String sql, Map args) {
 		long begin = System.currentTimeMillis();
-		List list = namedParameterJdbcTemplate.queryForList(sql, args);
+		List<Map<String, Object>> list = namedParameterJdbcTemplate.queryForList(sql, args);
 		long end = System.currentTimeMillis();
 		printSQLMap(sql, args, end - begin);
 		return list;
@@ -281,17 +276,11 @@ public class BaseDAO<T> {
 	}
 
 	private void printSQL(String sql, Object[] params, long time) {
-		logger.info("  SQL: "
-				+ sql
-				+ (params != null ? "\nParams: " + Arrays.deepToString(params)
-						: "") + ",耗时：" + time + " 毫秒\n");
+		logger.info("  SQL: "+ sql+ (params != null ? "\nParams: " + Arrays.deepToString(params): "") + ",耗时：" + time + " 毫秒\n");
 	}
 	
 	private void printSQLMap(String sql, Map params, long time) {
-		logger.info("  SQL: "
-				+ sql
-				+ (params != null ? "\nParams: " + params
-						: "") + ",耗时：" + time + " 毫秒\n");
+		logger.info("  SQL: "+ sql+ (params != null ? "\nParams: " + params: "") + ",耗时：" + time + " 毫秒\n");
 	}
 	
 	public JdbcTemplate getJdbcTemplate() {
