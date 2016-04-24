@@ -14,6 +14,9 @@ input[type="checkbox"],input[type="radio"] {
 	position: relative;
 	margin-bottom: 16px;
 }
+.item .errorMessage{
+	color:#ff0303;
+}
 .item span{
 	display: inline-block;
 	width: 80px;
