@@ -1,5 +1,7 @@
 package com.baicai.domain.user;
 
+import com.baicai.annotation.Key;
+import com.baicai.annotation.ValidType;
 import com.baicai.core.Model;
 
 /**
@@ -9,8 +11,10 @@ import com.baicai.core.Model;
  * @date: 2016/04/21 21:50:28
  */
 public class User extends Model{
+	@Key
 	private Integer userId;// 用户id
 	private String userName;// 用户登录名
+	@ValidType(valid="password",message="密码字段不符合规范")
 	private String loginPass;// 登陆密码
 	private String payPass;// 支付密码
 	private String email;// 用户邮箱
@@ -30,6 +34,11 @@ public class User extends Model{
 	private Integer loginTime;// 登录时间
 	private String registerip;//
 	private Integer invitenum;// 邀请人数
+	
+	public static final String loginRule="loginRules";
+	public static final String[] loginRules={"userName","loginPass"};//登录时需要验证这些字段
+	public static final String regRule="regRules";
+	public static final String[] regRules={"userName","loginPass"};//注册时需要验证这些字段
 
 	public Integer getUserId() {
 		return userId;
