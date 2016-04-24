@@ -6,7 +6,7 @@
 	<!-- 控制台日志输出 -->
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS}[%p]: %m%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %logger{90} [%p]: %m%n</pattern>
 		</layout>
 	</appender>
 	<appender name="dailyRollingFileAppender"
@@ -19,7 +19,7 @@
 			<MaxHistory>30</MaxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{90} -
 				%msg%n
 			</pattern>
 		</layout>
