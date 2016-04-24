@@ -216,14 +216,14 @@ public class BaseDAO<T> {
 	}
 
 	public int insert(T t) {
+		long begin = System.currentTimeMillis();
 		Field[] at = t.getClass().getDeclaredFields();
 		String tableName = "";
 		try {
 			Table table = (Table) t.getClass().getAnnotation(Table.class);
 			tableName = table.name();// 通过注解获取表名
 		} catch (Exception e) {
-			logger.warn("获取表名注解失败，将使用类名作为表名，建议加上表名注解");
-			e.printStackTrace();
+			logger.warn("获取表名注解失败，将使用类名作为表名，建议加上表名注解"+e.getMessage());
 			tableName = t.getClass().getSimpleName().toLowerCase();
 		}
 		tableName=DaoUtil.tableFix+tableName;
@@ -251,9 +251,10 @@ public class BaseDAO<T> {
 		}
 		fullSQL = sb.substring(0, sb.length() - 1);
 		fullSQL += ") VALUES (" + after.substring(0, after.length() - 1) + (")");
-		logger.info(fullSQL + t);
 		KeyHolder holder = new GeneratedKeyHolder();
 		namedParameterJdbcTemplate.update(fullSQL, new BeanPropertySqlParameterSource(t),holder);
+		long end = System.currentTimeMillis();
+		printSQL(fullSQL,  end - begin);
 		return holder.getKey().intValue();
 	}
 
@@ -315,6 +316,10 @@ public class BaseDAO<T> {
 	private void printSQL(String sql, Object[] params, long time) {
 		logger.info("  SQL: " + sql + (params != null ? "\nParams: " + Arrays.deepToString(params) : "") + ",耗时：" + time
 				+ " 毫秒\n");
+	}
+	
+	private void printSQL(String sql, long time) {
+		logger.info("  SQL: " + sql + ",耗时：" + time+ " 毫秒\n");
 	}
 
 	private void printSQLMap(String sql, Map params, long time) {
