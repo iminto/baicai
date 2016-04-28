@@ -49,44 +49,6 @@ public class Model {
 			tableName = table.name();// 获取表名
 		}
 	}
-
-	/**
-	 * 直接将POJO存入数据库
-	 * 
-	 * @return
-	 */
-	public int save() {
-		Field[] at = this.getClass().getDeclaredFields();
-		StringBuilder sb = new StringBuilder(40);
-		sb.append("INSERT INTO `").append(tableName).append("` (");
-		StringBuilder after = new StringBuilder(48);// SQL后半部分
-		String fullSQL = "";
-		for (Field field : at) {
-			field.setAccessible(true);
-			String Tcolumn = field.getName().toLowerCase();// 字段名转为小写，以符合MySQL里的习惯
-				try {
-					if (field.get(this) != null
-							|| (field.isAnnotationPresent(Column.class) == true && field
-									.getAnnotation(Column.class).insertZero() == true)) {
-						Column dColumn = field.getAnnotation(Column.class);
-						Tcolumn = dColumn != null ? dColumn.column() : field.getName();
-						if (field.getModifiers()==25) continue;//如果是规则字段，跳出
-						sb.append("`").append(Tcolumn).append("`,");
-						after.append(":").append(field.getName()).append(",");
-					}
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
-				}
-
-		}
-		fullSQL = sb.substring(0, sb.length() - 1);
-		fullSQL += ") VALUES (" + after.substring(0, after.length() - 1)
-				+ (")");
-		logger.info(fullSQL + this);
-		int i=baseDao.getNamedParameterJdbcTemplate().update(fullSQL,
-				new BeanPropertySqlParameterSource(this));
-		return i;
-	}
 	
 	/**
 	 * 更新模型，要求必须有主键，并且主键必须有值
