@@ -2,9 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
@@ -26,7 +26,13 @@
 
 	<!-- 读取数据库配置文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
-	  
+	<bean id="sch" class="com.baicai.supple.ScheduleHelp" />
+	<task:scheduled-tasks scheduler="myScheduler">
+		<task:scheduled ref="sch" method="task2"  fixed-delay="1000000" />
+		<task:scheduled ref="sch" method="task1"  cron="0 0 1 * * *" />
+	</task:scheduled-tasks>
+	<task:scheduler id="myScheduler" pool-size="2" />
+
 	<bean id="defaultDataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
@@ -39,18 +45,18 @@
 		<property name="maxIdle" value="5" />
 		<property name="minIdle" value="2" />
 		<property name="timeBetweenEvictionRunsMillis" value="30000" />
-		<!--  <property name="testOnBorrow" value="true" />
-		<property name="validationQuery" value="SELECT 1 " />
-		-->
+		<!-- <property name="testOnBorrow" value="true" /> <property name="validationQuery" 
+			value="SELECT 1 " /> -->
 		<property name="validationInterval" value="30000" />
 	</bean>
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-	<property name="dataSource" ref="defaultDataSource" />
+		<property name="dataSource" ref="defaultDataSource" />
 	</bean>
-	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-	<constructor-arg ref="defaultDataSource" />
+	<bean id="namedParameterJdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="defaultDataSource" />
 	</bean>
-	
+
 	<context:component-scan base-package="com.baicai.service" />
 	<context:component-scan base-package="com.baicai.dao" />
 	<context:component-scan base-package="com.baicai.core" />
@@ -73,12 +79,12 @@
 			<tx:method name="remove*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
-	
+
 	<bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration"
 		init-method="init">
 		<property name="configFileResource" value="classpath:beetl.properties" />
 	</bean>
-	
+
 	<bean name="beetlViewResolver" id="viewResolver"
 		class="org.beetl.ext.spring.BeetlSpringViewResolver">
 		<property name="suffix" value=".htm" />
@@ -87,6 +93,6 @@
 		<!-- 多GroupTemplate，需要指定使用的bean -->
 		<property name="config" ref="beetlConfig" />
 	</bean>
-	
-	<import resource="redis-context.xml"/>
+
+	<import resource="redis-context.xml" />
 </beans>
