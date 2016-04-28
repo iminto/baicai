@@ -9,13 +9,15 @@ import org.springframework.beans.factory.xml.ResourceEntityResolver;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
  
 @Component
 public class SpringUtils implements BeanFactoryPostProcessor,
-        BeanPostProcessor, ApplicationContextAware {
+        BeanPostProcessor, ApplicationContextAware, ApplicationListener<ContextRefreshedEvent> {
  
     private static ConfigurableApplicationContext applicationContext = null;
  
@@ -76,4 +78,11 @@ public class SpringUtils implements BeanFactoryPostProcessor,
     public static boolean containsBean(String beanName) {
         return getConfigurableListableBeanFactory().containsBeanDefinition(beanName);
     }
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent eve) {
+		if (eve.getApplicationContext().getParent() == null) {
+			System.out.println("Application完毕");
+		}
+	}
 }
