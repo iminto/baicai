@@ -6,11 +6,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.web.util.HtmlUtils;
-
+/**
+* @Description: 封装给JSP的自定义函数，当然现在不使用JSP模板引擎了
+* @author 猪肉有毒 waitfox@qq.com  
+* @date 2016年5月7日 下午2:45:38 
+* @version V1.0  
+* 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
+ */
 public class JspUtil {
 	public static String encode(String param){  
         try {
@@ -27,16 +31,6 @@ public class JspUtil {
 	 */
 	public static Integer day(Integer time){
 		int day=(int) Math.floor(time/86400);
-		return day;
-	}
-	
-	/**
-	 * 获取相对时间，针对现在的时间戳
-	 * @param time
-	 * @return
-	 */
-	public static Integer rday(Integer time){
-		int day=(int) Math.floor((time-CommonUtil.getTime())/86400);
 		return day;
 	}
 	

@@ -9,9 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -71,34 +69,6 @@ public class CommonUtil {
 		inputRandomCode = inputRandomCode.toUpperCase();
 		inputRandomCode = encrypt(inputRandomCode, salt);
 		return inputRandomCode.equals(md5RandomCode);
-	}
-
-	/**
-	 * 获取时间戳
-	 * 
-	 * @return
-	 */
-	public static int getTime() {
-		return (int) (System.currentTimeMillis() / 1000);
-	}
-
-	public static String time2Date(Integer time, String format) {
-		String date = "";
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		date = sdf.format(new Date(time * 1000l));
-		return date;
-
-	}
-	
-	public static int Date2Time(String dateStr,String format){ 
-        Date date = new Date();   
-        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
-        try {  
-            date = sdf.parse(dateStr);  
-           return (int) (date.getTime()/1000);  
-        } catch (Exception e) {  
-            return 0; 
-        }  
 	}
 
 	public static String md5(String strs) {
