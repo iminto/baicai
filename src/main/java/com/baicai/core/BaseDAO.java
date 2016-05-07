@@ -140,6 +140,7 @@ public class BaseDAO<T> {
 			obj = jdbcTemplate.queryForObject(getDoneSQL(sql), new BeanPropertyRowMapper(beanClass), args);
 		} catch (EmptyResultDataAccessException e) {
 			obj = null;
+			return null;
 		}
 		return (T) obj;
 	}
