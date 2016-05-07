@@ -1,13 +1,21 @@
 package com.baicai.controller.common;
 
+import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.HtmlUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baicai.core.Constant;
 
 /**
  * 控制器基类，封装控制器的必须属性
@@ -95,6 +103,83 @@ public class BaseController implements HandlerInterceptor{
 			return toJson(object);
 		}
 		return JSON.toJSONStringWithDateFormat(object, format, SerializerFeature.WriteDateUseDateFormat);
+	}
+	
+	/**
+	 * 添加Model消息
+	 * @param message
+	 */
+	protected void addMessage(Model model, String... messages) {
+		StringBuilder sb = new StringBuilder();
+		for (String message : messages) {
+			sb.append(message).append(messages.length > 1 ? "<br/>" : "");
+		}
+		model.addAttribute("message", sb.toString());
+	}
+	
+	/**
+	 * 添加Flash消息
+	 * 
+	 * @param message
+	 */
+	protected void addMessage(RedirectAttributes redirectAttributes, String... messages) {
+		StringBuilder sb = new StringBuilder();
+		for (String message : messages) {
+			sb.append(message).append(messages.length > 1 ? "<br/>" : "");
+		}
+		redirectAttributes.addFlashAttribute("message", sb.toString());
+	}
+	
+	/**
+	 * 客户端返回JSON字符串
+	 * 
+	 * @param response
+	 * @param object
+	 * @return
+	 */
+	protected String renderString(HttpServletResponse response, Object object) {
+		return renderString(response, JSON.toJSONString(object, SerializerFeature.BrowserCompatible), "application/json");
+	}
+
+	/**
+	 * 客户端返回字符串
+	 * 
+	 * @param response
+	 * @param string
+	 * @return
+	 */
+	protected String renderString(HttpServletResponse response, String string, String type) {
+		try {
+			response.reset();
+			response.setContentType(type);
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().print(string);
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+	}
+	
+	protected boolean isAjax(HttpServletRequest request){
+		boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+		return isAjax;
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		// String类型转换，将所有传递进来的String进行HTML编码，防止XSS攻击
+		binder.registerCustomEditor(String.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) {
+				setValue(text == null ? null : HtmlUtils.htmlEscape(text,Constant.CHARSET));
+			}
+
+			@Override
+			public String getAsText() {
+				Object value = getValue();
+				return value != null ? value.toString() : "";
+			}
+		});
 	}
 
 }
