@@ -11,7 +11,7 @@ import com.baicai.util.NumberHelper;
 
 @Controller
 @RequestMapping
-public class InvestController {
+public class InvestController extends BaseController{
 	@Autowired
 	private ProjectService projectService;
 	

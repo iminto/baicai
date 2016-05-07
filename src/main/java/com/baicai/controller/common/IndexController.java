@@ -11,7 +11,7 @@ import com.baicai.service.project.ProjectService;
 
 @Controller
 @RequestMapping
-public class IndexController {
+public class IndexController extends BaseController{
 	@Autowired
 	private ProjectService projectService;
 	
