@@ -7,14 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.baicai.controller.common.BaseController;
 import com.baicai.domain.user.User;
 import com.baicai.service.user.UserService;
 
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 
@@ -32,18 +31,23 @@ public class UserController extends BaseController{
 	public String doRegister(HttpServletRequest request, HttpServletResponse response, User user) {
 		Map<String, String> errorMap = new HashMap<String, String>();
 		if (user.validate(User.regRule)) {
-			if(userService.existUserByName(user.getUserName())){
+			if (userService.existUserByName(user.getUserName())) {
 				errorMap.put("userName", "用户名已存在");
-			}else if(userService.existUserByEmail(user.getEmail())){
+			} else if (userService.existUserByEmail(user.getEmail())) {
 				errorMap.put("userName", "邮箱已存在");
-			}else{
-				int i=userService.saveUser(user);
+			} else {
+				int i = userService.saveUser(user);
 			}
 		} else {
 			errorMap = user.getErrorMap();
 		}
-		request.setAttribute("err", errorMap);
-		return "/views/user/register";
+		if (errorMap.isEmpty()) {
+			request.setAttribute("userName", user.getUserName());
+			return "/views/user/register2";
+		} else {
+			request.setAttribute("err", errorMap);
+			return "/views/user/register";
+		}
 	}
 
 }

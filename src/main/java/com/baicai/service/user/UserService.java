@@ -1,12 +1,18 @@
 package com.baicai.service.user;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baicai.core.BaseDAO;
+import com.baicai.core.Constant;
 import com.baicai.core.DaoUtil;
 import com.baicai.dao.user.UserDAO;
 import com.baicai.domain.user.User;
+import com.baicai.util.CommonUtil;
+import com.baicai.util.PropertiesTool;
+import com.baicai.util.TimeHepler;
 /**
  * 
 * @Description: 前台用户相关的服务
@@ -22,6 +28,8 @@ public class UserService {
 	protected BaseDAO<User> dao;
 	@Autowired
 	private UserDAO userDAO;
+	@Autowired
+	private HttpServletRequest request;
 	
 	public boolean existUserByName(String userName){
 		String sql="SELECT count(*) FROM {user} WHERE userName=?";
@@ -36,6 +44,11 @@ public class UserService {
 	}
 	
 	public int saveUser(User u){
+		String password=CommonUtil.encrypt(u.getUserName(), u.getLoginPass());
+		u.setLoginPass(password);
+		u.setPayPass(password);//默认支付密码和登陆密码一样
+		u.setRegisterTime(TimeHepler.getUnixTime());
+		u.setRegisterip(request.getRemoteHost());
 		int result=userDAO.save(u);
 		return result;
 	}
