@@ -1,9 +1,22 @@
 package com.baicai.util;
+import java.security.SecureRandom;
 import java.util.Random;
-
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+/**
+ * 
+* @Description: 随机数生成器，JVM启动时加参数-Djava.security.egd=file:/dev/./urandom ，可以提高性能防止阻塞
+* 安全性比较高的场合，你需要使用SecureRandom
+* @author 猪肉有毒 waitfox@qq.com  
+* @date 2016年5月7日 下午2:50:02 
+* @version V1.0  
+* 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
+ */
 public class RandomHelper {
     private RandomHelper() {
     }
+    
+    private static Random random = new Random();
 
     private final static char[] alphabet = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', // 0
@@ -15,6 +28,7 @@ public class RandomHelper {
         'w', 'x', 'y', 'z', '0', '1', '2', '3', // 6
         '4', '5', '6', '7', '8', '9' // 7
     };
+
 
     /**
      * 限定范围内的随机数字。<br />
@@ -32,7 +46,7 @@ public class RandomHelper {
             min = max;
             n = -n;
         }
-        return min + new Random().nextInt(n);
+        return min + random.nextInt(n);
     }
 
     /**
@@ -72,5 +86,21 @@ public class RandomHelper {
      */
     public static String toTimeString(int radix) {
         return NumberHelper.dec2Any(System.currentTimeMillis(), radix);
+    }
+    
+    /**
+     * 生成一个更安全的随机数，当然也更慢。构造一个SecureRandom对象需要388ns
+     * @return
+     */
+    public int getSecInt(){
+    	return new SecureRandom().nextInt();
+    }
+    
+    /**
+     * 更快的UUID算法，但是随机性有所降低
+     * @return
+     */
+    public static UUID getUUID(){
+    	return new UUID(ThreadLocalRandom.current().nextLong(), ThreadLocalRandom.current().nextLong());
     }
 }
