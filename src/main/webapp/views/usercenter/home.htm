@@ -1,0 +1,240 @@
+<!--# include("/views/public/header.htm"){} -->
+<link rel="stylesheet" href="${path}user/css/rl.css">
+<!--主要内容开始-->
+<link rel="stylesheet" type="text/css" href="${path }/user/css/uc.css">
+<div class="wrapper">
+	<!--# include("/views/usercenter/left.htm"){} -->
+	<div class="content-mod-1 uc-content">
+				<div class="uc-head">
+					<h3 class="title">个人中心</h3>
+				</div>
+				<div class="ly_top">
+					<div class="head">
+                      <a href="##" onclick="uploaduserpic();">
+                        <img width="135" height="135" src="${path}user/images/public_images/default_header.jpg"/>
+                       </a>
+                    </div>
+                    <div class="username">
+                      <span style="font-size:22px;"></span> 您好，欢迎来到 <span>白菜贷！ -- 轻松理财 贷贷无忧</span>
+                    </div>
+                    <div class="integral">
+                        <ul>
+                           <li>普通用户</li>
+                           <li>可用积分:<font id="user_real_value">0</font>分</li>
+                           <li>	
+                        	 <input type="button" id="newday_btn" class="ly_btn" value="签到打卡吧" />
+								<script type="text/javascript">
+                                    $("#newday_btn").click(function(){
+                                        $.post("${path}usercenter/newday.do",{
+                                           },function(data){
+                                               var obj = eval(data);
+                                               if(obj.status == 1){
+                                                   layer.msg(obj.msg,{shift:1});
+                                                   $("#newday_btn").val('签到成功');
+                                                   $("#user_real_value").text('0');
+                                               }else{
+                                                    alert(obj.message);
+                                               }
+                                            });
+                                    });
+                                </script>
+                          <!-- <input type="button" class="ly_btn" value="今日已签到" /> -->
+						</li>
+                        </ul>
+                    </div>
+                    <div class="authentication">
+                       <span>认证管理:</span>
+							<a href="${path}safecenter/bind_phone.do"> 
+								<img src="${path}user/images/public_images/1_07.png" title="绑定手机"></a>
+							<a href="${path}safecenter/bind_email.do"> 
+								<img src="${path}user/images/public_images/1_09_1.png" title="绑定邮箱"></a> 
+							<a href="${path}safecenter/realname.do"> 
+								<img src="${path}user/images/public_images/1_11_1.png" title="实名认证"></a> 
+							<a href="${path}safecenter/change_pay_pass.do"> 
+								<img src="${path}user/images/public_images/1_13.png" title="交易密码"></a>
+                    </div>
+                    <div class="ip">
+                    	最后次登陆时间：2016-05-07</div>
+				</div>
+				<div class="uc-head">
+					<h3 class="title">用户总览</h3>
+				</div>
+				<div class="tabnav ucbg stats-box uc-bd">
+					<dl class="item item-bdr">
+						<dt class="fwb">用户总额</dt>
+						<dd class="fse mt10">￥<span class="fc1">0</span></dd>
+					</dl>
+					<dl class="item item-bdr">
+						<dt class="fwb">可用余额</dt>
+						<dd class="fse mt10">￥<span class="fc1">0</span></dd>
+					</dl>
+					<dl class="item item-bdr">
+						<dt class="fwb">冻结金额</dt>
+						<dd class="fse mt10">￥<span class="fc1">0</span></dd>
+					</dl>
+					<dl class="item">
+						<dt class="fwb">待收金额</dt>
+						<dd class="fse mt10">￥<span class="fc1">0</span></dd>
+					</dl>
+				</div>
+				<div id="tab1" class="stats-tab" style="margin-top:20px;">
+					<div class="tabnav ucbg stats-box uc-bd">
+						<dl class="item item-bdr">
+							<dt class="fwb">我的收益</dt>
+							<dd class="fse mt10">￥<span class="fc1">0</span></dd>
+						</dl>
+						<dl class="item item-bdr">
+							<dt class="fwb">我的费用</dt>
+							<dd class="fse mt10">￥<span class="fc1">0</span></dd>
+						</dl>
+						<dl class="item item-bdr">
+							<dt class="fwb">理财统计<br>(最近收款日期)</dt>
+							<dd class="fse mt10"><span class="fc1">无</span>
+							</dd>
+						</dl>
+						<dl class="item">
+							<dt class="fwb">借贷统计<br>(最近还款日期)</dt>
+							<dd class="fse mt10"><span class="fc1">无</span>
+						</dl>
+					</div>
+					<!-- 我的收益开始 -->
+					<div class="tabcon stats-tabcon">
+						<table class="assets-table" style="text-indent:20px;">
+							<tbody><tr>
+								<th>类型</th>
+								<th>收入</th>
+								<th>支出</th>
+								<th>小计（￥）</th>
+							</tr>
+							
+							<tr>
+								<td class="txt">已赚利息</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">投标奖励</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">充值奖励</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">逾期收款</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+							<tr class="high">
+								<td class="txt">累计净收益</td>
+								<td></td>
+								<td></td>
+								<td><span class="light-red">￥0.00</span></td>
+							</tr>
+						</tbody></table>
+					</div>	
+					<!-- 我的费用开始 -->
+					<div class="tabcon stats-tabcon">
+						<table class="assets-table" style="text-indent:20px;">
+							<tbody><tr>
+								<th>类型</th>
+								<th>收入</th>
+								<th>支出</th>
+								<th>小计（￥）</th>
+							</tr>
+							
+							<tr>
+								<td class="txt">借款手续费</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">提现手续费</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">利息管理费</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">逾期扣款</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">逾期利息扣除</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr class="high">
+								<td class="txt">累计净支出</td>
+								<td></td>
+								<td></td>
+								<td><span class="light-red">￥0.00</span></td>
+							</tr>
+						</tbody></table>
+					</div>	
+					<!-- 理财统计开始 -->
+					<div class="tabcon stats-tabcon">
+						<table class="assets-table" style="text-indent:20px;">
+							<tbody><tr>
+								<th>类型</th>
+								<th>收入</th>
+								<th>支出</th>
+								<th>小计（￥）</th>
+							</tr>
+							
+							<tr>
+								<td class="txt">投资总额</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">借款总额</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">充值总额</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">提现总额</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">- 0.00</span></td>
+							</tr>
+							<tr>
+								<td class="txt">已收总额</td>
+								<td><span class="up">+ 0.00</span></td>
+								<td><span class="down">- 0.00</span></td>
+								<td><span class="up">+ 0.00</span></td>
+							</tr>
+						</tbody></table>
+					</div>	
+						
+				</div>
+
+			</div>
+</div>
+</div>
+<!--主要内容结束-->
+<!--主要内容结束-->
+<!--# include("/views/public/footer.htm"){} -->
