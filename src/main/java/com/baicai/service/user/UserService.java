@@ -1,17 +1,12 @@
 package com.baicai.service.user;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.baicai.core.BaseDAO;
-import com.baicai.core.Constant;
-import com.baicai.core.DaoUtil;
 import com.baicai.dao.user.UserDAO;
 import com.baicai.domain.user.User;
 import com.baicai.util.CommonUtil;
-import com.baicai.util.PropertiesTool;
 import com.baicai.util.TimeHepler;
 /**
  * 
@@ -51,6 +46,16 @@ public class UserService {
 		u.setRegisterip(request.getRemoteHost());
 		int result=userDAO.save(u);
 		return result;
+	}
+	
+	public User login(User u){
+		String sql="SELECT * FROM {user} WHERE userName=? AND loginPass=? ";
+		String password=CommonUtil.getPassword(u.getUserName(), u.getLoginPass());
+		User user=dao.queryForBean(User.class, sql, new Object[]{u.getUserName(),password});
+		if(user!=null){
+			//登陆成功，记录时间,不记录在user表（因为这样无法查询历史，需要一张专门的表来记录）
+		}
+		return user;
 	}
 	
 }
