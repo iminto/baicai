@@ -15,12 +15,12 @@ public class ProjectDAO {
 	
 	public Project findProjectByid(Integer id){
 		String sql="SELECT * FROM {project} WHERE id=?";
-		return dao.queryForBean(Project.class, DaoUtil.format(sql), new Object[]{id});
+		return dao.queryForBean(Project.class, sql, new Object[]{id});
 	}
 	
 	public Project findProjectByproId(Long proId){
 		String sql="SELECT * FROM {project} WHERE proId=?";
-		return dao.queryForBean(Project.class, DaoUtil.format(sql), new Object[]{proId});
+		return dao.queryForBean(Project.class, sql, new Object[]{proId});
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class ProjectDAO {
 		String sql="SELECT p.*,p.proAccount-p.proAccountYes remainAmount FROM p2p_project p";
 		sql+=" WHERE p.proStatus=1 ORDER BY remainAmount DESC LIMIT ?";
 		List<Project> list=new ArrayList<>();
-		list=dao.queryForList(Project.class, DaoUtil.format(sql), new Object[]{cnt});
+		list=dao.queryForList(Project.class, sql, new Object[]{cnt});
 		return list;
 	}
 }

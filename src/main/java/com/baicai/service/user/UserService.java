@@ -25,13 +25,13 @@ public class UserService {
 	
 	public boolean existUserByName(String userName){
 		String sql="SELECT count(*) FROM {user} WHERE userName=?";
-		int i=dao.queryForInt(DaoUtil.format(sql), new Object[]{userName});
+		int i=dao.queryForInt(sql, new Object[]{userName});
 		return i>0;
 	}
 	
 	public boolean existUserByEmail(String email){
 		String sql="SELECT count(*) FROM {user} WHERE email=?";
-		int i=dao.queryForInt(DaoUtil.format(sql), new Object[]{email});
+		int i=dao.queryForInt(sql, new Object[]{email});
 		return i>0;
 	}
 	
