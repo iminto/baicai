@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.baicai.core.Constant;
+
 /**
  * 通用工具类
  * 
@@ -22,17 +24,14 @@ import java.util.TreeMap;
 public class CommonUtil {
 	public static final String VALICODE_SALT = "S5%CVgl;560JL@fd--see";
 	public static final String NULLSALT = "";
-	public static final String ROOT = CommonUtil.class.getResource("/")
-			.getPath();// class文件绝对路径
+	public static final String ROOT = CommonUtil.class.getResource("/").getPath();// class文件绝对路径
 	public static final String WEBROOT = ROOT.substring(0, ROOT.length() - 16);// 网站根目录
 
 	/**
 	 * SHA1散列处理
 	 * 
-	 * @param srcStr
-	 *            原字符串
-	 * @param salt
-	 *            盐值
+	 * @param srcStr 原字符串
+	 * @param salt 盐值
 	 * @return
 	 */
 	public static final String encrypt(String srcStr, String salt) {
@@ -54,16 +53,28 @@ public class CommonUtil {
 	}
 	
 	/**
+	 * 制取数据库中存储的用户密码
+	 * @param userName 用户名
+	 * @param password 密码
+	 * @return
+	 */
+	public static final String getPassword(String userName, String password) {
+		password = CommonUtil.encrypt(userName, password+password);
+		//这里分两步，且第一步只涉及用户名和密码是为了支持前端加密，同时不泄露服务器端密钥
+		password = CommonUtil.encrypt(password, Constant.USER_SALT);
+		return password.substring(0,32);
+	}
+
+	/**
 	 * 验证码验证
+	 * 
 	 * @param md5RandomCode 加密后的字符串
 	 * @param inputRandomCode 传入的字符串
 	 * @param salt 盐值，需要和加密前保持一致
 	 * @return
 	 */
-	public static boolean validate(String md5RandomCode,
-			String inputRandomCode, String salt) {
-		if (StringUtil.isBlank(md5RandomCode)
-				|| StringUtil.isBlank(inputRandomCode)) {
+	public static boolean validate(String md5RandomCode, String inputRandomCode, String salt) {
+		if (StringUtil.isBlank(md5RandomCode) || StringUtil.isBlank(inputRandomCode)) {
 			return false;
 		}
 		inputRandomCode = inputRandomCode.toUpperCase();
@@ -74,8 +85,7 @@ public class CommonUtil {
 	public static String md5(String strs) {
 		byte[] source = strs.getBytes();
 		char str[] = new char[16 * 2];
-		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-				'a', 'b', 'c', 'd', 'e', 'f' };
+		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("MD5");
@@ -129,27 +139,27 @@ public class CommonUtil {
 		String retcrc32 = Long.toHexString(crc32.getValue());
 		return retcrc32;
 	}
-	
+
 	/**
-	 * 获取最近七天的时间，待优化
-	 * 返回格式为<日期:起始时刻毫秒：终点时刻毫秒>，如果为今天，终点时刻为现在时间
+	 * 获取最近七天的时间，待优化 返回格式为<日期:起始时刻毫秒：终点时刻毫秒>，如果为今天，终点时刻为现在时间
 	 */
-	public static Map<String, Long[]> getLatest7Day(){
-		String todayStr="";
+	public static Map<String, Long[]> getLatest7Day() {
+		String todayStr = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		todayStr = sdf.format(new Date(System.currentTimeMillis()));
-		todayStr=todayStr+" 00:00:00";
-		Date today = new Date();   
-		DateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
-		Map<String, Long[]> data=new TreeMap<>();
+		todayStr = todayStr + " 00:00:00";
+		Date today = new Date();
+		DateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Map<String, Long[]> data = new TreeMap<>();
 		try {
-			today=sdf2.parse(todayStr);
-			long todaybegin=today.getTime();
-			data.put(new SimpleDateFormat("Mdd").format(todaybegin), new Long[]{todaybegin/1000,System.currentTimeMillis()/1000});
-			for (int i = 1; i <=6; i++) {
-				data.put(new SimpleDateFormat("Mdd").format(new Date(todaybegin-86400000*i)), new Long[]{(todaybegin-86400000*i)/1000,(todaybegin-86400000*i+86539000)/1000});
+			today = sdf2.parse(todayStr);
+			long todaybegin = today.getTime();
+			data.put(new SimpleDateFormat("Mdd").format(todaybegin), new Long[] { todaybegin / 1000, System.currentTimeMillis() / 1000 });
+			for (int i = 1; i <= 6; i++) {
+				data.put(new SimpleDateFormat("Mdd").format(new Date(todaybegin - 86400000 * i)),
+				        new Long[] { (todaybegin - 86400000 * i) / 1000, (todaybegin - 86400000 * i + 86539000) / 1000 });
 			}
-		} catch (ParseException e) {			
+		} catch (ParseException e) {
 		}
 		return data;
 	}
