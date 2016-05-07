@@ -8,32 +8,18 @@
 package com.baicai.util;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
  
 public class PropertiesTool {
-    private static final Pattern PATTERN = Pattern.compile("\\$\\{([^\\}]+)\\}");//支持简单变量使用
- 
     public static String get(String configFile, String key) {
     	Properties properties = new Properties();
-        try {
-			properties.load(PropertiesTool.class.getClassLoader().getResourceAsStream(configFile+".properties"));
-			String value = properties.getProperty(key);
-	        Matcher matcher = PATTERN.matcher(value);
-	        StringBuffer buffer = new StringBuffer();
-	        while (matcher.find()) {
-	            String matcherKey = matcher.group(1);
-	            String matchervalue = properties.getProperty(matcherKey);
-	            if (matchervalue != null) {
-	                matcher.appendReplacement(buffer, matchervalue);
-	            }
-	        }
-	        matcher.appendTail(buffer);
-	        return buffer.toString();
-		} catch (IOException e) {
-			return "";
-		}
-        
+    		try {
+				properties.load(PropertiesTool.class.getClassLoader().getResourceAsStream(configFile+".properties"));
+				String value = properties.getProperty(key);
+		        return value;			
+    		} catch (IOException e) {
+				e.printStackTrace();
+				return "";
+			}
     }
  
     public static void main(String[] args) throws IOException {
