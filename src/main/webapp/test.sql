@@ -180,6 +180,26 @@ CREATE TABLE `p2p_articlecat` (
 
 /*Data for the table `p2p_articlecat` */
 
+/*Table structure for table `p2p_code` */
+
+DROP TABLE IF EXISTS `p2p_code`;
+
+CREATE TABLE `p2p_code` (
+  `codeId` int(10) unsigned NOT NULL COMMENT '验证码编号',
+  `senceId` tinyint(10) unsigned DEFAULT NULL COMMENT '使用场景',
+  `target` varchar(32) NOT NULL COMMENT '用户手机',
+  `code` varchar(6) NOT NULL COMMENT '验证码',
+  `status` tinyint(1) unsigned NOT NULL COMMENT '状态（0，未使用；1，已使用）',
+  `addtime` int(10) unsigned NOT NULL COMMENT '验证码加入时间',
+  `exctime` int(10) unsigned DEFAULT NULL COMMENT '过期时间',
+  `error_num` tinyint(1) unsigned DEFAULT NULL COMMENT '失败次数',
+  `addip` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`codeId`),
+  KEY `userphone` (`target`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='验证码表，便于接收不到查询';
+
+/*Data for the table `p2p_code` */
+
 /*Table structure for table `p2p_project` */
 
 DROP TABLE IF EXISTS `p2p_project`;
@@ -252,13 +272,38 @@ CREATE TABLE `p2p_project_apply` (
 
 /*Data for the table `p2p_project_apply` */
 
+/*Table structure for table `p2p_project_collect` */
+
+DROP TABLE IF EXISTS `p2p_project_collect`;
+
+CREATE TABLE `p2p_project_collect` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `porder` tinyint(4) NOT NULL COMMENT '待收期数',
+  `status` tinyint(4) NOT NULL COMMENT '0未收1已还款2待还',
+  `projectId` bigint(18) NOT NULL COMMENT '项目id',
+  `orderId` int(10) NOT NULL COMMENT '投标id',
+  `repaytime` int(11) DEFAULT NULL COMMENT '应收日期',
+  `repayyestime` int(11) DEFAULT NULL COMMENT '实收日期',
+  `repayaccount` int(11) DEFAULT NULL COMMENT '应收金额',
+  `repayyesaccount` int(11) NOT NULL COMMENT '实收金额',
+  `interest` int(11) NOT NULL COMMENT '应收利息',
+  `capital` int(11) NOT NULL COMMENT '应收本金',
+  `latedays` smallint(11) DEFAULT '0' COMMENT '逾期天数',
+  `lateinterest` int(11) NOT NULL COMMENT '逾期罚息',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `addip` varchar(15) NOT NULL COMMENT '添加IP',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='代收表';
+
+/*Data for the table `p2p_project_collect` */
+
 /*Table structure for table `p2p_project_order` */
 
 DROP TABLE IF EXISTS `p2p_project_order`;
 
 CREATE TABLE `p2p_project_order` (
-  `oid` bigint(18) NOT NULL,
-  `userId` bigint(18) DEFAULT NULL,
+  `oid` int(18) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(18) DEFAULT NULL,
   `status` int(11) NOT NULL COMMENT '1全部通过 2部分通过',
   `projectId` bigint(18) NOT NULL COMMENT '标id',
   `money` int(11) NOT NULL DEFAULT '0' COMMENT '投标金额',
@@ -279,6 +324,74 @@ CREATE TABLE `p2p_project_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 /*Data for the table `p2p_project_order` */
+
+/*Table structure for table `p2p_project_repay` */
+
+DROP TABLE IF EXISTS `p2p_project_repay`;
+
+CREATE TABLE `p2p_project_repay` (
+  `rid` int(18) NOT NULL,
+  `status` tinyint(2) NOT NULL COMMENT '0未还1已还2逾期待还',
+  `porder` tinyint(11) NOT NULL COMMENT '期数',
+  `projectId` bigint(18) NOT NULL COMMENT '标ID',
+  `repaytime` int(10) NOT NULL COMMENT '应还款时间',
+  `repayyestime` int(10) DEFAULT NULL COMMENT '实际还款时间',
+  `repayaccount` int(11) NOT NULL COMMENT '应还款金额',
+  `repayyesaccount` int(11) DEFAULT '0' COMMENT '实际还款金额',
+  `lateday` smallint(11) DEFAULT '0' COMMENT '逾期天数',
+  `lateinterest` int(11) DEFAULT NULL COMMENT '逾期罚息',
+  `capital` int(11) NOT NULL COMMENT '还款本金',
+  `interest` int(11) NOT NULL COMMENT '还款利息',
+  `addtime` int(10) DEFAULT NULL,
+  `addip` varchar(15) DEFAULT NULL,
+  `isAdvance` tinyint(2) DEFAULT '0' COMMENT '是否提前还款',
+  PRIMARY KEY (`rid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='还款表';
+
+/*Data for the table `p2p_project_repay` */
+
+/*Table structure for table `p2p_system` */
+
+DROP TABLE IF EXISTS `p2p_system`;
+
+CREATE TABLE `p2p_system` (
+  `systemId` int(11) NOT NULL AUTO_INCREMENT,
+  `systemCatid` int(11) NOT NULL COMMENT '字段类别ID',
+  `systemName` varchar(64) NOT NULL COMMENT '字段名称',
+  `systemAlias` varchar(64) NOT NULL COMMENT '字段别名',
+  `systemValue` varchar(10000) NOT NULL COMMENT '字段值',
+  `systemDesc` varchar(64) DEFAULT NULL COMMENT '字段简介',
+  `inputType` int(11) DEFAULT '1' COMMENT '控件类型（1，文本框;2，文本域；3，下拉框；4，单选框;5，复选框;6，上传类型）',
+  `addtime` datetime NOT NULL COMMENT '添加时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '修改时间',
+  `data` varchar(255) DEFAULT NULL COMMENT '数据',
+  `isdefault` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否是默认（0，默认；1，用户）',
+  PRIMARY KEY (`systemId`),
+  KEY `systemcat_id` (`systemCatid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
+
+/*Data for the table `p2p_system` */
+
+insert  into `p2p_system`(`systemId`,`systemCatid`,`systemName`,`systemAlias`,`systemValue`,`systemDesc`,`inputType`,`addtime`,`updatetime`,`data`,`isdefault`) values (1,1,'网站标题','site_name','白菜贷官网','网站的名字',1,'2016-05-07 00:00:00','2016-05-07 00:00:00',NULL,0),(2,1,'网站副标题','site_fname','中国领先的汽车抵押贷款和投资理财互联网金融平台','SEO使用',1,'2016-05-07 23:13:25','2016-05-07 23:13:29',NULL,0),(3,1,'网站URL','site_siteurl','http://www.baicai.me','URL',1,'2016-05-07 23:14:18','2016-05-07 23:14:20',NULL,0),(4,2,'借款手续费','project_fee','0','针对借款人每笔借款收取费用',1,'2016-05-07 23:15:21','2016-05-07 23:15:23',NULL,0);
+
+/*Table structure for table `p2p_systemcat` */
+
+DROP TABLE IF EXISTS `p2p_systemcat`;
+
+CREATE TABLE `p2p_systemcat` (
+  `systemcatId` int(11) NOT NULL AUTO_INCREMENT,
+  `systemcatName` varchar(64) NOT NULL COMMENT '类别名称',
+  `systemcatAlias` varchar(32) NOT NULL DEFAULT '' COMMENT '类别别名',
+  `systemcatDesc` varchar(128) NOT NULL COMMENT '类别简介',
+  `systemcatParent` int(11) NOT NULL DEFAULT '0' COMMENT '父籍id',
+  `isdefault` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否是系统默认（0，默认；1用户）',
+  PRIMARY KEY (`systemcatId`),
+  UNIQUE KEY `systemcat_alias` (`systemcatAlias`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='系统参数分类表';
+
+/*Data for the table `p2p_systemcat` */
+
+insert  into `p2p_systemcat`(`systemcatId`,`systemcatName`,`systemcatAlias`,`systemcatDesc`,`systemcatParent`,`isdefault`) values (1,'站点信息','sitename','站点各类信息',0,0),(2,'借款信息','project_info','借款资料信息',0,0),(3,'用户信息','user_info','用户的信息设置',0,1),(4,'资金信息','assets_info','用户资金的控制以及费用百分比',0,1),(10,'积分设置','integral_seting','积分设置',0,0);
 
 /*Table structure for table `p2p_user` */
 
@@ -308,9 +421,11 @@ CREATE TABLE `p2p_user` (
   `invitenum` int(11) DEFAULT '0' COMMENT '邀请人数',
   PRIMARY KEY (`userId`),
   KEY `i_username` (`userName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 /*Data for the table `p2p_user` */
+
+insert  into `p2p_user`(`userId`,`userName`,`loginPass`,`payPass`,`email`,`phone`,`userPic`,`realname`,`userAddress`,`inviteUserId`,`userType`,`isEmailCheck`,`isPhoneCheck`,`isRealnameCheck`,`isSafequestionCheck`,`vipStopTime`,`isLock`,`registerTime`,`loginTime`,`registerip`,`invitenum`) values (11,'baicai','EE8D579AFB0C99DBB3794EB45609EECA05D96D4B','EE8D579AFB0C99DBB3794EB45609EECA05D96D4B','waitfox@qq.com',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,0,1462623708,NULL,'192.168.1.101',0),(13,'baicai1','11EDDD8E283F4F82DA55B498D56793EE9BC811E0','11EDDD8E283F4F82DA55B498D56793EE9BC811E0','waitfox1@qq.com',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,0,1462626065,NULL,'192.168.1.101',0);
 
 /*Table structure for table `p2p_userinfo` */
 
