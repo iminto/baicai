@@ -12,7 +12,7 @@ import com.baicai.domain.user.User;
 import com.baicai.service.user.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/site")
 public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
