@@ -68,12 +68,12 @@ public class BaseDAO<T> {
 	 * @return
 	 */
 	public int queryForInt(final String sql, final Object[] o) {
-		String sqlx=getDoneSQL(sql);
+		final String sqlx=getDoneSQL(sql);
 		final long begin = System.currentTimeMillis();
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<Integer>() {
 			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
 				long end = System.currentTimeMillis();
-				printSQL(sql, o, end - begin);
+				printSQL(sqlx, o, end - begin);
 				return rs.next() ? rs.getInt(1) : 0;
 			}
 		});
@@ -81,7 +81,7 @@ public class BaseDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public int queryForInt(String sql, Map m) {
-		String sqlx=getDoneSQL(sql);
+		final String sqlx=getDoneSQL(sql);
 		return getNamedParameterJdbcTemplate().query(sqlx, m, new ResultSetExtractor<Integer>() {
 			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getInt(1) : 0;
@@ -90,7 +90,7 @@ public class BaseDAO<T> {
 	}
 
 	public long queryForLong(String sql, Object[] o) {
-		String sqlx=getDoneSQL(sql);
+		final String sqlx=getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<Long>() {
 			public Long extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getLong(1) : 0l;
@@ -99,7 +99,7 @@ public class BaseDAO<T> {
 	}
 
 	public Double queryForDouble(String sql, Object[] o) {
-		String sqlx=getDoneSQL(sql);
+		final String sqlx=getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<Double>() {
 			public Double extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getDouble(1) : 0d;
@@ -108,7 +108,7 @@ public class BaseDAO<T> {
 	}
 
 	public BigDecimal queryForBigdecimal(final String sql, final Object[] o) {
-		String sqlx=getDoneSQL(sql);
+		final String sqlx=getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<BigDecimal>() {
 			public BigDecimal extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getBigDecimal(1) : new BigDecimal(0);
@@ -125,7 +125,7 @@ public class BaseDAO<T> {
 	 * @return
 	 */
 	public String queryForString(String sql, Object[] o) {
-		String sqlx=getDoneSQL(sql);
+		final String sqlx=getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<String>() {
 			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getString(1) : null;
