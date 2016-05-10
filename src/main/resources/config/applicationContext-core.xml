@@ -23,13 +23,15 @@
         http://www.springframework.org/schema/task 
         http://www.springframework.org/schema/task/spring-task-4.1.xsd
         ">
-
 	<!-- 读取数据库配置文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" /> 
+	
 	<bean id="sch" class="com.baicai.supple.ScheduleHelp" />
 	<task:scheduled-tasks scheduler="myScheduler">
-		<task:scheduled ref="sch" method="task2"  fixed-delay="1000000" />
-		<task:scheduled ref="sch" method="task1"  cron="0 0 1 * * *" />
+		<task:scheduled ref="sch" method="task2" fixed-delay="1000000" />
+		<task:scheduled ref="sch" method="task1" cron="0 0 1 * * *" />
 	</task:scheduled-tasks>
 	<task:scheduler id="myScheduler" pool-size="2" />
 
@@ -49,12 +51,39 @@
 			value="SELECT 1 " /> -->
 		<property name="validationInterval" value="30000" />
 	</bean>
+
+	<bean id="DataSource2" class="org.apache.tomcat.jdbc.pool.DataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
+		<property name="url" value="${mysql2.jdbc.url}" />
+		<property name="username" value="${mysql2.jdbc.username}" />
+		<property name="password" value="${mysql2.jdbc.password}" />
+		<property name="initialSize" value="5" />
+		<!-- 最大活跃连接，线上服务器需调大 -->
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="5" />
+		<property name="minIdle" value="2" />
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<property name="validationInterval" value="30000" />
+	</bean>
+
+	<bean id="dynamicDataSource" class="com.baicai.core.DynamicDataSource">
+		<!-- 通过key-value的形式来关联数据源 -->
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry value-ref="defaultDataSource" key="defaultDataSource"></entry>
+				<entry value-ref="DataSource2" key="DataSource2"></entry>
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="defaultDataSource" />
+	</bean>
+
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="defaultDataSource" />
+		<property name="dataSource" ref="dynamicDataSource" />
 	</bean>
 	<bean id="namedParameterJdbcTemplate"
 		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-		<constructor-arg ref="defaultDataSource" />
+		<constructor-arg ref="dynamicDataSource" />
 	</bean>
 
 	<context:component-scan base-package="com.baicai.service" />
@@ -65,7 +94,7 @@
 	<!-- 配置事务管理 -->
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="defaultDataSource" />
+		<property name="dataSource" ref="dynamicDataSource" />
 	</bean>
 	<tx:annotation-driven transaction-manager="txManager" />
 	<tx:advice id="txAdvice" transaction-manager="txManager">
