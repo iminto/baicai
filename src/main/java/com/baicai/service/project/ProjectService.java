@@ -4,7 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baicai.core.BaseDAO;
-import com.baicai.core.DaoUtil;
+import com.baicai.core.DynamicDataSourceContextHolder.DS;
+import com.baicai.core.TargetDataSource;
 import com.baicai.dao.project.ProjectDAO;
 import com.baicai.domain.project.Project;
 import com.baicai.domain.system.Pagination;
@@ -15,6 +16,7 @@ public class ProjectService{
 	@Autowired
 	private ProjectDAO projectDAO;
 	
+	@TargetDataSource(DS.DATA_SOURCE_1)
 	public  List<Project> findProjectsOnIndex(Integer cnt){
 		return projectDAO.findProjectsOnIndex(cnt);
 	}
