@@ -25,7 +25,7 @@ import com.baicai.core.Constant;
 * @version V1.0  
 * 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
  */
-public class BaseController implements HandlerInterceptor{
+public abstract class BaseController implements HandlerInterceptor{
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
