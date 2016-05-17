@@ -19,7 +19,7 @@ public class ProjectDAO {
 	}
 	
 	public Project findProjectByproId(Long proId){
-		String sql="SELECT * FROM {project} WHERE proId=?";
+		String sql="SELECT * FROM {project} WHERE proid=?";
 		return dao.queryForBean(Project.class, sql, new Object[]{proId});
 	}
 	
@@ -29,8 +29,8 @@ public class ProjectDAO {
 	 * @return
 	 */
 	public List<Project> findProjectsOnIndex(Integer cnt){
-		String sql="SELECT p.*,p.proAccount-p.proAccountYes remainAmount FROM p2p_project p";
-		sql+=" WHERE p.proStatus=1 ORDER BY remainAmount DESC LIMIT ?";
+		String sql="SELECT p.*,p.proaccount-p.proaccountyes remainamount FROM {project} p";
+		sql+=" WHERE p.prostatus=1 ORDER BY remainamount DESC LIMIT ?";
 		List<Project> list=new ArrayList<>();
 		list=dao.queryForList(Project.class, sql, new Object[]{cnt});
 		return list;
