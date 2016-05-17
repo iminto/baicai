@@ -29,7 +29,7 @@ public class ProjectService{
 		int count=dao.queryForInt(countSQL);
 		pager.setTotal(count);
 		pager.setPage(page);
-		String sql="SELECT *  FROM {project} WHERE "+sql_where+" order by proStatus ASC LIMIT ?,?";
+		String sql="SELECT *  FROM {project} WHERE "+sql_where+" order by prostatus ASC LIMIT ?,?";
 		List<Project> list=dao.queryForList(Project.class, sql,new Object[]{pager.getOffset(),pager.getPageSize()});
 		pager.setList(list);	
 		return pager;

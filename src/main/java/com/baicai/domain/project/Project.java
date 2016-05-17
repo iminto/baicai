@@ -8,38 +8,38 @@ import com.baicai.core.Model;
  * @version: 0.01
  * @date: 2016/03/20 20:44:52
  */
-public class Project extends Model{
+public class Project extends Model {
 	private Integer id;//
-	private long proId;// 逻辑主键
-	private long uid;//借款人
-	private String proName;// 借款标题
-	private Integer proAccount;// 借款金额，单位分
-	private Integer proAccountYes;// 已投标金额，单位分
-	private Integer proTimeLimit;// 借款期限
-	private Integer proTimeUint;// 借款期限类型，1为天，2为月
-	private Integer proValidTime;// 借款有效时间
-	private Double proApr;// 借款利率
-	private Integer proStyle;// 还款方式
-	private Integer proStatus;// 标的状态 0初始1初审成功，投标中2初审失败3复审成功4复审失败5流标6撤销7正常结束
-	private Integer proVerifyUser;// 审标人
-	private Integer proVerifyTime;// 初审时间
-	private String proVerifyRemark;// 初审备注
-	private Integer proFullVerifyUser;// 满标审核人
-	private Integer proFullVerifyTime;// 满标审核时间
-	private String proFullVerifyRemark;// 满标审核备注
-	private Integer proType;// 1信用标2担保标3抵押标4秒标5定向标
-	private String proDxb;// 定向标密码
-	private String proDesc;// 标的详细描述
-	private Integer proAwardType;// 奖励类型 1百分比2固定金额
-	private Double proAward;// 奖励的具体数值
-	private Integer proLowAcount;// 最低要求投资金额
-	private Integer proMostAccount;// 标的最高允许投标金额
-	private Integer successTime;// 满标时间
-	private Integer endTime;// 根据有效期算出的截止时间
-	private Integer orderNum;// 投标次数
-	private Integer autoRatio;// 允许的自动投标比例，百分比
+	private Long proid;// 逻辑主键
+	private Long uid;// 借款人ID
+	private String proname;// 借款标题
+	private Integer proaccount;// 借款金额，单位分
+	private Integer proaccountyes;// 已投标金额，单位分
+	private Integer protimelimit;// 借款期限
+	private Integer protimeuint;// 借款期限类型，1为天，2为月
+	private Integer provalidtime;// 借款有效时间
+	private Double proapr;// 借款利率
+	private Integer prostyle;// 还款方式
+	private Integer prostatus;// 标的状态 0初始1初审成功，投标中2初审失败3复审成功4复审失败5流标6撤销7正常结束
+	private Integer proverifyuser;// 审标人
+	private Integer proverifytime;// 初审时间
+	private String proverifyremark;// 初审备注
+	private Integer profullverifyuser;// 满标审核人
+	private Integer profullverifytime;// 满标审核时间
+	private String profullverifyremark;// 满标审核备注
+	private Integer protype;// 1信用标2担保标3抵押标4秒标5定向标
+	private String prodxb;// 定向标密码
+	private String prodesc;// 标的详细描述
+	private Integer proawardtype;// 奖励类型 1百分比2固定金额
+	private Double proaward;// 奖励的具体数值
+	private Integer prolowacount;// 最低要求投资金额
+	private Integer promostaccount;// 标的最高允许投标金额
+	private Integer successtime;// 满标时间
+	private Integer endtime;// 根据有效期算出的截止时间
+	private Integer ordernum;// 投标次数
+	private Integer autoratio;// 允许的自动投标比例，百分比
 	private Integer repayment;// 还款金额
-	private Integer repaymentYes;// 已还金额
+	private Integer repaymentyes;// 已还金额
 	private String expansion;// 扩充字段
 	private Integer addtime;//
 	private String addip;//
@@ -52,228 +52,228 @@ public class Project extends Model{
 		this.id = id;
 	}
 
-	public Long getProId() {
-		return proId;
+	public Long getProid() {
+		return proid;
 	}
 
-	public long getUid() {
+	public void setProid(Long proid) {
+		this.proid = proid;
+	}
+
+	public Long getUid() {
 		return uid;
 	}
 
-	public void setUid(long uid) {
+	public void setUid(Long uid) {
 		this.uid = uid;
 	}
 
-	public void setProId(long proId) {
-		this.proId = proId;
+	public String getProname() {
+		return proname;
 	}
 
-	public String getProName() {
-		return proName;
+	public void setProname(String proname) {
+		this.proname = proname;
 	}
 
-	public void setProName(String proName) {
-		this.proName = proName;
+	public Integer getProaccount() {
+		return proaccount;
 	}
 
-	public Integer getProAccount() {
-		return proAccount;
+	public void setProaccount(Integer proaccount) {
+		this.proaccount = proaccount;
 	}
 
-	public void setProAccount(Integer proAccount) {
-		this.proAccount = proAccount;
+	public Integer getProaccountyes() {
+		return proaccountyes;
 	}
 
-	public Integer getProAccountYes() {
-		return proAccountYes;
+	public void setProaccountyes(Integer proaccountyes) {
+		this.proaccountyes = proaccountyes;
 	}
 
-	public void setProAccountYes(Integer proAccountYes) {
-		this.proAccountYes = proAccountYes;
+	public Integer getProtimelimit() {
+		return protimelimit;
 	}
 
-	public Integer getProTimeLimit() {
-		return proTimeLimit;
+	public void setProtimelimit(Integer protimelimit) {
+		this.protimelimit = protimelimit;
 	}
 
-	public void setProTimeLimit(Integer proTimeLimit) {
-		this.proTimeLimit = proTimeLimit;
+	public Integer getProtimeuint() {
+		return protimeuint;
 	}
 
-	public Integer getProTimeUint() {
-		return proTimeUint;
+	public void setProtimeuint(Integer protimeuint) {
+		this.protimeuint = protimeuint;
 	}
 
-	public void setProTimeUint(Integer proTimeUint) {
-		this.proTimeUint = proTimeUint;
+	public Integer getProvalidtime() {
+		return provalidtime;
 	}
 
-	public Integer getProValidTime() {
-		return proValidTime;
+	public void setProvalidtime(Integer provalidtime) {
+		this.provalidtime = provalidtime;
 	}
 
-	public void setProValidTime(Integer proValidTime) {
-		this.proValidTime = proValidTime;
+	public Double getProapr() {
+		return proapr;
 	}
 
-	public Double getProApr() {
-		return proApr;
+	public void setProapr(Double proapr) {
+		this.proapr = proapr;
 	}
 
-	public void setProApr(Double proApr) {
-		this.proApr = proApr;
+	public Integer getProstyle() {
+		return prostyle;
 	}
 
-	public Integer getProStyle() {
-		return proStyle;
+	public void setProstyle(Integer prostyle) {
+		this.prostyle = prostyle;
 	}
 
-	public void setProStyle(Integer proStyle) {
-		this.proStyle = proStyle;
+	public Integer getProstatus() {
+		return prostatus;
 	}
 
-	public Integer getProStatus() {
-		return proStatus;
+	public void setProstatus(Integer prostatus) {
+		this.prostatus = prostatus;
 	}
 
-	public void setProStatus(Integer proStatus) {
-		this.proStatus = proStatus;
+	public Integer getProverifyuser() {
+		return proverifyuser;
 	}
 
-	public Integer getProVerifyUser() {
-		return proVerifyUser;
+	public void setProverifyuser(Integer proverifyuser) {
+		this.proverifyuser = proverifyuser;
 	}
 
-	public void setProVerifyUser(Integer proVerifyUser) {
-		this.proVerifyUser = proVerifyUser;
+	public Integer getProverifytime() {
+		return proverifytime;
 	}
 
-	public Integer getProVerifyTime() {
-		return proVerifyTime;
+	public void setProverifytime(Integer proverifytime) {
+		this.proverifytime = proverifytime;
 	}
 
-	public void setProVerifyTime(Integer proVerifyTime) {
-		this.proVerifyTime = proVerifyTime;
+	public String getProverifyremark() {
+		return proverifyremark;
 	}
 
-	public String getProVerifyRemark() {
-		return proVerifyRemark;
+	public void setProverifyremark(String proverifyremark) {
+		this.proverifyremark = proverifyremark;
 	}
 
-	public void setProVerifyRemark(String proVerifyRemark) {
-		this.proVerifyRemark = proVerifyRemark;
+	public Integer getProfullverifyuser() {
+		return profullverifyuser;
 	}
 
-	public Integer getProFullVerifyUser() {
-		return proFullVerifyUser;
+	public void setProfullverifyuser(Integer profullverifyuser) {
+		this.profullverifyuser = profullverifyuser;
 	}
 
-	public void setProFullVerifyUser(Integer proFullVerifyUser) {
-		this.proFullVerifyUser = proFullVerifyUser;
+	public Integer getProfullverifytime() {
+		return profullverifytime;
 	}
 
-	public Integer getProFullVerifyTime() {
-		return proFullVerifyTime;
+	public void setProfullverifytime(Integer profullverifytime) {
+		this.profullverifytime = profullverifytime;
 	}
 
-	public void setProFullVerifyTime(Integer proFullVerifyTime) {
-		this.proFullVerifyTime = proFullVerifyTime;
+	public String getProfullverifyremark() {
+		return profullverifyremark;
 	}
 
-	public String getProFullVerifyRemark() {
-		return proFullVerifyRemark;
+	public void setProfullverifyremark(String profullverifyremark) {
+		this.profullverifyremark = profullverifyremark;
 	}
 
-	public void setProFullVerifyRemark(String proFullVerifyRemark) {
-		this.proFullVerifyRemark = proFullVerifyRemark;
+	public Integer getProtype() {
+		return protype;
 	}
 
-	public Integer getProType() {
-		return proType;
+	public void setProtype(Integer protype) {
+		this.protype = protype;
 	}
 
-	public void setProType(Integer proType) {
-		this.proType = proType;
+	public String getProdxb() {
+		return prodxb;
 	}
 
-	public String getProDxb() {
-		return proDxb;
+	public void setProdxb(String prodxb) {
+		this.prodxb = prodxb;
 	}
 
-	public void setProDxb(String proDxb) {
-		this.proDxb = proDxb;
+	public String getProdesc() {
+		return prodesc;
 	}
 
-	public String getProDesc() {
-		return proDesc;
+	public void setProdesc(String prodesc) {
+		this.prodesc = prodesc;
 	}
 
-	public void setProDesc(String proDesc) {
-		this.proDesc = proDesc;
+	public Integer getProawardtype() {
+		return proawardtype;
 	}
 
-	public Integer getProAwardType() {
-		return proAwardType;
+	public void setProawardtype(Integer proawardtype) {
+		this.proawardtype = proawardtype;
 	}
 
-	public void setProAwardType(Integer proAwardType) {
-		this.proAwardType = proAwardType;
+	public Double getProaward() {
+		return proaward;
 	}
 
-	public Double getProAward() {
-		return proAward;
+	public void setProaward(Double proaward) {
+		this.proaward = proaward;
 	}
 
-	public void setProAward(Double proAward) {
-		this.proAward = proAward;
+	public Integer getProlowacount() {
+		return prolowacount;
 	}
 
-	public Integer getProLowAcount() {
-		return proLowAcount;
+	public void setProlowacount(Integer prolowacount) {
+		this.prolowacount = prolowacount;
 	}
 
-	public void setProLowAcount(Integer proLowAcount) {
-		this.proLowAcount = proLowAcount;
+	public Integer getPromostaccount() {
+		return promostaccount;
 	}
 
-	public Integer getProMostAccount() {
-		return proMostAccount;
+	public void setPromostaccount(Integer promostaccount) {
+		this.promostaccount = promostaccount;
 	}
 
-	public void setProMostAccount(Integer proMostAccount) {
-		this.proMostAccount = proMostAccount;
+	public Integer getSuccesstime() {
+		return successtime;
 	}
 
-	public Integer getSuccessTime() {
-		return successTime;
+	public void setSuccesstime(Integer successtime) {
+		this.successtime = successtime;
 	}
 
-	public void setSuccessTime(Integer successTime) {
-		this.successTime = successTime;
+	public Integer getEndtime() {
+		return endtime;
 	}
 
-	public Integer getEndTime() {
-		return endTime;
+	public void setEndtime(Integer endtime) {
+		this.endtime = endtime;
 	}
 
-	public void setEndTime(Integer endTime) {
-		this.endTime = endTime;
+	public Integer getOrdernum() {
+		return ordernum;
 	}
 
-	public Integer getOrderNum() {
-		return orderNum;
+	public void setOrdernum(Integer ordernum) {
+		this.ordernum = ordernum;
 	}
 
-	public void setOrderNum(Integer orderNum) {
-		this.orderNum = orderNum;
+	public Integer getAutoratio() {
+		return autoratio;
 	}
 
-	public Integer getAutoRatio() {
-		return autoRatio;
-	}
-
-	public void setAutoRatio(Integer autoRatio) {
-		this.autoRatio = autoRatio;
+	public void setAutoratio(Integer autoratio) {
+		this.autoratio = autoratio;
 	}
 
 	public Integer getRepayment() {
@@ -284,12 +284,12 @@ public class Project extends Model{
 		this.repayment = repayment;
 	}
 
-	public Integer getRepaymentYes() {
-		return repaymentYes;
+	public Integer getRepaymentyes() {
+		return repaymentyes;
 	}
 
-	public void setRepaymentYes(Integer repaymentYes) {
-		this.repaymentYes = repaymentYes;
+	public void setRepaymentyes(Integer repaymentyes) {
+		this.repaymentyes = repaymentyes;
 	}
 
 	public String getExpansion() {

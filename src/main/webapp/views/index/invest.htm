@@ -7,7 +7,7 @@
 	</ul>
 	<div class="invest-mue mt15">
 		<div class="invest-mue-nav lbg1">
-			<a class="current" href="${path }invest.do">投资项目</a> <a href="">收益计算器</a>
+			<a class="current" href="${path}invest.do">投资项目</a> <a href="">收益计算器</a>
 		</div>
 		<div class="invest-mue-con">
 
@@ -65,17 +65,17 @@
 			<li><span class="col-1"> <span
 					class="kind icon-invest icon-invest-x"
 					style="color: red; text-indent: 5px; line-height: 25px; font-weight: bold; overflow: hidden;">信用标</span>
-					<a href="view.do?id=${pro.proId}" title="${pro.proName}">${pro.proName}</a>
-			</span> <span class="col-2 fsd fc1">${pro.proApr,numberFormat="#.00"}%</span> <span class="col-3 fsc">${pro.proAccount/100,numberFormat="#"}元</span>
+					<a href="view.do?id=${pro.proid}" title="${pro.proname}">${pro.proname}</a>
+			</span> <span class="col-2 fsd fc1">${pro.proapr,numberFormat="#.00"}%</span> <span class="col-3 fsc">${pro.proaccount/100,numberFormat="#"}元</span>
 				<span class="col-4">
 					<div class="percentbar">
 						<span data-width='100.00%' class="bar-inner bg2"></span>
 					</div> <span class="fsa db mt5">已到期</span>
-			</span> <span class="col-5 fsd"><!--# if(pro.proTimeUint==1){  -->${pro.proTimeLimit}天<!--# }else{  -->${pro.proTimeLimit}个月<!--# } --></span> <span class="col-6">
+			</span> <span class="col-5 fsd"><!--# if(pro.protimeuint==1){  -->${pro.protimelimit}天<!--# }else{  -->${pro.protimelimit}个月<!--# } --></span> <span class="col-6">
 					<div class="percentbar">
 						<span data-width='3.00%' class="bar-inner bg2"></span>
 					</div> <a class="status status-a"
-					href="/project/view.do?id=${pro.proId}">投标中</a>
+					href="/project/view.do?id=${pro.proid}">投标中</a>
 			</span></li>
 			<!--# }  -->
 		</ul>

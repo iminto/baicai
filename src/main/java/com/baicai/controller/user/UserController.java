@@ -31,7 +31,7 @@ public class UserController extends BaseController {
 	public String doRegister(HttpServletRequest request, HttpServletResponse response, User user) {
 		Map<String, String> errorMap = new HashMap<String, String>();
 		if (user.validate(User.regRule)) {//做最基本的参数合法性校验
-			if (userService.existUserByName(user.getUserName())) {
+			if (userService.existUserByName(user.getUsername())) {
 				errorMap.put("userName", "用户名已存在");
 			} else if (userService.existUserByEmail(user.getEmail())) {
 				errorMap.put("userName", "邮箱已存在");
@@ -42,7 +42,7 @@ public class UserController extends BaseController {
 			errorMap = user.getErrorMap();
 		}
 		if (errorMap.isEmpty()) {//跳转到注册成功页
-			request.setAttribute("userName", user.getUserName());
+			request.setAttribute("userName", user.getUsername());
 			return "/views/user/register2";
 		} else {
 			request.setAttribute("err", errorMap);

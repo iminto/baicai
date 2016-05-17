@@ -1,5 +1,4 @@
 package com.baicai.domain.user;
-
 import com.baicai.annotation.Key;
 import com.baicai.annotation.NotNull;
 import com.baicai.annotation.ValidType;
@@ -13,201 +12,158 @@ import com.baicai.core.Model;
  */
 public class User extends Model{
 	@Key
-	private Integer userId;// 用户id
-	private String userName;// 用户登录名
+	private Integer userid;// 用户id
+	private String username;// 用户登录名
 	@ValidType(valid="password",message="密码字段不符合规范")
-	private String loginPass;// 登陆密码
-	private String payPass;// 支付密码
+	private String loginpass;// 登陆密码
+	private String paypass;// 支付密码
 	@NotNull
 	private String email;// 用户邮箱
-	private String phone;// 用户手机
-	private String userPic;// 用户头像
-	private String realname;// 真实姓名
-	private String userAddress;// 用户联系地址
-	private Integer inviteUserId;// 父id/推荐人id
-	private Integer userType;// 用户类型（0，普通注册用户；1，手机注册用户2，后台手动添加用户）
-	private Integer isEmailCheck;// 邮箱认证（0，未认证；1已认证）
-	private Integer isPhoneCheck;// 手机认证（0，未认证；1已认证）
-	private Integer isRealnameCheck;// 实名认证（0，未认证；1已认证）
-	private Integer isSafequestionCheck;// 密保问题（0，未设置；1，已设置）
-	private Integer vipStopTime;// VIP到期时间
-	private Integer isLock;// 账户锁定（0，正常；1，锁定）
-	private Integer registerTime;// 注册时间
-	private Integer loginTime;// 登录时间
+	private String phone;//用户手机
+	private String userpic;//用户头像
+	private String realname;//真实姓名
+	private String useraddress;//用户联系地址
+	private Integer inviteuserid;//父id/推荐人id
+	private Integer usertype;//用户类型（0，普通注册用户；1，手机注册用户2，后台手动添加用户）
+	private Integer emailcheck;//邮箱认证（0，未认证；1已认证）
+	private Integer phonecheck;//手机认证（0，未认证；1已认证）
+	private Integer realnamecheck;//实名认证（0，未认证；1已认证）
+	private Integer safequestioncheck;//密保问题（0，未设置；1，已设置）
+	private Integer vipstoptime;//VIP到期时间
+	private Integer islock;//账户锁定（0，正常；1，锁定）
+	private Integer registertime;//注册时间
+	private Integer logintime;//登录时间
 	private String registerip;//
-	private Integer invitenum;// 邀请人数
+	private Integer invitenum;//邀请人数
 	
 	public static final String loginRule="loginRules";
-	public static final String[] loginRules={"userName","loginPass"};//登录时需要验证这些字段
+	public static final String[] loginRules={"username","loginpass"};//登录时需要验证这些字段
 	public static final String regRule="regRules";
-	public static final String[] regRules={"userName","loginPass","email"};//注册时需要验证这些字段
-
-	public Integer getUserId() {
-		return userId;
+	public static final String[] regRules={"username","loginpass","email"};//注册时需要验证这些字段
+	public Integer getUserid() {
+		return userid;
 	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
-
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
-	public String getLoginPass() {
-		return loginPass;
+	public String getLoginpass() {
+		return loginpass;
 	}
-
-	public void setLoginPass(String loginPass) {
-		this.loginPass = loginPass;
+	public void setLoginpass(String loginpass) {
+		this.loginpass = loginpass;
 	}
-
-	public String getPayPass() {
-		return payPass;
+	public String getPaypass() {
+		return paypass;
 	}
-
-	public void setPayPass(String payPass) {
-		this.payPass = payPass;
+	public void setPaypass(String paypass) {
+		this.paypass = paypass;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPhone() {
 		return phone;
 	}
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	public String getUserPic() {
-		return userPic;
+	public String getUserpic() {
+		return userpic;
 	}
-
-	public void setUserPic(String userPic) {
-		this.userPic = userPic;
+	public void setUserpic(String userpic) {
+		this.userpic = userpic;
 	}
-
 	public String getRealname() {
 		return realname;
 	}
-
 	public void setRealname(String realname) {
 		this.realname = realname;
 	}
-
-	public String getUserAddress() {
-		return userAddress;
+	public String getUseraddress() {
+		return useraddress;
 	}
-
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
+	public void setUseraddress(String useraddress) {
+		this.useraddress = useraddress;
 	}
-
-	public Integer getInviteUserId() {
-		return inviteUserId;
+	public Integer getInviteuserid() {
+		return inviteuserid;
 	}
-
-	public void setInviteUserId(Integer inviteUserId) {
-		this.inviteUserId = inviteUserId;
+	public void setInviteuserid(Integer inviteuserid) {
+		this.inviteuserid = inviteuserid;
 	}
-
-	public Integer getUserType() {
-		return userType;
+	public Integer getUsertype() {
+		return usertype;
 	}
-
-	public void setUserType(Integer userType) {
-		this.userType = userType;
+	public void setUsertype(Integer usertype) {
+		this.usertype = usertype;
 	}
-
-	public Integer getIsEmailCheck() {
-		return isEmailCheck;
+	public Integer getEmailcheck() {
+		return emailcheck;
 	}
-
-	public void setIsEmailCheck(Integer isEmailCheck) {
-		this.isEmailCheck = isEmailCheck;
+	public void setEmailcheck(Integer emailcheck) {
+		this.emailcheck = emailcheck;
 	}
-
-	public Integer getIsPhoneCheck() {
-		return isPhoneCheck;
+	public Integer getPhonecheck() {
+		return phonecheck;
 	}
-
-	public void setIsPhoneCheck(Integer isPhoneCheck) {
-		this.isPhoneCheck = isPhoneCheck;
+	public void setPhonecheck(Integer phonecheck) {
+		this.phonecheck = phonecheck;
 	}
-
-	public Integer getIsRealnameCheck() {
-		return isRealnameCheck;
+	public Integer getRealnamecheck() {
+		return realnamecheck;
 	}
-
-	public void setIsRealnameCheck(Integer isRealnameCheck) {
-		this.isRealnameCheck = isRealnameCheck;
+	public void setRealnamecheck(Integer realnamecheck) {
+		this.realnamecheck = realnamecheck;
 	}
-
-	public Integer getIsSafequestionCheck() {
-		return isSafequestionCheck;
+	public Integer getSafequestioncheck() {
+		return safequestioncheck;
 	}
-
-	public void setIsSafequestionCheck(Integer isSafequestionCheck) {
-		this.isSafequestionCheck = isSafequestionCheck;
+	public void setSafequestioncheck(Integer safequestioncheck) {
+		this.safequestioncheck = safequestioncheck;
 	}
-
-	public Integer getVipStopTime() {
-		return vipStopTime;
+	public Integer getVipstoptime() {
+		return vipstoptime;
 	}
-
-	public void setVipStopTime(Integer vipStopTime) {
-		this.vipStopTime = vipStopTime;
+	public void setVipstoptime(Integer vipstoptime) {
+		this.vipstoptime = vipstoptime;
 	}
-
-	public Integer getIsLock() {
-		return isLock;
+	public Integer getIslock() {
+		return islock;
 	}
-
-	public void setIsLock(Integer isLock) {
-		this.isLock = isLock;
+	public void setIslock(Integer islock) {
+		this.islock = islock;
 	}
-
-	public Integer getRegisterTime() {
-		return registerTime;
+	public Integer getRegistertime() {
+		return registertime;
 	}
-
-	public void setRegisterTime(Integer registerTime) {
-		this.registerTime = registerTime;
+	public void setRegistertime(Integer registertime) {
+		this.registertime = registertime;
 	}
-
-	public Integer getLoginTime() {
-		return loginTime;
+	public Integer getLogintime() {
+		return logintime;
 	}
-
-	public void setLoginTime(Integer loginTime) {
-		this.loginTime = loginTime;
+	public void setLogintime(Integer logintime) {
+		this.logintime = logintime;
 	}
-
 	public String getRegisterip() {
 		return registerip;
 	}
-
 	public void setRegisterip(String registerip) {
 		this.registerip = registerip;
 	}
-
 	public Integer getInvitenum() {
 		return invitenum;
 	}
-
 	public void setInvitenum(Integer invitenum) {
 		this.invitenum = invitenum;
 	}
-
 }

@@ -23,11 +23,11 @@ public class UserService {
 	protected BaseDAO<User> dao;
 	@Autowired
 	private UserDAO userDAO;
-	@Autowired
+	
 	private HttpServletRequest request;
 	
 	public boolean existUserByName(String userName){
-		String sql="SELECT count(*) FROM {user} WHERE userName=?";
+		String sql="SELECT count(*) FROM {user} WHERE username=?";
 		int i=dao.queryForInt(sql, new Object[]{userName});
 		return i>0;
 	}
@@ -39,19 +39,19 @@ public class UserService {
 	}
 	
 	public int saveUser(User u){
-		String password=CommonUtil.encrypt(u.getUserName(), u.getLoginPass());
-		u.setLoginPass(password);
-		u.setPayPass(password);//默认支付密码和登陆密码一样
-		u.setRegisterTime(TimeHepler.getUnixTime());
+		String password=CommonUtil.encrypt(u.getUsername(), u.getLoginpass());
+		u.setLoginpass(password);
+		u.setPaypass(password);//默认支付密码和登陆密码一样
+		u.setRegistertime(TimeHepler.getUnixTime());
 		u.setRegisterip(request.getRemoteHost());
 		int result=userDAO.save(u);
 		return result;
 	}
 	
 	public User login(User u){
-		String sql="SELECT * FROM {user} WHERE userName=? AND loginPass=? ";
-		String password=CommonUtil.getPassword(u.getUserName(), u.getLoginPass());
-		User user=dao.queryForBean(User.class, sql, new Object[]{u.getUserName(),password});
+		String sql="SELECT * FROM {user} WHERE username=? AND loginpass=? ";
+		String password=CommonUtil.getPassword(u.getUsername(), u.getLoginpass());
+		User user=dao.queryForBean(User.class, sql, new Object[]{u.getUsername(),password});
 		if(user!=null){
 			//登陆成功，记录时间,不记录在user表（因为这样无法查询历史，需要一张专门的表来记录）
 		}
