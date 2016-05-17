@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.baicai.core.BaseDAO;
-import com.baicai.core.DaoUtil;
 import com.baicai.domain.project.Project;
 @Component
 public class ProjectDAO {
