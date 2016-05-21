@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.alibaba.fastjson.JSON;
 import com.baicai.core.BusinessException; 
 /**
- * 全局异常处理
+ * 全局异常处理，注意这里只能对contoller里抛出的异常进行拦截处理，其他的异常这里拦截不到
 * @Description: TODO
 * @author 猪肉有毒 waitfox@qq.com  
 * @date 2016年4月7日 下午11:03:18 
