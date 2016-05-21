@@ -1,0 +1,39 @@
+<!--# include("/views/public/header.htm"){} -->
+<div class="wrapper mt40">
+	<div style="width: 100%; margin: 0 auto; text-align: center;">
+		<div style="margin-top: 50px;">
+		<div
+			style="background-color: #E8E8E8; margin: 1px; line-height: 25px; padding-left: 10px; font-size: 13px;">
+			<strong>操作提示</strong>
+		</div>
+		<div style="text-align: center;font-size: 13px;font-family:微软雅黑">
+			<br /> ${error.errMsg}<br />
+			<br />
+			<div id="msg_content">
+				<a href="${path}/${error.url}">返回</a>
+			</div>
+			<br />
+		</div>
+		
+	</div>
+	</div>
+</div>
+<script> 
+var url = '${path}/${error.url}';
+var path='${path}/';
+var content = '返回';
+if (url == "" || url==path){
+	document.getElementById('msg_content').innerHTML = "<a href='javascript:history.go(-1)'>"+content+"</a>";
+}else{
+	document.getElementById('msg_content').innerHTML = "<a href='"+url+"'>"+content+"</a>";
+}
+setInterval("testTime()",5000); 
+function testTime() { 
+		if (url == ""|| url==path){
+			history.go(-1);
+		}else{
+        location.href = url; //#设定跳转的链接地址
+		}
+} 
+</script>
+<!--# include("/views/public/footer.htm"){} -->
