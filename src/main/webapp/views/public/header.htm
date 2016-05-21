@@ -33,8 +33,12 @@
 			<p class="fl topper-tel-box">客服热线<strong class='topper-tel'>400-120-334</strong></p>
 			<div class="fr topper-links">
 				<a class="mr20" href="">帮助中心</a>
+				<!--# if(isEmpty(loginUid)){  -->
 				<a class="mr20 topper-rl" href="${path }site/login.do">会员登录</a>
-				<a class="topper-rl" href="${path }site/reg.do">会员注册</a>				
+				<a class="topper-rl" href="${path }site/reg.do">会员注册</a>	
+				<!--# }else{ -->
+				<a class="mr20 topper-rl" href="${path }site/loginout.do">退出登录</a>
+				<!--# }  -->			
 			</div>
 		</div>
 	</div>
