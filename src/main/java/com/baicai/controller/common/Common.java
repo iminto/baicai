@@ -56,5 +56,10 @@ public class Common {
 	public String Error404(HttpServletRequest request,HttpServletResponse resp){
 		return "/views/public/404";
 	}
+	
+	@RequestMapping("/500")
+	public String Error500(HttpServletRequest request,HttpServletResponse resp){
+		return "/views/public/500";
+	}
 
 }
