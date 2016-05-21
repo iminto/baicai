@@ -9,6 +9,7 @@
     
 ##运行方法
     本项目是标准的mvn项目
+    导入src\main\webapp\test.sql文件，然后运行如下命令：
   ```xml
   mvn clean install 
   mvn tomcat7:run
