@@ -25,8 +25,7 @@ public class ExceptionControllerAdvice {
 	
 	@ExceptionHandler
     public String expAdvice(HttpServletRequest request, HttpServletResponse response, Exception ex){
-        request.setAttribute("ex", ex.getMessage());
-        log.error(ex.getMessage());
+        ex.printStackTrace();
         Map<String, Object> map = new HashMap<String, Object>();
         if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
                 .getHeader("X-Requested-With") != null && request.getHeader(

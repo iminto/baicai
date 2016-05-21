@@ -177,6 +177,7 @@ public class BaseTool {
 	}
 	
 	public static String getUidFromCookie(Cookie cookie) {
+		if(cookie==null) return "";
 		String encode=decryptCookie(cookie.getValue());
 		String[] result=encode.split("\\|");
 		if(result!=null && result.length==2){
