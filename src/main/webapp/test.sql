@@ -368,7 +368,7 @@ CREATE TABLE `p2p_system` (
   `isdefault` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否是默认（0，默认；1，用户）',
   PRIMARY KEY (`systemid`),
   KEY `systemcat_id` (`systemcatid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统参数表';
 
 /*Data for the table `p2p_system` */
 
@@ -387,7 +387,7 @@ CREATE TABLE `p2p_systemcat` (
   `isdefault` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否是系统默认（0，默认；1用户）',
   PRIMARY KEY (`systemcatid`),
   UNIQUE KEY `systemcat_alias` (`systemcatalias`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='系统参数分类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统参数分类表';
 
 /*Data for the table `p2p_systemcat` */
 
@@ -421,11 +421,30 @@ CREATE TABLE `p2p_user` (
   `invitenum` int(11) DEFAULT '0' COMMENT '邀请人数',
   PRIMARY KEY (`userid`),
   KEY `i_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `p2p_user` */
 
-insert  into `p2p_user`(`userid`,`username`,`loginpass`,`paypass`,`email`,`phone`,`userpic`,`realname`,`useraddress`,`inviteuserid`,`usertype`,`emailcheck`,`phonecheck`,`realnamecheck`,`safequestioncheck`,`vipstoptime`,`islock`,`registertime`,`logintime`,`registerip`,`invitenum`) values (11,'baicai','EE8D579AFB0C99DBB3794EB45609EECA05D96D4B','EE8D579AFB0C99DBB3794EB45609EECA05D96D4B','waitfox@qq.com',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,0,1462623708,NULL,'192.168.1.101',0),(13,'baicai1','11EDDD8E283F4F82DA55B498D56793EE9BC811E0','11EDDD8E283F4F82DA55B498D56793EE9BC811E0','waitfox1@qq.com',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,0,1462626065,NULL,'192.168.1.101',0);
+insert  into `p2p_user`(`userid`,`username`,`loginpass`,`paypass`,`email`,`phone`,`userpic`,`realname`,`useraddress`,`inviteuserid`,`usertype`,`emailcheck`,`phonecheck`,`realnamecheck`,`safequestioncheck`,`vipstoptime`,`islock`,`registertime`,`logintime`,`registerip`,`invitenum`) values (11,'baicai','3D4EE6160D53810F83D993A353FB0800','3D4EE6160D53810F83D993A353FB0800','waitfox@qq.com',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,0,1462623708,NULL,'192.168.1.101',0),(13,'baicai1','11EDDD8E283F4F82DA55B498D56793EE9BC811E0','11EDDD8E283F4F82DA55B498D56793EE9BC811E0','waitfox1@qq.com',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,0,1462626065,NULL,'192.168.1.101',0);
+
+/*Table structure for table `p2p_user_history` */
+
+DROP TABLE IF EXISTS `p2p_user_history`;
+
+CREATE TABLE `p2p_user_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL COMMENT '用户ID',
+  `action` varchar(20) DEFAULT NULL COMMENT '用户操作',
+  `detaill` varchar(512) DEFAULT NULL COMMENT '操作细节',
+  `addtime` datetime DEFAULT NULL COMMENT '操作时间',
+  `addip` varchar(15) DEFAULT NULL COMMENT '操作IP',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户操作记录表';
+
+/*Data for the table `p2p_user_history` */
+
+insert  into `p2p_user_history`(`id`,`uid`,`action`,`detaill`,`addtime`,`addip`) values (1,11,'logout',NULL,'2016-05-22 02:00:08','192.168.1.101'),(2,11,'login',NULL,'2016-05-22 02:03:59','192.168.1.101'),(3,11,'logout',NULL,'2016-05-22 02:04:05','192.168.1.101');
 
 /*Table structure for table `p2p_userinfo` */
 
