@@ -175,6 +175,16 @@ public class BaseTool {
 			return "";
 		}
 	}
+	
+	public static String getUidFromCookie(Cookie cookie) {
+		String encode=decryptCookie(cookie.getValue());
+		String[] result=encode.split("\\|");
+		if(result!=null && result.length==2){
+			return result[0];
+		}else{
+			return "";
+		}
+	}
 
 	/**
 	 * 把页面参数Map转为字符串，用于分页等
