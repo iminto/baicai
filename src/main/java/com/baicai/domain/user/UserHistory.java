@@ -1,12 +1,15 @@
 package com.baicai.domain.user;
 
 import java.util.Date;
+
+import com.baicai.annotation.Table;
 /**
  * @Description: 用户操作记录表模型类
  * @author: waitfox@qq.com
  * @version: 0.01
  * @date: 2016/05/22 01:36:04
  */
+@Table(name = "user_history")
 public class UserHistory {
 	private Integer id;//
 	private Integer uid;//用户ID
