@@ -123,6 +123,10 @@ public class Generator {
                             bean.setColumnType("Date");
                             bean.setColumnTypeRsGetter("getDate");
                             tableBean.setHasDateColumn(true);
+                        }  else if (("datetime").equals(columnType)) {
+                            bean.setColumnType("Date");
+                            bean.setColumnTypeRsGetter("getDate");
+                            tableBean.setHasDateColumn(true);
                         } else if (columnType.startsWith("float")) {
                             bean.setColumnType("Float");
                             bean.setColumnTypeRsGetter("getFloat");
