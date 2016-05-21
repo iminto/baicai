@@ -35,10 +35,10 @@ import com.baicai.util.XorEncrypt;
 
 public class BaseTool {
 	// 默认登陆有效期
-	public static final int LOGINVALIDTIME = Integer.valueOf(PropertiesTool
-			.get("system", "LOGINVALID"));
-	public static final int MONTH=0;//日期类型
-	public static final int DAY=1;
+	public static final int LOGINVALIDTIME = Integer.valueOf(PropertiesTool.get("system", "LOGINVALID"));
+	public static final int MONTH = 0;// 日期类型
+	public static final int DAY = 1;
+	private static final String USERSALT = PropertiesTool.get("system", "USER_SALT");
 
 	/**
 	 * 判断是否为图片，通过取图片宽高来判断，如果有异常，就证明不是图片
@@ -49,8 +49,7 @@ public class BaseTool {
 	public static boolean isImage(MultipartFile imageFile) {
 		String fileName = imageFile.getOriginalFilename();
 		// 获取上传文件类型的扩展名,先得到.的位置，再截取从.的下一个位置到文件的最后，最后得到扩展名
-		String ext = fileName.substring(fileName.lastIndexOf(".") + 1,
-				fileName.length());
+		String ext = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
 		ext = ext.toLowerCase();
 		String[] fileType = { "bmp", "gif", "jpeg", "jpg", "png" };// 这里必须有序，否则结果一定会出错
 		if (Arrays.binarySearch(fileType, ext) < 0) {
@@ -59,8 +58,7 @@ public class BaseTool {
 		Image img = null;
 		try {
 			img = ImageIO.read(imageFile.getInputStream());
-			if (img == null || img.getWidth(null) <= 0
-					|| img.getHeight(null) <= 0) {
+			if (img == null || img.getWidth(null) <= 0 || img.getHeight(null) <= 0) {
 				return false;
 			}
 			return true;
@@ -74,24 +72,19 @@ public class BaseTool {
 	/**
 	 * 
 	 * @param file
-	 * @param dir
-	 *            保存目录，针对根目录来说，前后都不需要带/
-	 * @param keepname
-	 *            是否保存原有文件名
+	 * @param dir 保存目录，针对根目录来说，前后都不需要带/
+	 * @param keepname 是否保存原有文件名
 	 * @return
 	 */
 	public static String upload(MultipartFile file, String dir, boolean keepname) {
 		// 加上 5位随机数
-		String uustr = System.currentTimeMillis() / 1000l
-				+ UUID.randomUUID().toString().replace("-", "");
+		String uustr = System.currentTimeMillis() / 1000l + UUID.randomUUID().toString().replace("-", "");
 		String saveName = dir + File.separator;
 		mkdir(saveName);
 		if (keepname) {
 			saveName += file.getOriginalFilename();
 		} else {
-			String ext = file.getOriginalFilename().substring(
-					file.getOriginalFilename().lastIndexOf(".") + 1,
-					file.getOriginalFilename().length());
+			String ext = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1, file.getOriginalFilename().length());
 			ext = ext.toLowerCase();
 			saveName += uustr + "." + ext;
 		}
@@ -113,6 +106,7 @@ public class BaseTool {
 				fd.mkdirs();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			fd = null;
 		}
@@ -138,21 +132,19 @@ public class BaseTool {
 	 * @return
 	 */
 	public static String encryptCookieValue(String data) {
-		String key = PropertiesTool.get("system", "USER_SALT");
-		XorEncrypt xor = new XorEncrypt(key);
+		XorEncrypt xor = new XorEncrypt(USERSALT);
 		String encode = xor.encrypt(data);
 		return encode;
 	}
 
 	/**
-	 * 生成token，用处如下，使用过的地方加在下面 1.防止cookie被篡改
+	 * 生成校验信息，用处如下，使用过的地方加在下面 1.防止cookie被篡改
 	 * 
 	 * @param str
 	 * @return
 	 */
-	public static String generatorToken(String str) {
-		return CommonUtil.md5(PropertiesTool.get("system", "USER_SALT") + str
-				+ PropertiesTool.get("system", "USER_SALT"));
+	public static String generatorSafeCode(String str) {
+		return CommonUtil.md5(USERSALT + str + USERSALT);
 
 	}
 
@@ -163,19 +155,12 @@ public class BaseTool {
 	 * @param tokenCookie
 	 * @return
 	 */
-	public static boolean validToken(String userCookie, String tokenCookie) {
-		return CommonUtil.md5(
-				PropertiesTool.get("system", "USER_SALT") + userCookie
-						+ PropertiesTool.get("system", "USER_SALT")).equals(
-				tokenCookie);
+	public static boolean validToken(String source, String valid) {
+		return CommonUtil.md5(USERSALT + source + USERSALT).equals(valid);
 	}
 
-	public static boolean validCookie(Cookie userCookie, Cookie tokenCookie) {
-		return CommonUtil.md5(
-				PropertiesTool.get("system", "USER_SALT")
-						+ userCookie.getValue()
-						+ PropertiesTool.get("system", "USER_SALT")).equals(
-				tokenCookie.getValue());
+	public static boolean validCookie(Cookie sourCookie, Cookie validCookie) {
+		return CommonUtil.md5(USERSALT + sourCookie.getValue() + USERSALT).equals(validCookie.getValue());
 	}
 
 	/**
@@ -184,28 +169,12 @@ public class BaseTool {
 	 */
 	public static String decryptCookie(String encStr) {
 		try {
-			String key = PropertiesTool.get("system", "USER_SALT");
-			XorEncrypt xor = new XorEncrypt(key);
+			XorEncrypt xor = new XorEncrypt(USERSALT);
 			return xor.decrypt(encStr);
 		} catch (Exception e) {
 			return "";
 		}
-
 	}
-
-
-	/**
-	 * 生成处理后的密码
-	 * 
-	 * @param username
-	 * @param password
-	 * @return
-	 */
-	public static String get_pass(Long userId, String password) {
-		return CommonUtil.md5(CommonUtil.SHA1(CommonUtil.md5(password)
-				.substring(7, 31) + userId));
-	}
-
 
 	/**
 	 * 把页面参数Map转为字符串，用于分页等
@@ -224,16 +193,12 @@ public class BaseTool {
 		return sb.toString();
 	}
 
-
 	/**
 	 * 计算加N个月后的日期，确保1-31号加一天后啊2-28号，而不是2月31日或3月3日
 	 * 
-	 * @param time
-	 *            传入时间戳
-	 * @param add
-	 *            传入需要增加的月份/天
-	 * @param type
-	 *            0 月标，1 天标
+	 * @param time 传入时间戳
+	 * @param add 传入需要增加的月份/天
+	 * @param type 0 月标，1 天标
 	 * @return
 	 */
 	public static int getTime(int time, int add, int type) {
@@ -265,19 +230,17 @@ public class BaseTool {
 	public static String htmlEscape(String input) {
 		return HtmlUtils.htmlEscape(input);
 	}
-	
+
 	/**
-	 * 在项目启动时就获取服务器域名和端口
-	 * 本来可以通过request对象获取，但是项目刚启动时是没有request对象的
+	 * 在项目启动时就获取服务器域名和端口 本来可以通过request对象获取，但是项目刚启动时是没有request对象的
+	 * 
 	 * @return
 	 */
 	public static String getServer() {
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 		ArrayList<String> endPoints = new ArrayList<String>();
 		try {
-			Set<ObjectName> objs = mbs.queryNames(new ObjectName(
-					"*:type=Connector,*"), Query.match(Query.attr("protocol"),
-					Query.value("HTTP/1.1")));
+			Set<ObjectName> objs = mbs.queryNames(new ObjectName("*:type=Connector,*"), Query.match(Query.attr("protocol"), Query.value("HTTP/1.1")));
 			String hostname = InetAddress.getLocalHost().getHostName();
 			InetAddress[] addresses = InetAddress.getAllByName(hostname);
 			for (Iterator<ObjectName> i = objs.iterator(); i.hasNext();) {
