@@ -5,9 +5,9 @@
 	<property name="LOG_HOME" value="e:/tmp" />
 	<!-- 控制台日志输出 -->
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %logger{90} [%p]: %m%n</pattern>
-		</layout>
+		</encoder>
 	</appender>
 	<appender name="dailyRollingFileAppender"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -18,11 +18,11 @@
 			<!-- 最多30个文件 -->
 			<MaxHistory>30</MaxHistory>
 		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{90} -
 				%msg%n
 			</pattern>
-		</layout>
+		</encoder>
 		<!--日志文件最大的大小 -->
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
