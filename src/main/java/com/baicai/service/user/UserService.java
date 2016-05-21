@@ -24,6 +24,8 @@ public class UserService {
 	@Autowired
 	private UserDAO userDAO;
 	
+	@Autowired private HttpServletRequest request;
+	
 	public boolean existUserByName(String userName){
 		String sql="SELECT count(*) FROM {user} WHERE username=?";
 		int i=dao.queryForInt(sql, new Object[]{userName});
@@ -36,7 +38,7 @@ public class UserService {
 		return i>0;
 	}
 	
-	public int saveUser(User u,HttpServletRequest request){
+	public int saveUser(User u){
 		String password=CommonUtil.encrypt(u.getUsername(), u.getLoginpass());
 		u.setLoginpass(password);
 		u.setPaypass(password);//默认支付密码和登陆密码一样
