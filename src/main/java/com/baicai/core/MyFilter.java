@@ -25,15 +25,15 @@ public class MyFilter implements Filter {
 		String contextPath = request.getContextPath();
 		System.out.println("过滤路径:" + path);
 		req.setCharacterEncoding("utf-8");
-		Cookie userLogin = BaseTool.getCookie(request, "userlogin");
+		Cookie userLogin = BaseTool.getCookie(request, "openid");
 		Cookie token=BaseTool.getCookie(request, "token");
 		req.setAttribute("path", req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+request.getContextPath()+"/");
+		request.setAttribute("loginUid", BaseTool.getUidFromCookie(userLogin));
 		if (path.indexOf("/user") != -1 || path.indexOf("/usercenter") != -1 || path.indexOf("/safecenter") != -1) {
 			//如果不是登陆或注册的首页，但是又包含user的前缀
 			if (userLogin == null || token==null||!BaseTool.validCookie(userLogin, token)) {
 				response.sendRedirect(contextPath + "/site/login.do");
 			} else {
-				request.setAttribute("loginUid", BaseTool.encryptCookieValue(userLogin.getValue()));
 				chain.doFilter(req, res);
 			}
 		} else {
