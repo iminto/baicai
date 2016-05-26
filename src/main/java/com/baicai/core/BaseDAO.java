@@ -145,11 +145,11 @@ public class BaseDAO<T> {
 		return (T) obj;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> queryForList(Class<T> beanClass, String sql, Object[] args) {
 		String sqlx=getDoneSQL(sql);
+		BeanPropertyRowMapper<T> rowMapper=new BeanPropertyRowMapper<T>(beanClass);
 		long begin = System.currentTimeMillis();
-		List<T> list = jdbcTemplate.query(sqlx, new BeanPropertyRowMapper(beanClass), args);
+		List<T> list = jdbcTemplate.query(sqlx, rowMapper, args);
 		long end = System.currentTimeMillis();
 		printSQL(sqlx, args, end - begin);
 		return list;
