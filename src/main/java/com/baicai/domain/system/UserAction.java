@@ -11,6 +11,8 @@ public enum UserAction {
 	Login("login"),//登陆
 	Logout("logout"),//退出登录
 	ChangePwd("changepwd"),//修改密码
+	Fail("fail"),//操作失败
+	Privilege("privilege"),//权限操作
 	Browser("browser");//正常浏览
 	
 	private String action;
