@@ -54,11 +54,11 @@
 	</filter-mapping>
 	
 	<filter>
-		<filter-name>myFilter</filter-name>
-		<filter-class>com.baicai.core.MyFilter</filter-class>
+		<filter-name>frontFilter</filter-name>
+		<filter-class>com.baicai.core.FrontFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>myFilter</filter-name>
+		<filter-name>frontFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 	

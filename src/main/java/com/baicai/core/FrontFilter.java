@@ -10,8 +10,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-public class MyFilter implements Filter {
+/**
+ * 前台过滤器，目前只处理前台业务
+* @Description: TODO
+* @author 猪肉有毒 waitfox@qq.com  
+* @date 2016年6月2日 下午11:17:10 
+* @version V1.0  
+* 我只为你回眸一笑，即使不够倾国倾城，我只为你付出此生，换来生再次相守
+ */
+public class FrontFilter implements Filter {
 
 	public void destroy() {
 
@@ -23,7 +30,6 @@ public class MyFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		String path = request.getServletPath();
 		String contextPath = request.getContextPath();
-		System.out.println("过滤路径:" + path);
 		req.setCharacterEncoding("utf-8");
 		Cookie userLogin = BaseTool.getCookie(request, "openid");
 		Cookie token=BaseTool.getCookie(request, "token");
