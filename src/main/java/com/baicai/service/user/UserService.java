@@ -46,7 +46,7 @@ public class UserService {
 	}
 
 	public int saveUser(User u) {
-		String password = CommonUtil.encrypt(u.getUsername(), u.getLoginpass());
+		String password = CommonUtil.getPassword(u.getUsername(), u.getLoginpass());
 		u.setLoginpass(password);
 		u.setPaypass(password);// 默认支付密码和登陆密码一样
 		u.setRegistertime(TimeHepler.getUnixTime());
