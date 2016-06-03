@@ -67,7 +67,7 @@
 		<property name="validationInterval" value="30000" />
 	</bean>
 
-	<bean id="dynamicDataSource" class="com.baicai.core.DynamicDataSource">
+	<bean id="dynamicDataSource" class="com.baicai.core.database.DynamicDataSource">
 		<!-- 通过key-value的形式来关联数据源 -->
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
