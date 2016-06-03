@@ -1,5 +1,6 @@
 package com.baicai.domain.project;
 
+import com.baicai.annotation.Key;
 import com.baicai.core.Model;
 
 /**
@@ -9,7 +10,9 @@ import com.baicai.core.Model;
  * @date: 2016/03/20 20:44:52
  */
 public class Project extends Model {
+	@Key
 	private Integer id;//
+	@Key
 	private Long proid;// 逻辑主键
 	private Long uid;// 借款人ID
 	private String proname;// 借款标题
