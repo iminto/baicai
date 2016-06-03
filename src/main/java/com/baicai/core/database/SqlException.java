@@ -23,7 +23,6 @@ public class SqlException extends RuntimeException{
 		e.printStackTrace();
 		if (loger.isErrorEnabled()) {
 			loger.error("数据库运行期异常，相关sql语句为" + sql);
-			loger.error(e.getMessage());
 		}
 	}
 
