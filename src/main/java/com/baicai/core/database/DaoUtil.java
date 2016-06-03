@@ -2,6 +2,7 @@ package com.baicai.core.database;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -140,5 +141,45 @@ public class DaoUtil {
 			bound.setParam(params.toArray());
 		}
 		return bound;
+	}
+	
+	public HashMap<String, String> createDO(Object bean) {
+		Field[] at = bean.getClass().getDeclaredFields();
+		HashMap<String, String> map = new HashMap<String, String>();
+		for (Field field : at) {
+			// 找出有column注解的字段,在数据库字段和POJO之间建立关联
+			if (field.isAnnotationPresent(Column.class) == true) {
+				map.put(field.getAnnotation(Column.class).column(),
+						field.getName());
+			}
+		}
+		return map;
+	}
+	
+	/**
+	 * 判断字段是否为空，目前只针对int和String,Long做判断
+	 * 
+	 * @param field
+	 * @return
+	 */
+	public boolean hasValue(Field field) {
+		try {
+			if (field.getType().getSimpleName().equals("int")
+					|| field.getType().getSimpleName().equals("Integer")
+					|| field.getType().getSimpleName().equals("long")
+					|| field.getType().getSimpleName().equals("Long")) {
+				if (field.get(this) == null) {
+					return false;
+				}
+			}
+			if (field.getType().getSimpleName().equals("String")) {
+				if (field.get(this) == null || field.get(this).equals("")) {
+					return false;
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return true;
 	}
 }

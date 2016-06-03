@@ -3,22 +3,15 @@ package com.baicai.core;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baicai.annotation.Column;
-import com.baicai.annotation.Key;
+import org.springframework.stereotype.Component;
 import com.baicai.annotation.NotNull;
 import com.baicai.annotation.Size;
-import com.baicai.annotation.Table;
 import com.baicai.annotation.ValidType;
 import com.baicai.core.database.BaseDAO;
 import com.baicai.util.ArrayHelper;
 import com.baicai.util.FILTER;
-import com.baicai.util.PropertiesTool;
 import com.baicai.util.ValidatorHelper;
 
 /**
@@ -36,135 +29,13 @@ public class Model {
 	@SuppressWarnings("rawtypes")
 	static BaseDAO<?> baseDao = (BaseDAO) SpringUtils.getApplicationContext()
 			.getBean("baseDAO");
-	private ThreadLocal<String> whereCon = new ThreadLocal<String>();// where条件，线程安全
-	private String tableName = PropertiesTool.get("system", "tableFix")
-			+ this.getClass().getSimpleName().toLowerCase();
-	private boolean keySet = false;// 是否设置了主键并且有值，防止主键条件和where条件混用
+//	private ThreadLocal<String> whereCon = new ThreadLocal<String>();// where条件，线程安全
 	private static final Logger logger = LoggerFactory.getLogger(Model.class);
 	private Map<String, String> errorMap = new HashMap<String, String>();
 
 	public Model() {
-		// 由于model操作之间复用性不高且反射会影响性能，故不在构造函数里做太多初始化操作
-		if (this.getClass().isAnnotationPresent(Table.class)) {
-			Table table = (Table) this.getClass().getAnnotation(Table.class);
-			tableName = table.name();// 获取表名
-		}
 	}
 
-	public Model where(String condition) {
-		if (keySet != true) {
-			if (whereCon.get() == null || whereCon.get().equals("")) {
-				whereCon.set(" WHERE 1 ");
-			}
-			whereCon.set(whereCon.get() + " AND " + condition);
-		}
-		return this;
-	}
-
-	/**
-	 * 删除一条纪录，支持where条件或者根据主键删除，二者不能混用
-	 * 
-	 * @return
-	 */
-	public int del() {
-		buildPrimaryWhere();
-		if (whereCon.get() == null || whereCon.get().equals("")) {
-			return 0;
-		} else {
-			String sql = " DELETE FROM `" + tableName + "`  " + whereCon.get();
-			int result = baseDao.getJdbcTemplate().update(sql);
-			whereCon = null;// SQL执行成功后，清空Where条件
-			return result;
-		}
-
-	}
-
-	public <T> T find() {
-		buildPrimaryWhere();
-		System.out.println("whereCon.get()"+whereCon.get());
-		if (whereCon.get() == null || whereCon.get().equals("")) {
-			return null;
-		} else {
-			String sql = " SELECT * FROM `" + tableName + "`  "
-					+ whereCon.get();
-			System.out.println(sql);
-			Object obj;
-			Object[] args = {};
-			try {
-				obj = baseDao.getJdbcTemplate().queryForObject(sql,
-						new BeanPropertyRowMapper(this.getClass()), args);
-			} catch (EmptyResultDataAccessException e) {
-				obj = null;
-
-			}
-			return (T) obj;
-		}
-
-	}
-
-	/**
-	 * 判断字段是否为空，目前只针对int和String,Long做判断
-	 * 
-	 * @param field
-	 * @return
-	 */
-	public boolean hasValue(Field field) {
-		try {
-			if (field.getType().getSimpleName().equals("int")
-					|| field.getType().getSimpleName().equals("Integer")
-					|| field.getType().getSimpleName().equals("long")
-					|| field.getType().getSimpleName().equals("Long")) {
-				if (field.get(this) == null) {
-					return false;
-				}
-			}
-			if (field.getType().getSimpleName().equals("String")) {
-				if (field.get(this) == null || field.get(this).equals("")) {
-					return false;
-				}
-			}
-		} catch (Exception e) {
-
-		}
-		return true;
-	}
-
-	public void buildPrimaryWhere() {
-		Field[] at = this.getClass().getDeclaredFields();
-		String column = "";// 默认主键名
-
-		for (Field field : at) {
-			field.setAccessible(true);
-			try {
-				if (field.isAnnotationPresent(Key.class) == true
-						&& hasValue(field)) {
-					if (field.isAnnotationPresent(Column.class) == true) {
-						column = field.getAnnotation(Column.class).column();
-					} else {
-						column = field.getName();
-					}
-					whereCon.set(" WHERE " + column + "=" + field.get(this));
-					keySet = true;
-					break;
-				}
-			} catch (IllegalArgumentException e) {
-			} catch (IllegalAccessException e) {
-			}
-		}
-	}
-
-	public HashMap<String, String> createDO() {
-		Field[] at = this.getClass().getDeclaredFields();
-		HashMap<String, String> map = new HashMap<String, String>();
-		for (Field field : at) {
-			// 找出有column注解的字段,在数据库字段和POJO之间建立关联
-			if (field.isAnnotationPresent(Column.class) == true) {
-				map.put(field.getAnnotation(Column.class).column(),
-						field.getName());
-			}
-		}
-		return map;
-	}
 
 	/**
 	 * 对Model进行验证，目前支持三种注解，其中validType注解是可扩展的，可以根据需要进行扩展
@@ -201,6 +72,7 @@ public class Model {
 					doNotNull(field);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("对BEAN做validate时报错，对象的内容为:"+this);
 				}
 				
 			}
