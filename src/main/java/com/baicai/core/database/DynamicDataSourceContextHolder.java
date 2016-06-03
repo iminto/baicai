@@ -1,4 +1,4 @@
-package com.baicai.core;
+package com.baicai.core.database;
 
 import java.util.ArrayList;
 import java.util.List;

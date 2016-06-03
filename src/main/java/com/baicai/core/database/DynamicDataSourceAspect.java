@@ -1,4 +1,4 @@
-package com.baicai.core;
+package com.baicai.core.database;
 
 import java.lang.reflect.Method;
 import org.aspectj.lang.JoinPoint;

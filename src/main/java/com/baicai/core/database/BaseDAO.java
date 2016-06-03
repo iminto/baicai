@@ -1,27 +1,30 @@
-package com.baicai.core;
+package com.baicai.core.database;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-import com.baicai.annotation.Column;
-import com.baicai.annotation.Table;
+
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
@@ -68,7 +71,7 @@ public class BaseDAO<T> {
 	 * @return
 	 */
 	public int queryForInt(final String sql, final Object[] o) {
-		final String sqlx=getDoneSQL(sql);
+		final String sqlx = getDoneSQL(sql);
 		final long begin = System.currentTimeMillis();
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<Integer>() {
 			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -81,7 +84,7 @@ public class BaseDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public int queryForInt(String sql, Map m) {
-		final String sqlx=getDoneSQL(sql);
+		final String sqlx = getDoneSQL(sql);
 		return getNamedParameterJdbcTemplate().query(sqlx, m, new ResultSetExtractor<Integer>() {
 			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getInt(1) : 0;
@@ -90,7 +93,7 @@ public class BaseDAO<T> {
 	}
 
 	public long queryForLong(String sql, Object[] o) {
-		final String sqlx=getDoneSQL(sql);
+		final String sqlx = getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<Long>() {
 			public Long extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getLong(1) : 0l;
@@ -99,7 +102,7 @@ public class BaseDAO<T> {
 	}
 
 	public Double queryForDouble(String sql, Object[] o) {
-		final String sqlx=getDoneSQL(sql);
+		final String sqlx = getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<Double>() {
 			public Double extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getDouble(1) : 0d;
@@ -108,7 +111,7 @@ public class BaseDAO<T> {
 	}
 
 	public BigDecimal queryForBigdecimal(final String sql, final Object[] o) {
-		final String sqlx=getDoneSQL(sql);
+		final String sqlx = getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<BigDecimal>() {
 			public BigDecimal extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getBigDecimal(1) : new BigDecimal(0);
@@ -125,7 +128,7 @@ public class BaseDAO<T> {
 	 * @return
 	 */
 	public String queryForString(String sql, Object[] o) {
-		final String sqlx=getDoneSQL(sql);
+		final String sqlx = getDoneSQL(sql);
 		return getJdbcTemplate().query(sqlx, o, new ResultSetExtractor<String>() {
 			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
 				return rs.next() ? rs.getString(1) : null;
@@ -137,7 +140,11 @@ public class BaseDAO<T> {
 	public T queryForBean(Class<T> beanClass, String sql, Object[] args) {
 		Object obj;
 		try {
+			long begin = System.currentTimeMillis();
+			String sqlx = getDoneSQL(sql);
 			obj = jdbcTemplate.queryForObject(getDoneSQL(sql), new BeanPropertyRowMapper(beanClass), args);
+			long end = System.currentTimeMillis();
+			printSQL(sqlx, args, end - begin);
 		} catch (EmptyResultDataAccessException e) {
 			obj = null;
 			return null;
@@ -146,8 +153,8 @@ public class BaseDAO<T> {
 	}
 
 	public List<T> queryForList(Class<T> beanClass, String sql, Object[] args) {
-		String sqlx=getDoneSQL(sql);
-		BeanPropertyRowMapper<T> rowMapper=new BeanPropertyRowMapper<T>(beanClass);
+		String sqlx = getDoneSQL(sql);
+		BeanPropertyRowMapper<T> rowMapper = new BeanPropertyRowMapper<T>(beanClass);
 		long begin = System.currentTimeMillis();
 		List<T> list = jdbcTemplate.query(sqlx, rowMapper, args);
 		long end = System.currentTimeMillis();
@@ -156,7 +163,7 @@ public class BaseDAO<T> {
 	}
 
 	public Map<String, Object> queryForMap(String sql, Object[] args) {
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		long begin = System.currentTimeMillis();
 		Map map;
 		try {
@@ -172,7 +179,7 @@ public class BaseDAO<T> {
 
 	public List<Map<String, Object>> queryForList(String sql, Object[] args) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlx, args);
 		long end = System.currentTimeMillis();
 		printSQL(sqlx, args, end - begin);
@@ -181,7 +188,7 @@ public class BaseDAO<T> {
 
 	public List<Map<String, Object>> queryForList(String sql, Map args) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		List<Map<String, Object>> list = namedParameterJdbcTemplate.queryForList(sqlx, args);
 		long end = System.currentTimeMillis();
 		printSQLMap(sqlx, args, end - begin);
@@ -200,7 +207,7 @@ public class BaseDAO<T> {
 
 	public int update(String sql, Object[] args) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		int i = jdbcTemplate.update(sqlx, args);
 		long end = System.currentTimeMillis();
 		printSQL(sqlx, args, end - begin);
@@ -209,7 +216,7 @@ public class BaseDAO<T> {
 
 	public int update(String sql, Map map) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		int i = namedParameterJdbcTemplate.update(sqlx, map);
 		long end = System.currentTimeMillis();
 		printSQLMap(sqlx, map, end - begin);
@@ -226,47 +233,41 @@ public class BaseDAO<T> {
 		return save(sql, object);
 	}
 
-	public int insert(T t) {
+	public long insert(Object t) {
+		return insert(t, false);
+	}
+	
+	/**
+	 * 优化的插入方法，少使用了一次反射
+	 * @param t POJO对象
+	 * @param back 是否需要返回主键
+	 * @return
+	 */
+	public long insert(Object t, boolean back) {
+		final SqlBound bound = DaoUtil.insert(t);
+		long id = 0l;
 		long begin = System.currentTimeMillis();
-		Field[] at = t.getClass().getDeclaredFields();
-		String tableName = "";
-		try {
-			Table table = (Table) t.getClass().getAnnotation(Table.class);
-			tableName = table.name();// 通过注解获取表名
-		} catch (Exception e) {
-			logger.warn("获取表名注解失败，将使用类名作为表名，建议加上表名注解"+e.getMessage());
-			tableName = t.getClass().getSimpleName().toLowerCase();
-		}
-		tableName=DaoUtil.tableFix+tableName;
-		StringBuilder sb = new StringBuilder(40);
-		sb.append("INSERT INTO `").append(tableName).append("` (");
-		StringBuilder after = new StringBuilder(48);// SQL后半部分
-		String fullSQL = "";
-		for (Field field : at) {
-			field.setAccessible(true);
-			String Tcolumn = field.getName();
-			try {
-				if (field.get(t) != null || (field.isAnnotationPresent(Column.class) == true
-						&& field.getAnnotation(Column.class).insertZero() == true)) {
-					Column dColumn = field.getAnnotation(Column.class);
-					Tcolumn = dColumn != null ? dColumn.column() : field.getName();
-					if (field.getModifiers() == 25)
-						continue;// 如果是规则字段，跳出
-					sb.append("`").append(Tcolumn).append("`,");
-					after.append(":").append(field.getName()).append(",");
+		if (back) {
+			KeyHolder keyHolder = new GeneratedKeyHolder();
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+					PreparedStatement ps = conn.prepareStatement(bound.getSql(), Statement.RETURN_GENERATED_KEYS);
+					int index = 0;
+					for (Object param : bound.getParam()) {
+						index++;
+						ps.setObject(index, param);
+					}
+					return ps;
 				}
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				logger.error("数据入库时注解解析失败" + e.getMessage());
-			}
-
+			}, keyHolder);
+			id = keyHolder.getKey().longValue();
+		} else {
+			update(bound);
 		}
-		fullSQL = sb.substring(0, sb.length() - 1);
-		fullSQL += ") VALUES (" + after.substring(0, after.length() - 1) + (")");
-		KeyHolder holder = new GeneratedKeyHolder();
-		namedParameterJdbcTemplate.update(fullSQL, new BeanPropertySqlParameterSource(t),holder);
 		long end = System.currentTimeMillis();
-		printSQL(fullSQL,  end - begin);
-		return holder.getKey().intValue();
+		printSQL(bound.getSql(), bound.getParam(), end - begin);
+		return id;
 	}
 
 	/**
@@ -278,7 +279,7 @@ public class BaseDAO<T> {
 	 */
 	public int save(String sql, Object[] args) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		int j = jdbcTemplate.update(sqlx, args);
 		long end = System.currentTimeMillis();
 		printSQL(sqlx, args, end - begin);
@@ -295,7 +296,7 @@ public class BaseDAO<T> {
 	 */
 	public int insert(String sql, Object o) {
 		KeyHolder holder = new GeneratedKeyHolder();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		namedParameterJdbcTemplate.update(sqlx, new BeanPropertySqlParameterSource(o), holder);
 		return holder.getKey().intValue();
 
@@ -312,7 +313,7 @@ public class BaseDAO<T> {
 
 	public int execute(String sql, Map<String, ?> map) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		int i = jdbcTemplate.update(sqlx, map);
 		long end = System.currentTimeMillis();
 		printSQL(sqlx, map.entrySet().toArray(), end - begin);
@@ -321,20 +322,29 @@ public class BaseDAO<T> {
 
 	public int[] batchUpdate(String sql, List<Object[]> batchArgs) {
 		long begin = System.currentTimeMillis();
-		String sqlx=getDoneSQL(sql);
+		String sqlx = getDoneSQL(sql);
 		int[] temp = jdbcTemplate.batchUpdate(sqlx, batchArgs);
 		long end = System.currentTimeMillis();
 		printSQL(sqlx, null, end - begin);
 		return temp;
 	}
 
-	private void printSQL(String sql, Object[] params, long time) {
-		logger.info("  SQL: " + sql + (params != null ? "\nParams: " + Arrays.deepToString(params) : "") + ",耗时：" + time
-				+ " 毫秒\n");
+	private void update(SqlBound sqlBound) {
+		String sql = null;
+		try {
+			sql = sqlBound.getSql();
+			jdbcTemplate.update(sql, sqlBound.getParam());
+		} catch (Exception e) {
+			throw new SqlException(e,sql);
+		}
 	}
-	
+
+	private void printSQL(String sql, Object[] params, long time) {
+		logger.info("  SQL: " + sql + (params != null ? "\nParams: " + Arrays.deepToString(params) : "") + ",耗时：" + time + " 毫秒\n");
+	}
+
 	private void printSQL(String sql, long time) {
-		logger.info("  SQL: " + sql + ",耗时：" + time+ " 毫秒\n");
+		logger.info("  SQL: " + sql + ",耗时：" + time + " 毫秒\n");
 	}
 
 	private void printSQLMap(String sql, Map params, long time) {
@@ -362,13 +372,14 @@ public class BaseDAO<T> {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 处理传入的SQL，主要是表前缀的拼接等，不排除其他特殊处理
+	 * 
 	 * @param sql
 	 * @return
 	 */
-	public String getDoneSQL(String sql){
+	public String getDoneSQL(String sql) {
 		return DaoUtil.format(sql);
 	}
 

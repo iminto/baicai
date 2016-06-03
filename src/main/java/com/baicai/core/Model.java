@@ -15,6 +15,7 @@ import com.baicai.annotation.NotNull;
 import com.baicai.annotation.Size;
 import com.baicai.annotation.Table;
 import com.baicai.annotation.ValidType;
+import com.baicai.core.database.BaseDAO;
 import com.baicai.util.ArrayHelper;
 import com.baicai.util.FILTER;
 import com.baicai.util.PropertiesTool;

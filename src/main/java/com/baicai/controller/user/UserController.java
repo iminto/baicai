@@ -42,7 +42,7 @@ public class UserController extends BaseController {
 			} else if (userService.existUserByEmail(user.getEmail())) {
 				errorMap.put("userName", "邮箱已存在");
 			} else {
-				int i = userService.saveUser(user);
+				long i = userService.saveUser(user);
 			}
 		} else {
 			errorMap = user.getErrorMap();

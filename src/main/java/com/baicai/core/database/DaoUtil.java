@@ -1,6 +1,9 @@
-package com.baicai.core;
+package com.baicai.core.database;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.baicai.annotation.Column;
@@ -24,6 +27,7 @@ public class DaoUtil {
 	public static final String VALUES=" ) VALUES ( ";
 	public static final String APOSTROPHE="`" ;
 	public static final String APOSTROPHECOMMA="`," ;
+	public static final String ASK="?" ;
 	
 	
 	public static String format(String sql) {
@@ -36,7 +40,7 @@ public class DaoUtil {
 		return " limit "+page.getOffset()+","+page.getPageSize()+" ";
 	}
 	
-	public static String insert(Object t){
+	public static SqlBound insert(Object t){
 	    Field[] at = t.getClass().getDeclaredFields();
         String tableName = "";
         try {
@@ -50,6 +54,7 @@ public class DaoUtil {
         StringBuilder sb = new StringBuilder(40);
         sb.append(INSERT).append(tableName).append(BRACKET_LEFT);
         StringBuilder after = new StringBuilder(48);// SQL后半部分
+        List<Object> params = new ArrayList<Object>();
         for (Field field : at) {
             field.setAccessible(true);
             String Tcolumn = field.getName();
@@ -61,7 +66,8 @@ public class DaoUtil {
                     if (field.getModifiers() == 25)
                         continue;// 如果是规则字段，跳出
                     sb.append(APOSTROPHE).append(Tcolumn).append(APOSTROPHECOMMA);
-                    after.append(COLON).append(field.getName()).append(COMMA);
+                    params.add(field.get(t));
+                    after.append(ASK).append(COMMA);
                 }
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 logger.error("数据入库时注解解析失败" + e.getMessage());
@@ -71,6 +77,6 @@ public class DaoUtil {
         sb.deleteCharAt(sb.length()-1);
         after.deleteCharAt(after.length()-1);
         sb.append(VALUES).append(after) .append(BRACKET_RIGHT);
-        return sb.toString(); 
+        return new SqlBound(sb.toString(),params.toArray());
 	}
 }

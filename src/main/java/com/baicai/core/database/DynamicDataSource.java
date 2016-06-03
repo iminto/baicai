@@ -1,4 +1,4 @@
-package com.baicai.core;
+package com.baicai.core.database;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

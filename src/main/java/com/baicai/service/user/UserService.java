@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import com.baicai.core.BaseDAO;
+
+import com.baicai.core.database.BaseDAO;
 import com.baicai.dao.user.UserDAO;
 import com.baicai.dao.user.UserHistoryDAO;
 import com.baicai.domain.system.UserAction;
@@ -45,7 +46,7 @@ public class UserService {
 		return i > 0;
 	}
 
-	public int saveUser(User u) {
+	public long saveUser(User u) {
 		String password = CommonUtil.getPassword(u.getUsername(), u.getLoginpass());
 		u.setLoginpass(password);
 		u.setPaypass(password);// 默认支付密码和登陆密码一样
@@ -53,7 +54,7 @@ public class UserService {
 		ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = sra.getRequest();
 		u.setRegisterip(request.getRemoteHost());
-		int result = userDAO.save(u);
+		long result = userDAO.save(u);
 		return result;
 	}
 
