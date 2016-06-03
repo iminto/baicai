@@ -50,53 +50,6 @@ public class Model {
 			tableName = table.name();// 获取表名
 		}
 	}
-	
-	/**
-	 * 更新模型，要求必须有主键，并且主键必须有值
-	 * @return
-	 */
-	public int update(){
-		Field[] at = this.getClass().getDeclaredFields();
-		StringBuilder sb = new StringBuilder(40);
-		sb.append("UPDATE `").append(tableName).append("` SET ");
-		String fullSQL = "";
-		String key=null;
-		Object valueObject=null;
-		boolean hasKey=false;
-		for (Field field : at) {
-			field.setAccessible(true);
-			String Tcolumn = field.getName().toLowerCase();// 字段名转为小写，以符合MySQL里的习惯
-			try {
-				if(hasKey==false && field.isAnnotationPresent(Key.class) == true){
-					hasKey=true;//找到了就不找了
-					key=field.getName();
-					valueObject=field.get(this);
-				}
-				if (field.get(this) != null
-						|| (field.isAnnotationPresent(Column.class) == true && field
-								.getAnnotation(Column.class).insertZero() == true)) {
-					if (field.getModifiers()==25) continue;//如果是规则字段，跳出
-					Column dColumn = field.getAnnotation(Column.class);
-					Tcolumn = dColumn != null ? dColumn.column() : field
-							.getName();
-					sb.append("`").append(Tcolumn).append("`=:").append(field.getName()).append(",");
-				}
-			} catch (Exception e) {
-
-			}
-
-		}
-		if(hasKey==false || valueObject==null){
-			logger.error("更新数据时主键不存在，退出。SQL语句："+fullSQL);
-			return -1;
-		}
-		fullSQL = sb.substring(0, sb.length() - 1);
-		fullSQL+=" WHERE "+key+"="+valueObject;
-		logger.info(fullSQL + this);
-		int i=baseDao.getNamedParameterJdbcTemplate().update(fullSQL,
-				new BeanPropertySqlParameterSource(this));
-		return i;
-	}
 
 	public Model where(String condition) {
 		if (keySet != true) {

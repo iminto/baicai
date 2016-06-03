@@ -25,6 +25,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import com.baicai.util.StringUtil;
+
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
@@ -238,6 +240,21 @@ public class BaseDAO<T> {
 	}
 	
 	/**
+	 * 更新一个POJO，必需有主键且主键不能为空
+	 * 支持多主键，以找到的第一个主键为准。如果更新语句没有主键，请使用通用方法
+	 * @param bean POJO对象
+	 * @return
+	 */
+	public int update(Object bean) {
+		long begin = System.currentTimeMillis();
+		SqlBound bound = DaoUtil.update(bean);
+		int i=update(bound);
+		long end = System.currentTimeMillis();
+		printSQL(bound.getSql(), bound.getParam(), end - begin);
+		return i;
+	}
+	
+	/**
 	 * 优化的插入方法，少使用了一次反射
 	 * @param t POJO对象
 	 * @param back 是否需要返回主键
@@ -329,14 +346,20 @@ public class BaseDAO<T> {
 		return temp;
 	}
 
-	private void update(SqlBound sqlBound) {
+	private int update(SqlBound sqlBound) {
 		String sql = null;
+		int i=0;
+		if(StringUtil.isBlank(sqlBound.getSql())){
+			logger.error("Bound构造器中SQL为空");
+			throw new SqlException("Bound构造器中SQL为空");
+		}
 		try {
 			sql = sqlBound.getSql();
-			jdbcTemplate.update(sql, sqlBound.getParam());
+			i=jdbcTemplate.update(sql, sqlBound.getParam());
 		} catch (Exception e) {
 			throw new SqlException(e,sql);
 		}
+		return i;
 	}
 
 	private void printSQL(String sql, Object[] params, long time) {
