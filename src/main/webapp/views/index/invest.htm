@@ -65,7 +65,7 @@
 			<li><span class="col-1"> <span
 					class="kind icon-invest icon-invest-x"
 					style="color: red; text-indent: 5px; line-height: 25px; font-weight: bold; overflow: hidden;">信用标</span>
-					<a href="view.do?id=${pro.proid}" title="${pro.proname}">${pro.proname}</a>
+					<a href="${path}view/${pro.proid}.do" title="${pro.proname}">${pro.proname}</a>
 			</span> <span class="col-2 fsd fc1">${pro.proapr,numberFormat="#.00"}%</span> <span class="col-3 fsc">${pro.proaccount/100,numberFormat="#"}元</span>
 				<span class="col-4">
 					<div class="percentbar">
@@ -75,7 +75,7 @@
 					<div class="percentbar">
 						<span data-width='3.00%' class="bar-inner bg2"></span>
 					</div> <a class="status status-a"
-					href="/project/view.do?id=${pro.proid}">投标中</a>
+					href="${path}view/${pro.proid}.do">投标中</a>
 			</span></li>
 			<!--# }  -->
 		</ul>

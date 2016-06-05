@@ -1,0 +1,227 @@
+<!--# include("/views/public/header.htm"){} -->
+<link rel="stylesheet" type="text/css" href="${path }index/css/jquery.bxslider.css" />
+<script src="${path }js/layer/extend/layer.ext.js"></script>
+<script src="${path }index/js/jquery.bxslider.js"></script>
+<div class="archead bg1">
+	<div class="wrapper clearfix">
+		<div class="fl">
+			<h1 class="title">${project_info.proname!}</h1>
+			<div class="date">发布时间：${project_info.addtime}</div>
+		</div>
+		<a class="back" href="${path}/project/invest.do">返回项目列表>></a>
+	</div>
+</div>
+
+<div class="wrapper clearfix">
+	<div class="fl invest-box-a border-mod">
+		<div class="ofh">
+			<div class="col-1 fl">
+				<div>借款总额（元）</div>
+				<div class="info">
+					￥<span class="data-1">${project_info.proaccount/100,numberFormat="#"}</span>
+				</div>
+			</div>
+			<div class="col-2 fl">
+				<div>年化收益</div>
+				<div class="info">
+					<span class="data-2">${project_info.proapr,numberFormat="#.00"}</span>%
+				</div>
+			</div>
+			<div class="col-3 fl">
+				<div>期限</div>
+				<div class="info">
+					<span class="data-3">${project_info.protimelimit}</span>
+					<!--# if(project_info.protimeuint==1){  -->天<!--# }else{  -->个月<!--# } -->
+				</div>
+			</div>
+		</div>
+		<div class="lfc2 mt35 inline">
+			<span class="fl">还款方式：</span> <span class="fl">投标限额:
+				<!--# if(project_info.prolowaccount==0){  -->无限额<!--# }else{  -->${project_info.prolowaccount}<!--# } -->
+				<!--# if(project_info.promostaccount==0){  -->无限额<!--# }else{  -->${project_info.promostaccount}<!--# } -->
+			</span> <span class="fl">投标奖励： 
+					<!--# if(project_info.proawardtype==0){  -->无
+					<!--# }else if(project_info.proawardtype==1){ -->按照百分比奖励
+					<!--# }else{ -->按照固定金额奖励 <!--# }  -->
+			</span> <span class="fl">奖励结果： <!--# if(project_info.proawardtype==0){  -->无
+					<!--# }else if(project_info.proawardtype==1){ -->${project_info.proaward}%
+					<!--# }else{ -->${project_info.proaward}元<!--# }  -->
+				</c:choose>
+			</span>
+		</div>
+		<div class="invest-box-a-ft lbg1">
+			<span class="ml25">剩余时间：<font id="endtime"><span
+					class="fc1">0</span>天<span class="fc1">0</span>小时<span class="fc1">0</span>分</font></span>
+			<span class="ml25">已完成金额（元）<span class="fc1">${project_info.proaccountyes/100,numberFormat="#"}</span></span>
+		</div>
+	</div>
+
+	<div class="fr invest-box-b border-mod">
+		<div>剩余可投金额</div>
+		<div class="money fc1">￥${(project_info.proaccount-project_info.proaccountyes)/100,numberFormat="#"}</div>
+
+			<div class="clearfix fsa mt5">
+				<span class="fl">账户余额：￥800.00</span> <a
+					class="fr fc1" href="#">点此充值</a>
+			</div>
+			<!-- <div class="tac mt20">
+					<input class="btn-bbc1 submit" type="button" value="初审失败">
+				</div> -->
+
+					<div class="tac mt10">
+						￥<input id="invest_money" type="text" class="input" value="0"
+							onkeyup="value = value.replace(/[^0-9]/g, '')">
+					</div>
+					<div class="tac mt20">
+						<input onclick="open_pay_invest();" class="btn-bbc1 submit"
+							type="button" value="立即投资">
+					</div>
+					<script type="text/javascript">
+						$(document).keypress(function(e) {
+							switch (e.which) {
+							case 13:
+								open_pay_invest();
+								//$("#login_submit").trigger("click");
+								break;
+							}
+						});
+					</script>
+		<!--  未登陆 -->
+			<!-- <div class="tac mt20">
+				<input class="btn-bbc1 submit" type="button"
+					onclick="window.location.href='${path}/user/login.do?referer=/view/${project_info.proid}.do'"
+					value="请先登录账户">
+			</div>  -->
+
+	</div>
+</div>
+
+<div class="wrapper mt40">
+	<div id="tab1" class="invest-box-c border-mod">
+		<div class="tabnav sty2-nav">
+			<a href="">项目详情</a> <a href="">项目图片</a> <a href="">投标记录<span
+				class="num">3</span></a>
+		</div>
+
+		<div class="tabcon">${project_info.prodesc}</div>
+
+		<div class="tabcon">
+			<div class="slider3" id="extimgs">
+					<img src="#" />
+					<img src="#" />
+					<img src="#" />
+			</div>
+		</div>
+
+		<div class="tabcon">
+			<table width="100%" class="normal-table">
+				<thead>
+					<tr>
+						<th class="con33">投资用户</th>
+						<th class="con33">投资金额</th>
+						<th class="col-3">投资时间</th>
+					</tr>
+				</thead>
+				<tbody>
+						<tr>
+							<td class="con33">baicai</td>
+							<td class="con33">500</td>
+							<td class="con33">2016-06-5</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script>
+	$(function() {
+		//
+		$('#tab1').zTab({
+			trigger : 'c',
+			cur : 2,
+		});
+
+		function getMoney() {
+			var user_money = 999;
+			var have_money = 999;
+			var most_account = 999;
+			if (have_money > user_money) {
+				$("#invest_money").val(
+						user_money > most_account ? most_account : user_money);
+			} else {
+				$("#invest_money").val(
+						have_money > most_account ? most_account : have_money);
+			}
+		}
+		//getMoney();
+
+		//
+		//percentbar($('.percentbar'));
+		function gettime() {
+			var endtime = 999;
+			if (parseInt(endtime) > 0) {
+				iDay = (endtime - endtime % (24 * 3600)) / (24 * 3600);
+				iHour = (endtime - iDay * 24 * 3600 - (endtime - iDay * 24 * 3600) % 3600) / 3600;
+				iMinute = (endtime - iDay * 24 * 3600 - iHour * 3600 - (endtime
+						- iDay * 24 * 3600 - iHour * 3600) % 60) / 60;
+				iSecond = endtime % 60;
+				var html = "<span class='fc1'>" + iDay
+						+ "</span>天<span class='fc1'>" + iHour
+						+ "</span>小时<span class='fc1'>" + iMinute + "</span>分";
+			} else {
+				var html = "<span class='fc1'>0</span>天<span class='fc1'>0</span>小时<span class='fc1'>0</span>分";
+			}
+			$("#endtime").html(html);
+		}
+		//gettime();
+	});
+
+	function open_pay_invest() {
+		var use_money = parseInt("${(project_info.proaccount-project_info.proaccountyes)/100}");
+		var have_use = parseInt("800");
+		var user_id = "${assets_info.user_id!}";
+		var p_user = "${project_info.uid!}";
+		var tender_money = parseInt($("#invest_money").val());
+		if (tender_money <= 0) {
+			msglayer("投资金额不能为空!");
+		} else if (tender_money > use_money) {
+			msglayer("投资金额大于剩余可投金额!");
+		} else if (tender_money > have_use) {
+			msglayer("投资金额不能大于可用余额!");
+		} else if (p_user == user_id || user_id == 0) {
+			msglayer("不能投自己的标,或者非法操作!");
+		} else {
+			layer.open({
+				type : 2,
+				title : "项目投资",
+				shadeClose : true,
+				shade : 0.8,
+				area : [ '550px', '400px' ],
+				content : [
+						'${path}/project/pay_invest.do?p_id=${project_info.proid!}&invest_money='
+								+ tender_money, 'no' ]
+			});
+		}
+	}
+
+	function msglayer(msg) {
+		layer.msg(msg, {
+			shift : 6
+		});
+	}
+
+	$('.slider3').bxSlider({
+		slideWidth : 200,
+		minSlides : 2,
+		maxSlides : 4,
+		moveSlides : 1,
+		slideMargin : 10
+	});
+
+	//layer.photosPage({
+	//   parent: '#extimgs',
+	//   title: '项目图片',
+	//   id: 112 //相册id，可选
+	//});
+</script>
+<!--# include("/views/public/footer.htm"){} -->
