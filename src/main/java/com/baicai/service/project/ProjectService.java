@@ -22,6 +22,10 @@ public class ProjectService{
 		return projectDAO.findProjectsOnIndex(cnt);
 	}
 	
+	public Project findProjectByproId(Long proId){
+		return projectDAO.findProjectByproId(proId);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Pagination getProjectList(Integer page){
 		Pagination pager=new Pagination();
