@@ -35,7 +35,7 @@ public class Project extends Model {
 	private String prodesc;// 标的详细描述
 	private Integer proawardtype;// 奖励类型 1百分比2固定金额
 	private Double proaward;// 奖励的具体数值
-	private Integer prolowacount;// 最低要求投资金额
+	private Integer prolowaccount;// 最低要求投资金额
 	private Integer promostaccount;// 标的最高允许投标金额
 	private Integer successtime;// 满标时间
 	private Integer endtime;// 根据有效期算出的截止时间
@@ -231,12 +231,12 @@ public class Project extends Model {
 		this.proaward = proaward;
 	}
 
-	public Integer getProlowacount() {
-		return prolowacount;
+	public Integer getProlowaccount() {
+		return prolowaccount;
 	}
 
-	public void setProlowacount(Integer prolowacount) {
-		this.prolowacount = prolowacount;
+	public void setProlowaccount(Integer prolowaccount) {
+		this.prolowaccount = prolowaccount;
 	}
 
 	public Integer getPromostaccount() {
