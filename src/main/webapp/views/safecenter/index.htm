@@ -1,0 +1,61 @@
+<!--# include("/views/public/header.htm"){} -->
+<!--主要内容开始-->
+<link rel="stylesheet" type="text/css" href="${path }/user/css/uc.css">
+<div class="wrapper">
+<!--# include("/views/usercenter/left.htm"){} -->
+<div class="content-mod-1 uc-content jkb-box">
+    			<div class="uc-head">
+    				<h3 class="title">安全中心</h3>
+    			</div>
+    			<div class="uc-safe-rank mt20">
+    				<span class="mr10">您的账户安全等级：</span>
+    				<span class="percentbar">
+						<span data-width="50%" class="bar-inner bg2"></span>
+					</span>
+    			</div>
+    			<div class="uc-safe-rank-line mt20">
+    				<span class="icon uc-icon-safe-1"></span>
+    				<h1 class="fsd fwb fc0">绑定手机</h1>
+    				<p class="lfc2">绑定您常用的手机，以便您更好的掌握网站第一资讯和享受更安全的服务</p>
+                                    <a class="fc1 go" href="${path }/safecenter/change_phone_1.do">修改绑定手机>></a>
+    			</div>
+    			<div class="uc-safe-rank-line">
+    				<span class="icon uc-icon-safe-5"></span>
+    				<h1 class="fsd fwb fc0">绑定邮箱</h1>
+    				<p class="lfc2">绑定您常用的邮箱，收到日常网站资讯和用于找回密码等</p>
+                                    <a class="lfc1 go" href="${path }/safecenter/bind_email.do">绑定邮箱>></a>
+    			</div>
+    			<div class="uc-safe-rank-line">
+    				<span class="icon uc-icon-safe-4"></span>
+    				<h1 class="fsd fwb fc0">实名认证</h1>
+    				<p class="lfc2">实名进行资金账户操作，保证您的资金安全</p>
+                                    <a class="lfc1 go" href="${path }/safecenter/realname.do">身份认证>></a>
+    			</div>
+    			<div class="uc-safe-rank-line">
+    				<span class="icon uc-icon-safe-3"></span>
+    				<h1 class="fsd fwb fc0">登陆密码</h1>
+    				<p class="lfc2">为保证您的账户安全，请尽量设置复杂的密码</p>
+    				<a class="fc3 go" href="${path }safecenter/change_login_pass.do">去修改>></a>
+    			</div>
+    			<div class="uc-safe-rank-line">
+    				<span class="icon uc-icon-safe-2"></span>
+    				<h1 class="fsd fwb fc0">支付密码</h1>
+    				<p class="lfc2">用于提现等操作，请不要与登录密码相同.</p>
+    				<a class="fc3 go" href="${path }safecenter/change_pay_pass.do">去修改>></a>
+    			</div>
+<!--    			<div class="uc-safe-rank-line">
+    				<span class="icon uc-icon-safe-6"></span>
+    				<h1 class="fsd fwb fc0">保护问题</h1>
+    				<p class="lfc2">绑定您经常用的手机</p>
+    				<a class="lfc1 go" href="">未启用>></a>
+    			</div>-->
+    			
+    		</div>
+<script>
+    $(function () {
+            percentbar($('.percentbar'));
+    });
+</script>
+</div>
+</div>
+<!--# include("/views/public/footer.htm"){} -->
