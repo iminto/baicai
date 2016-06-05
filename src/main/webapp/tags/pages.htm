@@ -28,14 +28,14 @@
 			<!--#
 			for(var i=begin;i<=end;i++){
 			  -->
-			<li <!--# if(i==pages.page){  --> class="active" <!--# }  -->>
+			<li <!--# if(i==pages.page!){  --> class="active" <!--# }  -->>
 			<a href="#" onclick="goPage(${i});"><span>${i}</span></a>
 			</li>
 			<!--# }  -->
-			<li><a href="#" onclick="goPage(${pages.pageTotal});">尾页</a></li>
+			<li><a href="#" onclick="goPage(${pages.pageTotal!});">尾页</a></li>
 			<li><input type="text" id="tpage"
 				onkeydown="if (event.keyCode==13){turnPage();}"></li>
-			<li><span>共${pages.pageTotal}页，每页${pages.pageSize}条，总共${pages.total}条</span></li>
+			<li><span>共${pages.pageTotal!}页，每页${pages.pageSize!}条，总共${pages.total!}条</span></li>
 		</ul>
 	</form>
 

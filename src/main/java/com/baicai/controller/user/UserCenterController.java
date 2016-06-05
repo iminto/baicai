@@ -23,5 +23,10 @@ public class UserCenterController extends BaseController {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 		return "/views/usercenter/home";
 	}
+	
+	@RequestMapping("/bill")
+	public String bill(HttpServletRequest request, HttpServletResponse response) {
+		return "/views/usercenter/bill";
+	}
 
 }
