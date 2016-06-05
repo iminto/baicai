@@ -3,268 +3,274 @@
  * author waitfox@qq.com
  */
 package com.baicai.util;
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.net.URLEncoder;
+import java.security.cert.X509Certificate;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.InflaterInputStream;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class HTTPClient {
-    private URL url;
-    private RequestHeaders headers = null;
-    public static final String METHOD_POST = "POST";
-    public static final String METHOD_GET = "GET";
-    private String charset = "UTF-8";
-    private String queryString = null;
-    private int timeout = 30000;//默认超时时间30秒
-    
-    public HTTPClient(String url) {
-        try {
-			this.url = new URL(url);
-		} catch (MalformedURLException e) {
-		}
-        headers = new RequestHeaders();
-        headers.setUserAgent("Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0");
-        //headers.setReferer("http://zhurouyoudu.com/");
-        //headers.setAccept("image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
-       // headers.setAcceptLanguage("zh-CN");
-        //headers.setAcceptEncoding("gzip, deflate");
-        headers.setHeader("Connection","Keep-Alive");
-    }
+	private static final String TAG = "HTTPClient";
+	private static final int mReadTimeOut = 1000 * 10; // 10秒
+	private static final int mConnectTimeOut = 1000 * 5; // 5秒
+	private static final String CHAR_SET = "utf-8";
+	private static final int mRetry = 2; // 默认尝试访问次数
 
-    private String getContent(String method, String charset,boolean out) throws IOException {
-    	HttpURLConnection conn = null;
-        try {
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(method);
-            conn.setReadTimeout(timeout);
-            if (headers != null) {
-                for (Entry<String, String> entry : headers.getHeaders().entrySet()) {
-                    conn.addRequestProperty(entry.getKey(), entry.getValue());
-                }
-            }
-            if (METHOD_POST.equals(method) && queryString != null) {
-                conn.setDoOutput(true);
-//                conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-                conn.getOutputStream().write(queryString.getBytes());
-            }           
-            conn.connect();            
-            InputStream is1 = conn.getInputStream();
-            if(METHOD_POST.equals(method) &&out==false) return "SUCCESS";
-			InputStream is2 = null;
-            String encoding = conn.getContentEncoding();
-            // 如果采用了压缩,则需要处理否则都是乱码
-			if (encoding != null && encoding.contains("gzip")) {
-				is2 = new GZIPInputStream(is1);
-			} else if (encoding != null && encoding.contains("deflate")) {
-				is2 = new InflaterInputStream(is1);
-			} else {
-				is2 = is1;
+	public static String get(String url) throws Exception {
+		return get(url, null);
+	}
+
+	public static String get(String url, Map<String, ? extends Object> params) throws Exception {
+		return get(url, params, null);
+	}
+
+	public static String get(String url, Map<String, ? extends Object> params, Map<String, String> headers)
+			throws Exception {
+		if (url == null || url.trim().length() == 0) {
+			throw new Exception(TAG + ": url is null or empty!");
+		}
+		if (params != null && params.size() > 0) {
+			if (!url.contains("?")) {
+				url += "?";
 			}
-            return read(new InputStreamReader(is2, charset));
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-    }
-
-    public String doGet() {
-        try {
-			return getContent(METHOD_GET, charset,true);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "";
+			if (url.charAt(url.length() - 1) != '?') {
+				url += "&";
+			}
+			url += buildParams(params);
 		}
-    }
 
-    public String doPost(boolean showReturnData) {
-        try {
-			return getContent(METHOD_POST, charset,showReturnData);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "ERROR";		
+		return tryToGet(url, headers);
+	}
+
+	public static String buildParams(Map<String, ? extends Object> params) throws UnsupportedEncodingException {
+		if (params == null || params.isEmpty()) {
+			return null;
 		}
-    }
 
-    /**
-     * 获取头信息
-     * @return
-     */
-    public RequestHeaders getHeaders() {
-        return headers;
-    }
+		StringBuilder builder = new StringBuilder();
+		for (Map.Entry<String, ? extends Object> entry : params.entrySet()) {
+			if (entry.getKey() != null && entry.getValue() != null)
+				builder.append(entry.getKey().trim()).append("=")
+						.append(URLEncoder.encode(entry.getValue().toString(), CHAR_SET)).append("&");
+		}
 
-    /**
-     * 设置请求头信息
-     * @param headers
-     */
-    public void setHeaders(RequestHeaders headers) {
-        this.headers = headers;
-    }
+		if (builder.charAt(builder.length() - 1) == '&') {
+			builder.deleteCharAt(builder.length() - 1);
+		}
 
-    public String getCharset() {
-        return charset;
-    }
+		return builder.toString();
+	}
 
-    public void setCharset(String charset) {
-        this.charset = charset;
-    }
+	private static String tryToGet(String url, Map<String, String> headers) throws Exception {
+		int tryTime = 0;
+		Exception ex = null;
+		while (tryTime < mRetry) {
+			try {
+				return doGet(url, headers);
+			} catch (Exception e) {
+				if (e != null)
+					ex = e;
+				tryTime++;
+			}
+		}
+		if (ex != null)
+			throw ex;
+		else
+			throw new Exception("未知网络错误 ");
+	}
 
-    public URL getUrl() {
-        return url;
-    }
+	private static String doGet(String strUrl, Map<String, String> headers) throws Exception {
+		HttpURLConnection connection = null;
+		InputStream stream = null;
+		try {
 
-    public void setUrl(URL url) {
-        this.url = url;
-    }
+			connection = getConnection(strUrl);
+			configConnection(connection);
+			if (headers != null && headers.size() > 0) {
+				for (Map.Entry<String, String> entry : headers.entrySet()) {
+					connection.setRequestProperty(entry.getKey(), entry.getValue());
+				}
+			}
 
-    public String getQueryString() {
-        return queryString;
-    }
+			connection.setInstanceFollowRedirects(true);
+			connection.connect();
 
-    public void setQueryString(String queryString) {
-        this.queryString = queryString;
-    }
+			stream = connection.getInputStream();
+			ByteArrayOutputStream obs = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			for (int len = 0; (len = stream.read(buffer)) > 0;) {
+				obs.write(buffer, 0, len);
+			}
+			obs.flush();
+			obs.close();
+			stream.close();
 
-    public int getTimeout() {
-        return timeout;
-    }
+			return new String(obs.toByteArray());
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			if (stream != null) {
+				stream.close();
+			}
+		}
+	}
 
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
-    
-    public static String read(Reader reader)
-            throws IOException {
-        StringBuilder strBuilder = new StringBuilder();
-        char[] buffer = new char[1024];
-        int read = 0;
-        try {
-            while ((read = reader.read(buffer)) > 0) {
-                strBuilder.append(buffer, 0, read);
-            }
-        } finally {
-            if (reader != null) {
-                reader.close();
-                reader = null;
-            }
-        }
-        buffer = null;
-        return strBuilder.toString();
-    }
+	public static String post(String url) throws Exception {
+		return post(url, null);
+	}
 
-    /**
-     * Headers
-     * http://www.ietf.org/rfc/rfc2068.txt
-     */
-    public static class RequestHeaders {
+	public static String post(String url, Map<String, ? extends Object> params) throws Exception {
+		return post(url, params, null);
+	}
 
-        private static Map<String, String> headers;
-        public RequestHeaders() {
-            headers = new HashMap<String, String>();
-        }
-        /**
-         * 设置Header的通用方法
-         * @param args
-         */
-        public  void setHeader(String ... args){
-    		if(args.length % 2 != 0)
-    			throw new IllegalArgumentException("k,v未配对");
-    		for(int i=0;i<args.length-1;i++){
-    			headers.put(args[i], args[++i]);
-    		}
-    		
-    	}
-        public void setHeader(String key, String value) {
-            headers.put(key, value);
-        }
-        /**
-         * 获取所有头信息
-         * @return
-         */
-        public Map<String, String> getHeaders() {
-            return headers;
-        }
+	public static String post(String url, Map<String, ? extends Object> params, Map<String, String> headers)
+			throws Exception {
+		if (url == null || url.trim().length() == 0) {
+			throw new Exception(TAG + ":url is null or empty!");
+		}
 
-        /**
-         * 接收 Accept
-         * @param accept
-         */
-        public void setAccept(String accept) {
-            headers.put("Accept", accept);
-        }
+		if (params != null && params.size() > 0) {
+			return tryToPost(url, buildParams(params), headers);
+		} else {
+			return tryToPost(url, null, headers);
+		}
+	}
 
-        public void setCookie(Map<String, String> map){
-        	StringBuilder sb = new StringBuilder();
-            for (Iterator<String> it = map.keySet().iterator(); it.hasNext();) {
-                String key = it.next();
-                sb.append(key).append('=').append(map.get(key));
-                if (it.hasNext())
-                    sb.append("; ");
-            }
-           headers.put("Cookie", sb.toString());
-        }
-        /**
-         * 接收字符集 Accept-Charset
-         * @param acceptCharset
-         */
-        public void setAcceptCharset(String acceptCharset) {
-            headers.put("Accept-Charset", acceptCharset);
-        }
-        /**
-         * 接收编码 Accept-Encoding
-         * @param acceptEncoding
-         */
-        public void setAcceptEncoding(String acceptEncoding) {
-            headers.put("Accept-Encoding", acceptEncoding);
-        }
+	public static String post(String url, String content, Map<String, String> headers) throws Exception {
+		return tryToPost(url, content, headers);
+	}
 
-        /**
-         * 接收语言 Accept-Language
-         * @param acceptLanguage
-         */
-        public void setAcceptLanguage(String acceptLanguage) {
-            headers.put("Accept-Language", acceptLanguage);
-        }
+	private static String tryToPost(String url, String postContent, Map<String, String> headers) throws Exception {
+		int tryTime = 0;
+		Exception ex = null;
+		while (tryTime < mRetry) {
+			try {
+				return doPost(url, postContent, headers);
+			} catch (Exception e) {
+				if (e != null)
+					ex = e;
+				tryTime++;
+			}
+		}
+		if (ex != null)
+			throw ex;
+		else
+			throw new Exception("未知网络错误 ");
+	}
 
-        /**
-         * 主机 Host
-         * @param host
-         */
-        public void setHost(String host) {
-            headers.put("Host", host);
-        }
-        
-        /** 不常用的HTTP头
-         * 假如匹配 If-Match  假如修改 If-Modified-Since  认证 Authorization
-         * 假如不匹 If-None-Match  假如归类 If-Range
-         * 假如不修改 If-Unmodified-Since  最大转发量 Max-Forwards
-         * 代理认证 Proxy-Authorization   范围 Range
-         */
-        
-        /**
-         * 提交者 Referer
-         * @param referer
-         */
-        public void setReferer(String referer) {
-            headers.put("Referer", referer);
-        }
+	private static String doPost(String strUrl, String postContent, Map<String, String> headers) throws Exception {
+		HttpURLConnection connection = null;
+		InputStream stream = null;
+		try {
+			connection = getConnection(strUrl);
+			configConnection(connection);
+			if (headers != null && headers.size() > 0) {
+				for (Map.Entry<String, String> entry : headers.entrySet()) {
+					connection.setRequestProperty(entry.getKey(), entry.getValue());
+				}
+			}
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
 
-        /**
-         * 用户代理 User-Agent
-         * @param userAgent
-         */
-        public void setUserAgent(String userAgent) {
-            headers.put("User-Agent", userAgent);
-        }
-    }
+			if (null != postContent && !"".equals(postContent)) {
+				DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+				dos.write(postContent.getBytes(CHAR_SET));
+				dos.flush();
+				dos.close();
+			}
+			stream = connection.getInputStream();
+			ByteArrayOutputStream obs = new ByteArrayOutputStream();
+
+			byte[] buffer = new byte[1024];
+			for (int len = 0; (len = stream.read(buffer)) > 0;) {
+				obs.write(buffer, 0, len);
+			}
+			obs.flush();
+			obs.close();
+
+			return new String(obs.toByteArray());
+
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			if (stream != null) {
+				stream.close();
+			}
+		}
+
+	}
+
+	private static void configConnection(HttpURLConnection connection) {
+		if (connection == null)
+			return;
+		connection.setReadTimeout(mReadTimeOut);
+		connection.setConnectTimeout(mConnectTimeOut);
+
+		connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		connection.setRequestProperty("User-Agent",
+				"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
+	}
+
+	private static HttpURLConnection getConnection(String strUrl) throws Exception {
+		if (strUrl == null) {
+			return null;
+		}
+		if (strUrl.toLowerCase().startsWith("https")) {
+			return getHttpsConnection(strUrl);
+		} else {
+			return getHttpConnection(strUrl);
+		}
+	}
+
+	private static HttpURLConnection getHttpConnection(String urlStr) throws Exception {
+		URL url = new URL(urlStr);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		return conn;
+	}
+
+	private static HttpsURLConnection getHttpsConnection(String urlStr) throws Exception {
+		URL url = new URL(urlStr);
+		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+		conn.setHostnameVerifier(hnv);
+		SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
+		if (sslContext != null) {
+			TrustManager[] tm = { xtm };
+			sslContext.init(null, tm, null);
+			SSLSocketFactory ssf = sslContext.getSocketFactory();
+			conn.setSSLSocketFactory(ssf);
+		}
+
+		return conn;
+	}
+
+	private static X509TrustManager xtm = new X509TrustManager() {
+		public void checkClientTrusted(X509Certificate[] chain, String authType) {
+		}
+
+		public void checkServerTrusted(X509Certificate[] chain, String authType) {
+		}
+
+		public X509Certificate[] getAcceptedIssuers() {
+			return null;
+		}
+	};
+
+	private static HostnameVerifier hnv = new HostnameVerifier() {
+		public boolean verify(String hostname, SSLSession session) {
+			return true;
+		}
+	};
 }
