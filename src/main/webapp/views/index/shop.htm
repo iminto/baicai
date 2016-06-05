@@ -1,0 +1,80 @@
+<!--# include("/views/public/header.htm"){} -->
+<div id="tab1" class="wrapper">
+	<div class="sty1-nav tabnav">
+		<a href="javascript:void(0)">积分兑换</a> <a href="javascript:void(0)">积分规则</a>
+	</div>
+
+	<div class="tabcon">
+		<div class="invest-mue-filter">
+			<span class="condition fl">商品分类:</span>
+			<div class="options fl">
+				<a class="selected btn-bbc1"
+					href="${path }/shop/index.do?type=&twice=">全部</a> <a
+					class="selected btn-bbc1" href="${path}/shop/index.do?type=&twice=">虚拟</a>
+			</div>
+		</div>
+		<div class="invest-mue-filter">
+			<span class="condition fl">类型:</span>
+			<div class="options fl">
+				<a class="selected btn-bbc1"
+					href="${path}/shop/index.do?type=&twice=">类型</a>
+			</div>
+		</div>
+
+		<ul class="shop-list clearfix mt20">
+			<li>
+				<div>
+					<h2 class="stitle fc1">虚拟</h2>
+					<h1 class="title">京东卡</h1>
+					<div class="mt5">
+						<span class="num">400</span>
+						<!-- <span class="ml20 btn-bbc2">16gb</span> -->
+						<!-- <span class="ml5 fc0 fsc">白色</span> -->
+					</div>
+					<a class="btn-bbc1 exchange" href="${path}/shop/view.do?id=0">立即兑换</a> 
+					<img style="" class="figure" src="${path }/index/images/product.jpg">
+				</div>
+			</li>
+			<li>
+				<div>
+					<h2 class="stitle fc1">虚拟</h2>
+					<h1 class="title">京东卡</h1>
+					<div class="mt5">
+						<span class="num">400</span>
+						<!-- <span class="ml20 btn-bbc2">16gb</span> -->
+						<!-- <span class="ml5 fc0 fsc">白色</span> -->
+					</div>
+					<a class="btn-bbc1 exchange" href="${path}/shop/view.do?id=0">立即兑换</a> 
+					<img style="" class="figure" src="${path }/index/images/product2.jpg">
+				</div>
+			</li>
+			<li>
+				<div>
+					<h2 class="stitle fc1">实物</h2>
+					<h1 class="title">洗衣机</h1>
+					<div class="mt5">
+						<span class="num">300</span>
+						<!-- <span class="ml20 btn-bbc2">16gb</span> -->
+						<!-- <span class="ml5 fc0 fsc">白色</span> -->
+					</div>
+					<a class="btn-bbc1 exchange" href="${path}/shop/view.do?id=0">立即兑换</a> 
+					<img style="" class="figure" src="${path }/index/images/product3.jpg">
+				</div>
+			</li>
+		</ul>
+		<!--# include("/tags/pages.htm",{"pages":pages!}){} -->
+	</div>
+
+	<div class="tabcon">
+		积分规则待补充...
+	</div>
+
+	<script>
+		$(function() {
+			$('#tab1').zTab({
+				trigger : 'c'
+			});
+		});
+	</script>
+</div>
+<!--# include("/views/public/footer.htm"){} -->

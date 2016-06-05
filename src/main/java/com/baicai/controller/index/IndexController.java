@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.baicai.controller.common.BaseController;
 import com.baicai.domain.project.Project;
 import com.baicai.service.project.ProjectService;
@@ -26,7 +25,7 @@ public class IndexController extends BaseController{
 	}
 	
 	@RequestMapping("/manage")
-	public String main(HttpServletRequest request,HttpServletResponse response){
+	public String manage(HttpServletRequest request,HttpServletResponse response){
 		return "/manage/login";		
 	}
 	
