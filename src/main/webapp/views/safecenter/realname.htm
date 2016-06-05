@@ -1,0 +1,62 @@
+<!--# include("/views/public/header.htm"){} -->
+<!--主要内容开始-->
+<link rel="stylesheet" type="text/css" href="${path }user/css/uc.css">
+<div class="wrapper">
+	<!--# include("/views/usercenter/left.htm"){} -->
+	<style>
+.errorMessage {
+	display: none;
+}
+
+.order_font {
+	color: red;
+}
+</style>
+	<div class="content-mod-1 uc-content jkb-box">
+		<div class="uc-head">
+			<h3 class="title">实名认证</h3>
+		</div>
+		<div class="uc-safe-rank-line mt20">
+			<form enctype="multipart/form-data" id="realname1-form"
+				action="/safecenter/realname.html" method="post">
+				<div class="formline">
+					<span class="label">真实姓名：</span> <input class="input"
+						placeholder="请输入真实姓名" name="Identity[real_name]"
+						id="Identity_real_name" type="text" maxlength="24"> <font
+						class="order_font"><div class="errorMessage"
+							id="Identity_real_name_em_" style="display: none"></div></font>
+				</div>
+				<div class="formline">
+					<span class="label">身份证号码：</span> <input class="input"
+						placeholder="请输入身份证号码"
+						onkeyup="value = value.replace(/[^0-9x]/g,&quot;&quot;)"
+						name="Identity[identity_num]" id="Identity_identity_num"
+						type="text" maxlength="20"> <font class="order_font"><div
+							class="errorMessage" id="Identity_identity_num_em_"
+							style="display: none"></div></font>
+				</div>
+				<div class="formline">
+					<span class="label">身份证正面：</span> <input
+						name="Identity[identity_positive]" type="file"> <font
+						class="order_font"><div class="errorMessage"
+							id="Identity_identity_positive_em_" style="display: none"></div></font>
+				</div>
+				<div class="formline">
+					<span class="label">身份证反面：</span> <input
+						name="Identity[identity_negative]" type="file"> <font
+						class="order_font"><div class="errorMessage"
+							id="Identity_identity_negative_em_" style="display: none"></div></font>
+				</div>
+				<div class="formline" style="padding-left: 120px;">
+					<div class="mt30">
+						<input type="submit" class="btn-bbc1 biggerbtn" style="border: 0;"
+							value="提交">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+</script>
+<!--# include("/views/public/footer.htm"){} -->

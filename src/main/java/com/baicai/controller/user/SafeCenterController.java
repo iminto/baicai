@@ -21,4 +21,19 @@ public class SafeCenterController  extends BaseController{
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 		return "/views/safecenter/index";
 	}
+	
+	@RequestMapping("/changephone")
+	public String changephone(HttpServletRequest request, HttpServletResponse response) {
+		return "/views/safecenter/changephone";
+	}
+	
+	@RequestMapping("/bindemail")
+	public String bindemail(HttpServletRequest request, HttpServletResponse response) {
+		return "/views/safecenter/bindemail";
+	}
+	
+	@RequestMapping("/realname")
+	public String realname(HttpServletRequest request, HttpServletResponse response) {
+		return "/views/safecenter/realname";
+	}
 }

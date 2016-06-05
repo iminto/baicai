@@ -1,0 +1,64 @@
+<!--# include("/views/public/header.htm"){} -->
+<!--主要内容开始-->
+<link rel="stylesheet" type="text/css" href="${path }user/css/uc.css">
+<div class="wrapper">
+<!--# include("/views/usercenter/left.htm"){} -->
+<style>
+.errorMessage{display:none;}
+.order_font{color:red;}
+</style>
+<div class="content-mod-1 uc-content jkb-box">
+        <div class="uc-head">
+            <h3 class="title">绑定邮箱</h3>
+        </div>
+    <form name="form1" id="bindemail-form" action="${path }/safecenter/bind_email.do" method="post">
+    	<input type="hidden" name="is_post" value="1" />
+            <div class="uc-safe-rank-line mt20">
+            
+                <div class="formline">
+                    <span class="label">邮箱：</span>
+                    <input class="input" name="user_email" id="Userprofile_user_email" type="text" value="">
+                    <font class="order_font"><div class="errorMessage" id="Userprofile_user_email_em_" style="display:none"></div></font>
+                </div>
+                <div class="formline">
+                    <span class="label">验证码：</span>
+                    <input class="input" style="width:127px;" maxlength="6" name="code" id="Userprofile_code" type="text">                    <input type="button" class="btn-bbc1 middlebtn ml20" value="发送验证码" onclick="getcode();">
+                    <font class="order_font"><div class="errorMessage" id="Userprofile_code_em_" style="display:none"></div></font>
+                </div>
+                <div class="recharge-line" style="padding-left: 120px;">
+                    <div class="mt30">
+                            <a class="btn-bbc1 biggerbtn" onclick="document.form1.submit();">提交</a>
+                    </div>
+                </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    function getcode(){
+        var user_phone = $("#Userprofile_user_email").val();
+        if(user_phone == '' || user_phone == null){
+            layer.msg('邮箱不可为空',{shift:6});
+            $("#Userprofile_user_email_em_").css('display','inline-block');
+            $("#Userprofile_user_email_em_").html('邮箱不可为空');
+            return false;
+        }
+        $.post("${path}/safecenter/sendsms.do?type=safecenter_bind_email&target="+user_phone,{
+            
+        },function(data){
+        	var obj = data;
+            if(obj.status == 1){
+            	layer.msg('验证码发送成功');
+            }else{
+            	if(typeof(obj.msg) != 'undefined'){
+            		layer.msg(obj.msg,{shift:6});
+            	}
+            	
+            }
+        });
+    } 
+    
+</script>
+<!--# include("/views/public/footer.htm"){} -->
