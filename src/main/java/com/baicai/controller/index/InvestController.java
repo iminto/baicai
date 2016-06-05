@@ -43,5 +43,10 @@ public class InvestController extends BaseController{
 		request.setAttribute("project_info", project);
 		return "/views/index/view";
 	}
+	
+	@RequestMapping("/borrow")
+	public String borrow(HttpServletRequest request,HttpServletResponse response){
+		return "/views/index/borrow";		
+	}
 
 }

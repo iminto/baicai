@@ -1,0 +1,259 @@
+<!--# include("/views/public/header.htm"){} -->
+<link rel="stylesheet" type="text/css" href="${path}/index/css/uc.css" />
+<link rel="stylesheet" type="text/css" href="${path}/index/css/rl.css" />
+<style>#project_type li{cursor:pointer;}</style>
+<div class="main-box">
+    <!--    主体头部-->
+    <div class="main-head">
+        <div class="left">
+            <ul id="project_type">
+			    	 <li attr="xinyong" class="on" >
+            			<a href="${path}/borrow.do?id=xinyong" >发布信用标</a>
+            		</li>
+            		<li attr="dan"  >
+            			<a href="${path}/borrow.do?id=dan" >发布担保标</a>
+            		</li>
+            </ul>
+        </div>
+        <div class="right">
+           	 当前位置：首页 > <font class="font-org">我要借款</font>
+        </div>
+    </div>
+
+    <div class="main-body">
+		<form enctype="multipart/form-data" id="borrow" action="" method="post">
+        <div class="top">
+            <div class="div-ico">1</div>
+            <div class="div-title">
+                <font class="bot-b-org">基本信息</font>
+            </div>
+        </div>
+
+                <div class="switch-list">
+                    <ul>
+	                    <li><div><img src="${path}/index/images/switch_off.jpg" alt="这是开关" id="show_day" attr="off" /></div>是否天标</li>
+                        <li><div><img src="${path}/index/images/switch_off.jpg" alt="这是开关" id="show_award" attr="off" /></div>是否奖励</li>
+                        <li><div><img src="${path}/index/images/switch_off.jpg" alt="这是开关" id="show_dxb" attr="off" /></div>是否定向标</li>
+                    </ul>
+                </div>
+
+        <div class="main-con" style="padding-top:20px;">
+            <ul>
+                <li>
+                    <div class="one-lable">借款金额：</div>
+                    <div class="one-input"><input type="text" name="p_account" class="sinput" onkeyup="value = value.replace(/[^0-9]/g, '')" /></div>
+                    <div class="one-remark">* 说明需要借款的金额</div>
+                </li>
+
+					<!-- 
+		                <li>
+		                    <div class="one-lable">借款期限：</div>
+		                    <div class="one-input">额满即还<input type="hidden" name="p_time_limit" value="1" class="sinput" /></div>
+		                    <div class="one-remark">* 选择该借款项目的借款期限</div>
+		                </li>
+		                <li>
+		                    <div class="one-lable">还款方式：</div>
+		                    <div class="one-input">额满即还<input type="hidden" name="p_style" value="3" class="sinput" /></div>
+		                    <div class="one-remark">* 选择该借款项目的还款方式</div>
+		                </li>
+					 -->
+					 
+		                <li>
+		                    <div class="one-lable">借款期限：</div>
+		                    <div class="one-input">
+		                    	<select name="p_time_limit" class="select" id="Project_p_time_limit">
+		                    			<option value="1">1个月</option>
+		                    			<option value="2">2个月</option>
+		                    	</select>
+		                    </div>
+		                    <div class="one-remark">* 选择该借款项目的借款期限</div>
+		                </li>
+		                <li>
+		                    <div class="one-lable">还款方式：</div>
+		                    <div class="one-input">
+		                    	<select name="p_style" class="select" id="Project_p_style">
+		                    			<option value="1">先息后本</option>
+		                    			<option value="2">等额本息</option>
+		                    			<option value="3">等本等系</option>
+		                    			<option value="4">等额本金</option>
+		                    	</select>
+		                    </div>
+		                    <div class="one-remark">* 选择该借款项目的还款方式</div>
+		                </li>
+                <li>
+                    <div class="one-lable">年化利率：</div>
+                    <div class="one-input"><input type="text" name="p_apr" onkeyup="value = value.replace(/[^0-9]/g, '')" class="sinput" /></div>
+                    <div class="one-remark">* 填写您提供给投资者的年利率。年利率不能超过24% 范围：12%至24%。</div>
+                </li>
+                <li>
+                    <div class="one-lable">最低投标金额：</div>
+                    <div class="one-input">
+                    	<select name="p_lowaccount" class="select" id="Project_p_lowaccount">
+                    			<option value="50">50</option>
+                    	</select>
+                    </div>
+                   	<div class="one-remark">* 允许投资者对对一个借款项目的投标总的最低投标金额的限制</div>
+                </li>
+                <li>
+                    <div class="one-lable">最高投标金额：</div>
+                    <div class="one-input">
+                    	<select name="p_mostaccount" class="select" id="Project_p_mostaccount">
+                    			<option value="10000">10000</option>
+                    	</select>
+                    </div>
+                   	<div class="one-remark">* 允许投资者对对一个借款项目的投标总的投总额的限制</div>
+                </li>
+                <li>
+                    <div class="one-lable">项目有效时间：</div>
+                    <div class="one-input">
+                    	<select name="p_valid_time" class="select" class="Project_p_valid_time">
+                    			<option value="1">1天</option>
+                    			<option value="5">5天</option>
+                    			<option value="10">10天</option>
+                    			<option value="30">30天</option>
+                    	</select>
+                    </div>
+                    <div class="one-remark">* 以天为单位设置此次借款融资的天数，融资进度达到100%后直接进行网站的复审</div>
+                </li>
+
+                		<!--  <input type="hidden" value="0" name="p_autorate"/> -->
+		                <li>
+		                    <div class="one-lable">自动投标比例：</div>
+		                    <div class="one-input"><input type="text" name="p_autorate" class="sinput" onkeyup="value = value.replace(/[^0-9]/g, '')" value="0" /></div>
+		                   	<div class="one-remark">* 以百分比为单位（%）</div>
+		                </li>
+                <li style="display:none;" id="dxb">
+                    <div class="one-lable">定向标密码：</div>
+                    <div class="one-input"><input type="text" name="p_dxb" class="sinput" /></div>
+                    <div class="one-remark">* 定向标表示该标属于密码标,密码可自行设置。</div>
+                </li>
+            </ul>
+        </div>
+        <!-- 借款奖励开始 -->
+	    <div class="top">
+	        <div class="div-ico">2</div>
+	            <div class="div-title">
+	                <font class="bot-b-org">奖励信息</font>
+	            </div>
+	        </div>
+	        <div class="main-con" style="padding-top:20px;">
+	            <ul id="award_on" style="display:none;">
+	                <li>
+	                    <div class="one-lable">按照金额奖励：</div>
+	                    <div class="one-input"><div><img src="${path}/index/images/switch_off.jpg" alt="这是开关" id="show_award_type" attr="off" />(固定金额或比例)</div>
+	                    	<input type="hidden" name="p_award_type" id="Project_p_award_type" value="0" />
+	                    </div>
+ 	                    <div class="one-remark">* 选择您的奖励方式，请先选择开启奖励</div>
+	                </li>
+	                <li>
+	                    <div class="one-lable"><font id="award_name">奖励百分比</font>：</div>
+	                    <div class="one-input"><input type="text" name="p_award" class="sinput" onkeyup="value = value.replace(/[^0-9]/g, '')" /></div>
+	                    <div class="one-remark">* 如果要设置奖励，请确保您的账户有足够的账户余额。</div>
+	                </li>
+	         </ul>
+	         <ul id="award_off">
+	                <li>
+	                    <div class="one-lable">按照金额奖励：</div>
+	                    <div class="one-input">无</div>
+ 	                    <div class="one-remark">* 选择您的奖励方式，请先选择开启奖励</div>
+	                </li>
+	         </ul>
+	    </div>
+	    <!-- 详细信息描述 -->
+	    <div class="top">
+	        <div class="div-ico">3</div>
+	        <div class="div-title">
+	             <font class="bot-b-org">详细信息描述</font>
+	        </div>
+	    </div>
+	    <div class="main-con" style="padding-top:20px;">
+	    	<ul id="award_off">
+	                <li>
+	                    <div class="one-lable">标题：</div>
+	                    <div class="one-input"><input type="text" name="p_name" class="sinput" style="width:500px;" /></div>
+	                </li>
+	                <li style="height:360px;width:1000px;">
+	                    <div class="one-lable" style="height:355px;line-height:355px;float:left;">内容：</div>
+	                    <div class="one-input" style="width:750px;float:left;">
+	                    	<textarea style="border:solid 1px #00ff00;height:350px;width:700px;" name="p_content" id="peditor"></textarea>
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="one-lable">验证码：</div>
+	                    <div class="one-input"><input type="text" name="authcode" class="input" style="width:100px;" />
+	                    	<a href="javascript:void(0);" onclick="$('#randImage1').click()">
+	                    		<img name="randImage" id="randImage" src="${path }common/valicode.do" onclick="this.src = '${path }common/valicode.do?' + Math.random();" width="80" height="30" style="margin-bottom: -12px;" /> 
+	                    	</a>
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="one-lable"></div>
+	                    <input type="hidden" name="is_dxb" id="is_dxb" value="0" />
+	                    <input type="hidden" name="type" id="type" value="1" />
+	                    <input type="hidden" name="p_time_limittype" id="Project_p_time_limittype" value="0" />
+	                    <div class="one-input"><input type="reset" value="提交" class="btn-bbc1 submit" /></div>
+	                </li>
+	         </ul>
+	    </div>
+	    </form>
+    </div>
+</div>
+<script>
+$(".switch-list ul li div img").click(function(){
+	var type=$(this).attr("id");
+	var imgUrl="${path}/index/images/";
+	var img="switch_";
+	var next=($(this).attr("attr")=="off")?"on":"off";
+	$(this).attr("attr",next);
+	$(this).attr("src",imgUrl+img+next+".jpg");
+	if(type=="show_day"){
+		if(next=="on"){
+			$("#Project_p_time_limit").html($("#by_day_tmp").html());
+			$("#Project_p_time_limittype").val(1);
+			$("#Project_p_style").html($("#style_by_day").html());
+		}else{
+			$("#Project_p_time_limit").html($("#by_month_tmp").html());
+			$("#Project_p_time_limittype").val(0);
+			$("#Project_p_style").html($("#style_by_month").html());
+		}
+	}else if(type=="show_award"){
+		if(next=="on"){
+			$("#award_off").hide();
+			$("#award_on").show();
+			$("#Project_p_award_type").val(1);
+		}else{
+			$("#award_off").show();
+			$("#award_on").hide();
+			$("#Project_p_award_type").val(0);
+		}
+	}else if(type=="show_dxb"){
+		if(next=="on"){
+			$("#dxb").show();
+			$("#is_dxb").val(1);
+		}else{
+			$("#dxb").hide();
+			$("#is_dxb").val(0);
+		}
+	}
+});
+$("#show_award_type").click(function(){
+	var imgUrl="${path}/index/images/";
+	var img="switch_";
+	var next=($(this).attr("attr")=="off")?"on":"off";
+	$(this).attr("attr",next);
+	$(this).attr("src",imgUrl+img+next+".jpg");
+	if(next=="on"){
+		$("#Project_p_award_type").val(2);
+		$("#award_name").html("奖励固定金额");
+	}else{
+		$("#Project_p_award_type").val(1);
+		$("#award_name").html("奖励百分比");
+	}
+});
+window.pro_pic_num = 1;
+$("#add_pro_pic_btn").click(function(){
+    $(this).before(doT.template($("#add_pic_file_tmp").html())(window.pro_pic_num++));
+});
+
+</script>
+<!--# include("/views/public/footer.htm"){} -->
