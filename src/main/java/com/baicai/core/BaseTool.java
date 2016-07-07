@@ -30,8 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 import com.baicai.util.CommonUtil;
-import com.baicai.util.PropertiesTool;
-import com.baicai.util.XorEncrypt;
+import com.baicai.corewith.util.PropertiesTool;
+import com.baicai.corewith.util.XorEncrypt;
 
 public class BaseTool {
 	// 默认登陆有效期

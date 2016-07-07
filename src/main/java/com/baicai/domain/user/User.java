@@ -1,8 +1,8 @@
 package com.baicai.domain.user;
-import com.baicai.annotation.Key;
-import com.baicai.annotation.NotNull;
-import com.baicai.annotation.ValidType;
-import com.baicai.core.Model;
+import com.baicai.corewith.annotation.Key;
+import com.baicai.corewith.annotation.NotNull;
+import com.baicai.corewith.annotation.ValidType;
+import com.baicai.corewith.data.Model;
 
 /**
  * @Description: 用户模型类

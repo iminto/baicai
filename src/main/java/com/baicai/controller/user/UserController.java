@@ -15,7 +15,7 @@ import com.baicai.domain.system.ErrorMsg;
 import com.baicai.domain.user.User;
 import com.baicai.service.user.UserService;
 import com.baicai.util.CommonUtil;
-import com.baicai.util.StringUtil;
+import com.baicai.corewith.util.StringUtil;
 
 @Controller
 @RequestMapping("/site")

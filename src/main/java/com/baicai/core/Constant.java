@@ -1,6 +1,6 @@
 package com.baicai.core;
 
-import com.baicai.util.PropertiesTool;
+import com.baicai.corewith.util.PropertiesTool;
 
 public interface Constant {
 	public static final String CHARSET = "UTF-8";

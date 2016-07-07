@@ -1,7 +1,7 @@
 package com.baicai.domain.project;
 
-import com.baicai.annotation.Key;
-import com.baicai.core.Model;
+import com.baicai.corewith.annotation.Key;
+import com.baicai.corewith.data.Model;
 
 /**
  * @Description: 借款标基本信息模型类

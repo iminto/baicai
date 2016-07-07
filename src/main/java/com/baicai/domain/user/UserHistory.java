@@ -2,7 +2,7 @@ package com.baicai.domain.user;
 
 import java.util.Date;
 
-import com.baicai.annotation.Table;
+import com.baicai.corewith.annotation.Table;
 /**
  * @Description: 用户操作记录表模型类
  * @author: waitfox@qq.com

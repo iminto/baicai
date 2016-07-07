@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.baicai.util.StringUtil;
+import com.baicai.corewith.util.StringUtil;
 
 /***
  * 后台权限拦截器

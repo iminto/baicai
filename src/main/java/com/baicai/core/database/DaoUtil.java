@@ -4,19 +4,18 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.baicai.annotation.Column;
-import com.baicai.annotation.Key;
-import com.baicai.annotation.Table;
+import com.baicai.corewith.annotation.Column;
+import com.baicai.corewith.annotation.Key;
+import com.baicai.corewith.annotation.Table;
 import com.baicai.domain.system.Pagination;
-import com.baicai.util.PropertiesTool;
+import com.baicai.corewith.util.PropertiesTool;
 
 /**
  * DAO辅助类
  * 
- * @author 95
+ * @author 白菜
  *
  */
 public class DaoUtil {

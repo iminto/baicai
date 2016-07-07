@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import com.baicai.util.StringUtil;
+import com.baicai.corewith.util.StringUtil;
 
 
 /**

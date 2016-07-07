@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.baicai.util.CaptchaRender;
+import com.baicai.corewith.util.CaptchaRender;
 import com.baicai.util.CommonUtil;
 /**
  * 通用控制器，一般是一些不需要身份验证就能看到的页面
