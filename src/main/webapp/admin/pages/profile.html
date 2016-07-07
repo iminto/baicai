@@ -9,50 +9,50 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="../assets/css/bootstrap.css" />
-		<link rel="stylesheet" href="../components/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="../components/_mod/jquery-ui.custom/jquery-ui.custom.css" />
-		<link rel="stylesheet" href="../components/jquery.gritter/css/jquery.gritter.css" />
-		<link rel="stylesheet" href="../components/select2/dist/css/select2.css" />
-		<link rel="stylesheet" href="../components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-		<link rel="stylesheet" href="../components/_mod/x-editable/bootstrap-editable.css" />
+		<link rel="stylesheet" href="assets/css/jquery-ui.custom.min.css" />
+		<link rel="stylesheet" href="assets/css/jquery.gritter.min.css" />
+		<link rel="stylesheet" href="assets/css/select2.min.css" />
+		<link rel="stylesheet" href="assets/css/datepicker.min.css" />
+		<link rel="stylesheet" href="assets/css/bootstrap-editable.min.css" />
 
 		<!-- text fonts -->
-		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
 
 		<!-- ace styles -->
-		<link rel="stylesheet" href="../assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+		<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
 		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="../assets/css/ace-part2.css" class="ace-main-stylesheet" />
+			<link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
 		<![endif]-->
-		<link rel="stylesheet" href="../assets/css/ace-skins.css" />
-		<link rel="stylesheet" href="../assets/css/ace-rtl.css" />
 
 		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="../assets/css/ace-ie.css" />
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
 
 		<!-- ace settings handler -->
-		<script src="../assets/js/ace-extra.js"></script>
+		<script src="assets/js/ace-extra.min.js"></script>
 
 		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
 		<!--[if lte IE 8]>
-		<script src="../components/html5shiv/dist/html5shiv.min.js"></script>
-		<script src="../components/respond/dest/respond.min.js"></script>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
 	</head>
 
 	<body class="no-skin">
-		<!-- #section:basics/navbar.layout -->
-		<div id="navbar" class="navbar navbar-default          ace-save-state">
-			<div class="navbar-container ace-save-state" id="navbar-container">
-				<!-- #section:basics/sidebar.mobile.toggle -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
 
@@ -63,27 +63,18 @@
 					<span class="icon-bar"></span>
 				</button>
 
-				<!-- /section:basics/sidebar.mobile.toggle -->
 				<div class="navbar-header pull-left">
-					<!-- #section:basics/navbar.layout.brand -->
-					<a href="#" class="navbar-brand">
+					<a href="index.html" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
 							Ace Admin
 						</small>
 					</a>
-
-					<!-- /section:basics/navbar.layout.brand -->
-
-					<!-- #section:basics/navbar.toggle -->
-
-					<!-- /section:basics/navbar.toggle -->
 				</div>
 
-				<!-- #section:basics/navbar.dropdown -->
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-						<li class="grey dropdown-modal">
+						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -160,7 +151,7 @@
 							</ul>
 						</li>
 
-						<li class="purple dropdown-modal">
+						<li class="purple">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
 								<span class="badge badge-important">8</span>
@@ -228,7 +219,7 @@
 							</ul>
 						</li>
 
-						<li class="green dropdown-modal">
+						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
 								<span class="badge badge-success">5</span>
@@ -244,7 +235,7 @@
 									<ul class="dropdown-menu dropdown-navbar">
 										<li>
 											<a href="#" class="clearfix">
-												<img src="../assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+												<img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Alex:</span>
@@ -261,7 +252,7 @@
 
 										<li>
 											<a href="#" class="clearfix">
-												<img src="../assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+												<img src="assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Susan:</span>
@@ -278,7 +269,7 @@
 
 										<li>
 											<a href="#" class="clearfix">
-												<img src="../assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+												<img src="assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Bob:</span>
@@ -295,7 +286,7 @@
 
 										<li>
 											<a href="#" class="clearfix">
-												<img src="../assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+												<img src="assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Kate:</span>
@@ -312,7 +303,7 @@
 
 										<li>
 											<a href="#" class="clearfix">
-												<img src="../assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+												<img src="assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Fred:</span>
@@ -338,10 +329,9 @@
 							</ul>
 						</li>
 
-						<!-- #section:basics/navbar.user_menu -->
-						<li class="light-blue dropdown-modal">
+						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
 									Jason
@@ -375,25 +365,19 @@
 								</li>
 							</ul>
 						</li>
-
-						<!-- /section:basics/navbar.user_menu -->
 					</ul>
 				</div>
-
-				<!-- /section:basics/navbar.dropdown -->
 			</div><!-- /.navbar-container -->
 		</div>
 
-		<!-- /section:basics/navbar.layout -->
-		<div class="main-container ace-save-state" id="main-container">
+		<div class="main-container" id="main-container">
 			<script type="text/javascript">
-				try{ace.settings.loadState('main-container')}catch(e){}
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
 			</script>
 
-			<!-- #section:basics/sidebar -->
-			<div id="sidebar" class="sidebar                  responsive                    ace-save-state">
+			<div id="sidebar" class="sidebar                  responsive">
 				<script type="text/javascript">
-					try{ace.settings.loadState('sidebar')}catch(e){}
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 				</script>
 
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -406,7 +390,6 @@
 							<i class="ace-icon fa fa-pencil"></i>
 						</button>
 
-						<!-- #section:basics/sidebar.layout.shortcuts -->
 						<button class="btn btn-warning">
 							<i class="ace-icon fa fa-users"></i>
 						</button>
@@ -414,8 +397,6 @@
 						<button class="btn btn-danger">
 							<i class="ace-icon fa fa-cogs"></i>
 						</button>
-
-						<!-- /section:basics/sidebar.layout.shortcuts -->
 					</div>
 
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
@@ -742,12 +723,9 @@
 							<span class="menu-text">
 								Calendar
 
-								<!-- #section:basics/sidebar.layout.badge -->
 								<span class="badge badge-transparent tooltip-error" title="2 Important Events">
 									<i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
 								</span>
-
-								<!-- /section:basics/sidebar.layout.badge -->
 							</span>
 						</a>
 
@@ -820,15 +798,6 @@
 							</li>
 
 							<li class="">
-								<a href="search.html">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Search Results
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-
-							<li class="">
 								<a href="email.html">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Email Templates
@@ -855,10 +824,7 @@
 							<span class="menu-text">
 								Other Pages
 
-								<!-- #section:basics/sidebar.layout.badge -->
 								<span class="badge badge-primary">5</span>
-
-								<!-- /section:basics/sidebar.layout.badge -->
 							</span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -915,19 +881,22 @@
 					</li>
 				</ul><!-- /.nav-list -->
 
-				<!-- #section:basics/sidebar.layout.minimize -->
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 				</div>
 
-				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
 			</div>
 
-			<!-- /section:basics/sidebar -->
 			<div class="main-content">
 				<div class="main-content-inner">
-					<!-- #section:basics/content.breadcrumbs -->
-					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
 						<ul class="breadcrumb">
 							<li>
 								<i class="ace-icon fa fa-home home-icon"></i>
@@ -940,7 +909,6 @@
 							<li class="active">User Profile</li>
 						</ul><!-- /.breadcrumb -->
 
-						<!-- #section:basics/content.searchbox -->
 						<div class="nav-search" id="nav-search">
 							<form class="form-search">
 								<span class="input-icon">
@@ -949,13 +917,9 @@
 								</span>
 							</form>
 						</div><!-- /.nav-search -->
-
-						<!-- /section:basics/content.searchbox -->
 					</div>
 
-					<!-- /section:basics/content.breadcrumbs -->
 					<div class="page-content">
-						<!-- #section:settings.box -->
 						<div class="ace-settings-container" id="ace-settings-container">
 							<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
 								<i class="ace-icon fa fa-cog bigger-130"></i>
@@ -963,7 +927,6 @@
 
 							<div class="ace-settings-box clearfix" id="ace-settings-box">
 								<div class="pull-left width-50">
-									<!-- #section:settings.skins -->
 									<div class="ace-settings-item">
 										<div class="pull-left">
 											<select id="skin-colorpicker" class="hide">
@@ -976,75 +939,54 @@
 										<span>&nbsp; Choose Skin</span>
 									</div>
 
-									<!-- /section:settings.skins -->
-
-									<!-- #section:settings.navbar -->
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-navbar" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
 										<label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
 									</div>
 
-									<!-- /section:settings.navbar -->
-
-									<!-- #section:settings.sidebar -->
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-sidebar" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
 										<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
 									</div>
 
-									<!-- /section:settings.sidebar -->
-
-									<!-- #section:settings.breadcrumbs -->
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-breadcrumbs" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
 										<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
 									</div>
 
-									<!-- /section:settings.breadcrumbs -->
-
-									<!-- #section:settings.rtl -->
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
 										<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
 									</div>
 
-									<!-- /section:settings.rtl -->
-
-									<!-- #section:settings.container -->
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-add-container" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
 										<label class="lbl" for="ace-settings-add-container">
 											Inside
 											<b>.container</b>
 										</label>
 									</div>
-
-									<!-- /section:settings.container -->
 								</div><!-- /.pull-left -->
 
 								<div class="pull-left width-50">
-									<!-- #section:basics/sidebar.options -->
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" />
 										<label class="lbl" for="ace-settings-hover"> Submenu on Hover</label>
 									</div>
 
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" />
 										<label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
 									</div>
 
 									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" autocomplete="off" />
+										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" />
 										<label class="lbl" for="ace-settings-highlight"> Alt. Active Item</label>
 									</div>
-
-									<!-- /section:basics/sidebar.options -->
 								</div><!-- /.pull-left -->
 							</div><!-- /.ace-settings-box -->
 						</div><!-- /.ace-settings-container -->
 
-						<!-- /section:settings.box -->
 						<div class="page-header">
 							<h1>
 								User Profile Page
@@ -1059,7 +1001,7 @@
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
 								<div class="clearfix">
-									<div class="pull-left alert alert-success no-margin alert-dismissable">
+									<div class="pull-left alert alert-success no-margin">
 										<button type="button" class="close" data-dismiss="alert">
 											<i class="ace-icon fa fa-times"></i>
 										</button>
@@ -1101,12 +1043,10 @@
 									<div id="user-profile-1" class="user-profile row">
 										<div class="col-xs-12 col-sm-3 center">
 											<div>
-												<!-- #section:pages/profile.picture -->
 												<span class="profile-picture">
-													<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="../assets/avatars/profile-pic.jpg" />
+													<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="assets/avatars/profile-pic.jpg" />
 												</span>
 
-												<!-- /section:pages/profile.picture -->
 												<div class="space-4"></div>
 
 												<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
@@ -1150,7 +1090,6 @@
 
 											<div class="space-6"></div>
 
-											<!-- #section:pages/profile.contact -->
 											<div class="profile-contact-info">
 												<div class="profile-contact-links align-left">
 													<a href="#" class="btn btn-link">
@@ -1186,10 +1125,8 @@
 												</div>
 											</div>
 
-											<!-- /section:pages/profile.contact -->
 											<div class="hr hr12 dotted"></div>
 
-											<!-- #section:custom/extra.grid -->
 											<div class="clearfix">
 												<div class="grid2">
 													<span class="bigger-175 blue">25</span>
@@ -1206,7 +1143,6 @@
 												</div>
 											</div>
 
-											<!-- /section:custom/extra.grid -->
 											<div class="hr hr16 dotted"></div>
 										</div>
 
@@ -1257,7 +1193,6 @@
 
 											<div class="space-12"></div>
 
-											<!-- #section:pages/profile.info -->
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Username </div>
@@ -1310,7 +1245,6 @@
 												</div>
 											</div>
 
-											<!-- /section:pages/profile.info -->
 											<div class="space-20"></div>
 
 											<div class="widget-box transparent">
@@ -1333,11 +1267,10 @@
 
 												<div class="widget-body">
 													<div class="widget-main padding-8">
-														<!-- #section:pages/profile.feed -->
 														<div id="profile-feed-1" class="profile-feed">
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
+																	<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
 																	<a class="user" href="#"> Alex Doe </a>
 																	changed his profile photo.
 																	<a href="#">Take a look</a>
@@ -1361,7 +1294,7 @@
 
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="Susan Smith's avatar" src="../assets/avatars/avatar1.png" />
+																	<img class="pull-left" alt="Susan Smith's avatar" src="assets/avatars/avatar1.png" />
 																	<a class="user" href="#"> Susan Smith </a>
 
 																	is now friends with Alex Doe.
@@ -1433,7 +1366,7 @@
 
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="David Palms's avatar" src="../assets/avatars/avatar4.png" />
+																	<img class="pull-left" alt="David Palms's avatar" src="assets/avatars/avatar4.png" />
 																	<a class="user" href="#"> David Palms </a>
 
 																	left a comment on Alex's wall.
@@ -1480,7 +1413,7 @@
 
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
+																	<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
 																	<a class="user" href="#"> Alex Doe </a>
 
 																	upgraded his skills.
@@ -1570,8 +1503,6 @@
 																</div>
 															</div>
 														</div>
-
-														<!-- /section:pages/profile.feed -->
 													</div>
 												</div>
 											</div>
@@ -1630,7 +1561,7 @@
 													<div class="row">
 														<div class="col-xs-12 col-sm-3 center">
 															<span class="profile-picture">
-																<img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="../assets/avatars/profile-pic.jpg" />
+																<img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="assets/avatars/profile-pic.jpg" />
 															</span>
 
 															<div class="space space-4"></div>
@@ -1778,12 +1709,10 @@
 																	<div class="widget-main padding-16">
 																		<div class="clearfix">
 																			<div class="grid3 center">
-																				<!-- #section:plugins/charts.easypiechart -->
 																				<div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
 																					<span class="percent">45</span>%
 																				</div>
 
-																				<!-- /section:plugins/charts.easypiechart -->
 																				<div class="space-2"></div>
 																				Graphic Design
 																			</div>
@@ -1809,7 +1738,6 @@
 
 																		<div class="hr hr-16"></div>
 
-																		<!-- #section:pages/profile.skill-progress -->
 																		<div class="profile-skills">
 																			<div class="progress">
 																				<div class="progress-bar" style="width:80%">
@@ -1850,8 +1778,6 @@
 																				</div>
 																			</div>
 																		</div>
-
-																		<!-- /section:pages/profile.skill-progress -->
 																	</div>
 																</div>
 															</div>
@@ -1864,7 +1790,7 @@
 														<div class="col-sm-6">
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
+																	<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
 																	<a class="user" href="#"> Alex Doe </a>
 																	changed his profile photo.
 																	<a href="#">Take a look</a>
@@ -1888,7 +1814,7 @@
 
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="Susan Smith's avatar" src="../assets/avatars/avatar1.png" />
+																	<img class="pull-left" alt="Susan Smith's avatar" src="assets/avatars/avatar1.png" />
 																	<a class="user" href="#"> Susan Smith </a>
 
 																	is now friends with Alex Doe.
@@ -1960,7 +1886,7 @@
 
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="David Palms's avatar" src="../assets/avatars/avatar4.png" />
+																	<img class="pull-left" alt="David Palms's avatar" src="assets/avatars/avatar4.png" />
 																	<a class="user" href="#"> David Palms </a>
 
 																	left a comment on Alex's wall.
@@ -2009,7 +1935,7 @@
 
 															<div class="profile-activity clearfix">
 																<div>
-																	<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
+																	<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
 																	<a class="user" href="#"> Alex Doe </a>
 
 																	upgraded his skills.
@@ -2114,13 +2040,12 @@
 												</div><!-- /#feed -->
 
 												<div id="friends" class="tab-pane">
-													<!-- #section:pages/profile.friends -->
 													<div class="profile-users clearfix">
 														<div class="itemdiv memberdiv">
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar4.png" alt="Bob Doe's avatar" />
+																		<img src="assets/avatars/avatar4.png" alt="Bob Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2168,7 +2093,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar1.png" alt="Rose Doe's avatar" />
+																		<img src="assets/avatars/avatar1.png" alt="Rose Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2216,7 +2141,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar.png" alt="Jim Doe's avatar" />
+																		<img src="assets/avatars/avatar.png" alt="Jim Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2264,7 +2189,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar5.png" alt="Alex Doe's avatar" />
+																		<img src="assets/avatars/avatar5.png" alt="Alex Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2312,7 +2237,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar2.png" alt="Phil Doe's avatar" />
+																		<img src="assets/avatars/avatar2.png" alt="Phil Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2360,7 +2285,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar3.png" alt="Susan Doe's avatar" />
+																		<img src="assets/avatars/avatar3.png" alt="Susan Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2408,7 +2333,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar1.png" alt="Jennifer Doe's avatar" />
+																		<img src="assets/avatars/avatar1.png" alt="Jennifer Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2456,7 +2381,7 @@
 															<div class="inline pos-rel">
 																<div class="user">
 																	<a href="#">
-																		<img src="../assets/avatars/avatar3.png" alt="Alexa Doe's avatar" />
+																		<img src="assets/avatars/avatar3.png" alt="Alexa Doe's avatar" />
 																	</a>
 																</div>
 
@@ -2501,7 +2426,6 @@
 														</div>
 													</div>
 
-													<!-- /section:pages/profile.friends -->
 													<div class="hr hr10 hr-double"></div>
 
 													<ul class="pager pull-right">
@@ -2519,7 +2443,7 @@
 													<ul class="ace-thumbnails">
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-1.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-1.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2546,7 +2470,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-2.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-2.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2573,7 +2497,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-3.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-3.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2600,7 +2524,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-4.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-4.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2627,7 +2551,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-5.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-5.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2654,7 +2578,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-6.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-6.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2681,7 +2605,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-1.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-1.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2708,7 +2632,7 @@
 
 														<li>
 															<a href="#" data-rel="colorbox">
-																<img alt="150x150" src="../assets/images/gallery/thumb-2.jpg" />
+																<img alt="150x150" src="assets/images/gallery/thumb-2.jpg" />
 																<div class="text">
 																	<div class="inner">Sample Caption on Hover</div>
 																</div>
@@ -2749,7 +2673,7 @@
 												<div class="inline middle blue bigger-110"> Your profile is 70% complete </div>
 
 												&nbsp; &nbsp; &nbsp;
-												<div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active pos-rel">
+												<div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active">
 													<div class="progress-bar progress-bar-success" style="width:70%"></div>
 												</div>
 											</div><!-- /.well -->
@@ -3029,7 +2953,6 @@
 
 			<div class="footer">
 				<div class="footer-inner">
-					<!-- #section:basics/footer -->
 					<div class="footer-content">
 						<span class="bigger-120">
 							<span class="blue bolder">Ace</span>
@@ -3051,8 +2974,6 @@
 							</a>
 						</span>
 					</div>
-
-					<!-- /section:basics/footer -->
 				</div>
 			</div>
 
@@ -3064,61 +2985,53 @@
 		<!-- basic scripts -->
 
 		<!--[if !IE]> -->
-		<script src="../components/jquery/dist/jquery.js"></script>
+		<script src="assets/js/jquery.2.1.1.min.js"></script>
 
 		<!-- <![endif]-->
 
 		<!--[if IE]>
-<script src="../components/jquery.1x/dist/jquery.js"></script>
+<script src="assets/js/jquery.1.11.1.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"/script>");
+</script>
 <![endif]-->
 		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='../components/_mod/jquery.mobile.custom/jquery.mobile.custom.js'>"+"<"+"/script>");
+			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="../components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
 
 		<!--[if lte IE 8]>
-		  <script src="../components/ExplorerCanvas/excanvas.js"></script>
+		  <script src="assets/js/excanvas.min.js"></script>
 		<![endif]-->
-		<script src="../components/_mod/jquery-ui.custom/jquery-ui.custom.js"></script>
-		<script src="../components/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
-		<script src="../components/jquery.gritter/js/jquery.gritter.js"></script>
-		<script src="../components/bootbox.js/bootbox.js"></script>
-		<script src="../components/_mod/easypiechart/jquery.easypiechart.js"></script>
-		<script src="../components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-		<script src="../components/jquery.hotkeys/index.js"></script>
-		<script src="../components/_mod/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-		<script src="../components/select2/dist/js/select2.js"></script>
-		<script src="../components/fuelux/js/spinbox.js"></script>
-		<script src="../components/_mod/x-editable/bootstrap-editable.js"></script>
-		<script src="../components/_mod/x-editable/ace-editable.js"></script>
-		<script src="../components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+		<script src="assets/js/jquery-ui.custom.min.js"></script>
+		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="assets/js/jquery.gritter.min.js"></script>
+		<script src="assets/js/bootbox.min.js"></script>
+		<script src="assets/js/jquery.easypiechart.min.js"></script>
+		<script src="assets/js/bootstrap-datepicker.min.js"></script>
+		<script src="assets/js/jquery.hotkeys.min.js"></script>
+		<script src="assets/js/bootstrap-wysiwyg.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/fuelux.spinner.min.js"></script>
+		<script src="assets/js/bootstrap-editable.min.js"></script>
+		<script src="assets/js/ace-editable.min.js"></script>
+		<script src="assets/js/jquery.maskedinput.min.js"></script>
 
 		<!-- ace scripts -->
-		<script src="../assets/js/src/elements.scroller.js"></script>
-		<script src="../assets/js/src/elements.colorpicker.js"></script>
-		<script src="../assets/js/src/elements.fileinput.js"></script>
-		<script src="../assets/js/src/elements.typeahead.js"></script>
-		<script src="../assets/js/src/elements.wysiwyg.js"></script>
-		<script src="../assets/js/src/elements.spinner.js"></script>
-		<script src="../assets/js/src/elements.treeview.js"></script>
-		<script src="../assets/js/src/elements.wizard.js"></script>
-		<script src="../assets/js/src/elements.aside.js"></script>
-		<script src="../assets/js/src/ace.js"></script>
-		<script src="../assets/js/src/ace.basics.js"></script>
-		<script src="../assets/js/src/ace.scrolltop.js"></script>
-		<script src="../assets/js/src/ace.ajax-content.js"></script>
-		<script src="../assets/js/src/ace.touch-drag.js"></script>
-		<script src="../assets/js/src/ace.sidebar.js"></script>
-		<script src="../assets/js/src/ace.sidebar-scroll-1.js"></script>
-		<script src="../assets/js/src/ace.submenu-hover.js"></script>
-		<script src="../assets/js/src/ace.widget-box.js"></script>
-		<script src="../assets/js/src/ace.settings.js"></script>
-		<script src="../assets/js/src/ace.settings-rtl.js"></script>
-		<script src="../assets/js/src/ace.settings-skin.js"></script>
-		<script src="../assets/js/src/ace.widget-on-reload.js"></script>
-		<script src="../assets/js/src/ace.searchbox-autocomplete.js"></script>
+		<script src="assets/js/ace-elements.min.js"></script>
+		<script src="assets/js/ace.min.js"></script>
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
@@ -3136,7 +3049,7 @@
 			    $('#username')
 				.editable({
 					type: 'text',
-					name: 'username'		
+					name: 'username'
 			    });
 			
 			
@@ -3296,7 +3209,6 @@
 						type: 'image',
 						name: 'avatar',
 						value: null,
-						//onblur: 'ignore',  //don't reset or hide editable onblur?!
 						image: {
 							//specify ace file input plugin's options here
 							btn_choose: 'Change Avatar',
@@ -3560,18 +3472,5 @@
 				});
 			});
 		</script>
-
-		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
-		<link rel="stylesheet" href="../assets/css/ace.onpage-help.css" />
-		<link rel="stylesheet" href="../docs/assets/js/themes/sunburst.css" />
-
-		<script type="text/javascript"> ace.vars['base'] = '..'; </script>
-		<script src="../assets/js/src/elements.onpage-help.js"></script>
-		<script src="../assets/js/src/ace.onpage-help.js"></script>
-		<script src="../docs/assets/js/rainbow.js"></script>
-		<script src="../docs/assets/js/language/generic.js"></script>
-		<script src="../docs/assets/js/language/html.js"></script>
-		<script src="../docs/assets/js/language/css.js"></script>
-		<script src="../docs/assets/js/language/javascript.js"></script>
 	</body>
 </html>
