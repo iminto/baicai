@@ -374,6 +374,52 @@ CREATE TABLE `p2p_system` (
 
 insert  into `p2p_system`(`systemid`,`systemcatid`,`systemname`,`systemalias`,`systemvalue`,`systemdesc`,`inputtype`,`addtime`,`updatetime`,`data`,`isdefault`) values (1,1,'网站标题','site_name','白菜贷官网','网站的名字',1,'2016-05-07 00:00:00','2016-05-07 00:00:00',NULL,0),(2,1,'网站副标题','site_fname','中国领先的汽车抵押贷款和投资理财互联网金融平台','SEO使用',1,'2016-05-07 23:13:25','2016-05-07 23:13:29',NULL,0),(3,1,'网站URL','site_siteurl','http://www.baicai.me','URL',1,'2016-05-07 23:14:18','2016-05-07 23:14:20',NULL,0),(4,2,'借款手续费','project_fee','0','针对借款人每笔借款收取费用',1,'2016-05-07 23:15:21','2016-05-07 23:15:23',NULL,0);
 
+/*Table structure for table `p2p_system_menu` */
+
+DROP TABLE IF EXISTS `p2p_system_menu`;
+
+CREATE TABLE `p2p_system_menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menuname` varchar(64) DEFAULT NULL COMMENT '菜单名',
+  `pid` int(11) DEFAULT '0' COMMENT '父节点',
+  `url` varchar(256) DEFAULT NULL COMMENT '菜单连接',
+  `iconurl` varchar(64) DEFAULT NULL COMMENT 'icon图标地址或样式',
+  `desc` varchar(128) DEFAULT NULL COMMENT '简单说明',
+  `flag` tinyint(1) DEFAULT '1' COMMENT '使用标记，1正常0禁用',
+  `path` varchar(128) DEFAULT NULL COMMENT '路径表',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
+/*Data for the table `p2p_system_menu` */
+
+/*Table structure for table `p2p_system_menurole` */
+
+DROP TABLE IF EXISTS `p2p_system_menurole`;
+
+CREATE TABLE `p2p_system_menurole` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `menuid` int(11) DEFAULT '0' COMMENT '菜单',
+  `roleid` int(11) DEFAULT '0' COMMENT '角色',
+  `uid` int(11) DEFAULT '0' COMMENT '用户，待扩展',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单角色关联表';
+
+/*Data for the table `p2p_system_menurole` */
+
+/*Table structure for table `p2p_system_role` */
+
+DROP TABLE IF EXISTS `p2p_system_role`;
+
+CREATE TABLE `p2p_system_role` (
+  `roleid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rolename` varchar(64) NOT NULL COMMENT '角色名',
+  `desc` varchar(128) DEFAULT NULL COMMENT '简单说明',
+  `flag` tinyint(1) DEFAULT '1' COMMENT '使用标记，1正常0禁用',
+  PRIMARY KEY (`roleid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+/*Data for the table `p2p_system_role` */
+
 /*Table structure for table `p2p_systemcat` */
 
 DROP TABLE IF EXISTS `p2p_systemcat`;
