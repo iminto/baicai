@@ -8,7 +8,7 @@ import com.baicai.corewith.data.Model;
  * @version: 0.01
  * @date: 2016/08/01 23:53:10
  */
-public class SystemRole extends Model {
+public class SysRole extends Model {
 	private Integer roleid;//
 	private String rolename;// 角色名
 	private String desc;// 简单说明

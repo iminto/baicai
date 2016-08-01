@@ -6,7 +6,7 @@ import com.baicai.corewith.data.Model;
  * @version: 0.01
  * @date: 2016/08/01 23:49:47
  */
-public class SystemMenu extends Model{
+public class SysMenu extends Model{
 	private Integer id;//菜单ID
 	private String menuname;//菜单名
 	private Integer pid;//父节点

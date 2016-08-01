@@ -6,7 +6,7 @@ import com.baicai.corewith.data.Model;
  * @version: 0.01
  * @date: 2016/08/01 23:55:51
  */
-public class SystemMenurole extends Model{
+public class SysMenurole extends Model{
 	private Integer id;//
 	private Integer menuid;//菜单
 	private Integer roleid;//角色
