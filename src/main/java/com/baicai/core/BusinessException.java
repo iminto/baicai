@@ -24,5 +24,10 @@ public class BusinessException extends Exception {
     public BusinessException(String message, Throwable cause) {  
         super(message, cause);  
     }  
+    
+    @Override
+    public Throwable fillInStackTrace() {
+    	return null;
+    }
 
 }
