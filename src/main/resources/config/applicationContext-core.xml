@@ -35,36 +35,30 @@
 	</task:scheduled-tasks>
 	<task:scheduler id="myScheduler" pool-size="2" />
 
-	<bean id="defaultDataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+	<bean id="defaultDataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
-		<property name="url" value="${mysql.jdbc.url}" />
+		<property name="jdbcUrl" value="${mysql.jdbc.url}" />
 		<property name="username" value="${mysql.jdbc.username}" />
 		<property name="password" value="${mysql.jdbc.password}" />
-		<property name="initialSize" value="5" />
 		<!-- 最大活跃连接，线上服务器需调大 -->
-		<property name="maxActive" value="20" />
-		<property name="maxIdle" value="5" />
-		<property name="minIdle" value="2" />
-		<property name="timeBetweenEvictionRunsMillis" value="30000" />
-		<!-- <property name="testOnBorrow" value="true" /> <property name="validationQuery" 
+		<property name="maximumPoolSize" value="20" />
+		<!-- <property name="testOnBorrow" value="true" /> <property name="validationQuery"
 			value="SELECT 1 " /> -->
-		<property name="validationInterval" value="30000" />
+		<property name="idleTimeout" value="30000" />
 	</bean>
 
-	<bean id="DataSource2" class="org.apache.tomcat.jdbc.pool.DataSource"
+	<bean id="DataSource2" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
-		<property name="url" value="${mysql2.jdbc.url}" />
+		<property name="jdbcUrl" value="${mysql2.jdbc.url}" />
 		<property name="username" value="${mysql2.jdbc.username}" />
 		<property name="password" value="${mysql2.jdbc.password}" />
-		<property name="initialSize" value="5" />
 		<!-- 最大活跃连接，线上服务器需调大 -->
-		<property name="maxActive" value="20" />
-		<property name="maxIdle" value="5" />
-		<property name="minIdle" value="2" />
-		<property name="timeBetweenEvictionRunsMillis" value="30000" />
-		<property name="validationInterval" value="30000" />
+		<property name="minimumIdle" value="3" />
+		<property name="maximumPoolSize" value="20" />
+		<property name="poolName" value="p2p" />
+		<property name="idleTimeout" value="30000" />
 	</bean>
 
 	<bean id="dynamicDataSource" class="com.baicai.core.database.DynamicDataSource">

@@ -11,13 +11,9 @@
 ## 运行方法
     本项目是标准的mvn项目
     导入src\main\webapp\test.sql文件，然后运行如下命令：
-  ```xml
-  mvn clean install 
-  mvn tomcat7:run
+``` xml
+  mvn clean install -Dmaven.test.skip=true
 ```
-编译过程会报错，源码中缺少corewith的jar包，已在release中提供源码。请单独导入然后添加入本地maven仓库
 
 ## resin容器下的运行方法
-	由于本项目依赖于tomcat jdbc pool(简单高效)，所以推荐的最佳运行环境是tomcat服务器。但是，作为一个标准的JavaEE项目，也是很容易移植到resin的。
-	把cache-api-1.0.0.jar,tomcat-jdbc.jar,tomcat-juli.jar,mysql-connector-java-5.1.xx-bin.jar放到lib目录即可，或者参照如上提到的jar文件修改pom文件即可。
 	本项目已在resin下测试通过。
