@@ -1,7 +1,7 @@
 # baicaiP2P
-	基于SpringMVC的p2p互联网金融借贷系统   
-	技术栈：JDK7+tomcat 7+MySQL 5.5+Redis+SpringMVC+beetl+fastjson
-	可运行于tomcat 7+，resin 4+等主流Java EE容器上。
+  基于SpringMVC的p2p互联网金融借贷系统   
+  技术栈：JDK7+tomcat 7+MySQL 5.5+Redis+SpringMVC+beetl
+  可运行于tomcat 7+，resin 4+等主流Java EE容器上。
 
 ## 技术特点
     基于Java中最流行的springMVC构建，没有使用mybatis或Hibernate作为数据层ORM，而是使用了jdbcTemplate的简易封装(系统中自己实现的简易ORM层)以及beetlSQL（计划中），达到极简开发，随心所欲，不受约束的数据层。   
@@ -11,9 +11,18 @@
 ## 运行方法
     本项目是标准的mvn项目
     导入src\main\webapp\test.sql文件，然后运行如下命令：
-``` xml
-  mvn clean install -Dmaven.test.skip=true
-```
+    mvn clean install -Dmaven.test.skip=true
 
 ## resin容器下的运行方法
 	本项目已在resin下测试通过。
+	
+## 截图
+[1]
+[2]
+[3]
+
+------
+
+  [1]: ./screen/index.png
+  [2]: ./screen/user.png
+  [3]: ./screen/manager.png
